@@ -1,55 +1,42 @@
-import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import React from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useRouter } from "expo-router";
+import MapComponent from "@/components/MapComponent";
 
 const SearchLocationScreen = () => {
   const router = useRouter();
 
   const handleChoiceCar = () => {
-    // Add your logic here for handling the continue action
-    router.push('/choiceCar');
+    router.push("/choiceCar");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Uber</Text>
-      <Text style={styles.subHeader}>RANASINOPETE</Text>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>AVRoad</Text>
-        <Text style={styles.sectionContent}>Kristina Rajendra Market</Text>
+      {/* Bản đồ */}
+      <View style={styles.mapContainer}>
+        <MapComponent />
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>KALASPALYA</Text>
-        <Text style={styles.sectionContent}>Kevin Hosnitski Research Centre</Text>
+      {/* Form nhập liệu */}
+      <View style={styles.bottomContainer}>
+        <Text style={styles.title}>Find a trip</Text>
+
+        <View style={styles.inputContainer}>
+          <Icon name="map-marker" size={20} color="#555" style={styles.icon} />
+          <TextInput placeholder="Add a pick-up location" style={styles.input} />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Icon name="location-arrow" size={20} color="#555" style={styles.icon} />
+          <TextInput placeholder="Enter your destination" style={styles.input} />
+        </View>
+
+        {/* Nút bấm */}
+        <TouchableOpacity style={styles.button} onPress={handleChoiceCar}>
+          <Text style={styles.buttonText}>Choice Car</Text>
+        </TouchableOpacity>
       </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>OV-PURAM</Text>
-        <Text style={styles.sectionContent}>National College</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Segar Chandramma</Text>
-        <Text style={styles.sectionContent}>Map Data 2022 Google</Text>
-        <Text style={styles.sectionContent}>Terms of Use</Text>
-      </View>
-
-      <View style={styles.tripSection}>
-        <Text style={styles.tripTitle}>Find a trip</Text>
-        <TextInput style={styles.input} placeholder="Add a pick-up location" />
-        <TextInput style={styles.input} placeholder="Enter your destination" />
-      </View>
-
-      <Button title="Leave Now" onPress={handleChoiceCar} />
-
-      <TouchableOpacity style={styles.continueButton} onPress={handleChoiceCar}>
-        <Text style={styles.button}>
-          find rider
-        </Text>
-      </TouchableOpacity>
-
     </View>
   );
 };
@@ -57,57 +44,53 @@ const SearchLocationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 8,
+  mapContainer: {
+    flex: 1,
   },
-  subHeader: {
+  bottomContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  title: {
     fontSize: 18,
-    textAlign: 'center',
-    marginBottom: 16,
+    fontWeight: "bold",
+    marginBottom: 15,
   },
-  section: {
-    marginBottom: 16,
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f1f1f1",
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 12,
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  sectionContent: {
-    fontSize: 14,
-  },
-  tripSection: {
-    marginBottom: 16,
-  },
-  tripTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
+  icon: {
+    marginRight: 10,
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    padding: 8,
-    marginBottom: 8,
+    flex: 1,
+    height: 40,
   },
-
   button: {
-    fontSize: 20,
-    color: '#fff',
+    backgroundColor: "#000",
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 15,
   },
-  continueButton: {
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    width: '80%',
-    alignItems: 'center',
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

@@ -1,5 +1,9 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+// Constants
+const driver_avt = require("../assets/images/krab-go.png");
 
 const RideDetailScreen = () => {
   return (
@@ -12,10 +16,7 @@ const RideDetailScreen = () => {
 
       {/* Driver Info */}
       <View style={styles.driverInfo}>
-        <Image
-          style={styles.driverImage}
-          source={{ uri: 'https://via.placeholder.com/50' }} // Thay bằng URL ảnh thật
-        />
+        <Image style={styles.driverImage} source={driver_avt} />
         <View style={styles.driverDetails}>
           <Text style={styles.driverName}>KA15AK00-0</Text>
           <Text style={styles.driverFullName}>SANTH</Text>
@@ -24,37 +25,28 @@ const RideDetailScreen = () => {
         </View>
       </View>
 
-      {/* Action Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          {/* <Image
-            style={styles.buttonIcon}
-            source={require('./assets/safety_icon.png')} 
-          /> */}
-          <Text style={styles.buttonText}>Safety</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          {/* <Image
-            style={styles.buttonIcon}
-            source={require('./assets/share_icon.png')} 
-          /> */}
-          <Text style={styles.buttonText}>Share my trip</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          {/* <Image
-            style={styles.buttonIcon}
-            source={require('./assets/call_icon.png')}
-          /> */}
-          <Text style={styles.buttonText}>Call driver</Text>
-        </TouchableOpacity>
-      </View>
-
       {/* Location Info */}
       <View style={styles.locationInfo}>
         <Text style={styles.locationText}>562/11-A</Text>
         <Text style={styles.locationDetails}>
           Kaikondrahalli, Bengaluru, Karnataka
         </Text>
+      </View>
+
+      {/* Action Buttons */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button}>
+          <FontAwesome name="shield" size={24} color="#007AFF" />
+          <Text style={styles.buttonText}>Safety</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <FontAwesome name="share-alt" size={24} color="#007AFF" />
+          <Text style={styles.buttonText}>Share my trip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <FontAwesome name="phone" size={24} color="#007AFF" />
+          <Text style={styles.buttonText}>Call driver</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Message Button */}
@@ -68,14 +60,16 @@ const RideDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 15,
     backgroundColor: '#fff',
   },
+
+  /* Header */
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   headerText: {
     fontSize: 18,
@@ -85,10 +79,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#888',
   },
+
+  /* Driver Info */
   driverInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 15,
   },
   driverImage: {
     width: 50,
@@ -115,23 +111,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#FFD700', // Màu vàng cho sao
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-  },
-  button: {
-    alignItems: 'center',
-  },
-  buttonIcon: {
-    width: 30,
-    height: 30,
-    marginBottom: 5,
-  },
-  buttonText: {
-    fontSize: 12,
-    color: '#007AFF',
-  },
+
+  /* Location Info */
   locationInfo: {
     marginBottom: 20,
   },
@@ -143,6 +124,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
   },
+
+  /* Action Buttons */
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  button: {
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 12,
+    color: '#007AFF',
+    marginTop: 5,
+  },
+
+  /* Message Button */
   messageButton: {
     backgroundColor: '#007AFF',
     padding: 10,

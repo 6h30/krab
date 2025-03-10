@@ -4,54 +4,38 @@ import { useRouter } from 'expo-router';
 
 const VerifyCodeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-
   const router = useRouter();
 
   const handleSearchLocation = () => {
-    // Add your logic here for handling the continue action
     router.push('/searchLocation');
   };
+
   return (
     <View style={styles.container}>
-        <TouchableOpacity style={styles.continueButton} onPress={handleSearchLocation}>
-        <Text style={styles.button}>
-          Search location
-        </Text>
-      </TouchableOpacity>
-      
-      {/* Header Text */}
+      {/* Tiêu đề */}
       <Text style={styles.headerText}>Enter the 4-digit code sent to you</Text>
 
-      {/* Phone Number */}
-      <Text style={styles.phoneNumber}>06333 26210</Text>
+      {/* Số điện thoại */}
+      <Text style={styles.phoneNumber}>0868680111</Text>
 
-      {/* Code Input Boxes */}
+      {/* Ô nhập mã xác nhận */}
       <View style={styles.codeContainer}>
-        <TextInput style={styles.codeBox} maxLength={1} keyboardType="numeric" />
-        <TextInput style={styles.codeBox} maxLength={1} keyboardType="numeric" />
-        <TextInput style={styles.codeBox} maxLength={1} keyboardType="numeric" />
-        <TextInput style={styles.codeBox} maxLength={1} keyboardType="numeric" />
+        {[...Array(4)].map((_, index) => (
+          <TextInput key={index} style={styles.codeBox} maxLength={1} keyboardType="numeric" />
+        ))}
       </View>
 
-      {/* Resend Code Link with Timer */}
+      {/* Link gửi lại mã */}
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Text style={styles.resendText}>I haven't received a code (00:05)</Text>
       </TouchableOpacity>
 
-    
+      {/* Nút tìm kiếm địa điểm */}
+      <TouchableOpacity style={styles.continueButton} onPress={handleSearchLocation}>
+        <Text style={styles.continueButtonText}>Search location</Text>
+      </TouchableOpacity>
 
-      {/* Navigation Arrows */}
-      <View style={styles.navigationContainer}>
-        <TouchableOpacity style={styles.arrowButton}>
-          <Text style={styles.arrowText}>←</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.arrowButton} onPress={handleSearchLocation}>
-          <Text style={styles.arrowText}>Next→</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Modal */}
+      {/* Modal gửi lại mã */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -69,7 +53,6 @@ const VerifyCodeScreen = () => {
           </View>
         </View>
       </Modal>
-
     </View>
   );
 };
@@ -116,20 +99,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '60%',
+    marginBottom: 20,
   },
-  arrowButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
+  continueButton: {
+    backgroundColor: '#000',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    width: '80%',
     alignItems: 'center',
+    marginTop: 10,
   },
-  arrowText: {
-    fontSize: 20,
-    color: '#000',
+  continueButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
-
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -167,23 +151,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
-  },
-
-  button: {
-    fontSize: 20,
-    color: '#fff',
-  },
-  continueButton: {
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    width: '80%',
-    alignItems: 'center',
-  },
-  continueButtonText: {
-    color: '#fff',
-    fontSize: 16,
   },
 });
 

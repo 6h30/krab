@@ -12,11 +12,10 @@ import {
 } from 'react-native';
 
 import { useRouter } from 'expo-router';
-import { Picker } from '@react-native-picker/picker';
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [selectedCountryCode, setSelectedCountryCode] = useState('+84'); // Default country code is Vietnam
+  const [selectedCountryCode, setSelectedCountryCode] = useState('+84');
   const [showCountryCodeModal, setShowCountryCodeModal] = useState(false);
 
   const countryCodes = [
@@ -35,7 +34,7 @@ const LoginScreen = () => {
       return;
     }
     // Add your logic here for handling the continue action
-    router.push('/verifyCode');
+    router.push('/privacy');
     console.log('Continue with phone number:', phoneNumber);
   };
 
