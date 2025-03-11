@@ -7,7 +7,7 @@ const VerifyCodeScreen = () => {
   const router = useRouter();
 
   const handleSearchLocation = () => {
-    router.push('/searchLocation');
+    router.push('/bookingFlow/searchLocation');
   };
 
   return (

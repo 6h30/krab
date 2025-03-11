@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Constants
-const driver_avt = require("../assets/images/krab-go.png");
+const driver_avt = require("@/assets/images/krab-go.png");
 
 const RideDetailScreen = () => {
   return (

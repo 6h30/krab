@@ -13,10 +13,10 @@ import MapComponent from "@/components/MapComponent";
 
 const LookingForDriverScreen = () => {
   const router = useRouter();
-  const krabGoImage = require("../assets/images/krab-go.png");
+  const krabGoImage = require("@/assets/images/krab-go.png");
 
   const handleFindRider = () => {
-    router.push("/riderDetail");
+    router.push("/bookingFlow/riderDetail");
   };
 
   return (

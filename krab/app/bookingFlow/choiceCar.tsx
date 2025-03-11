@@ -14,10 +14,10 @@ import MapComponent from "@/components/MapComponent";
 const ChoiceCarScreen = () => {
   const router = useRouter();
 
-  const krabGoImage = require("../assets/images/krab-go.png");
-  const krabMotoImage = require("../assets/images/krab-moto.png");
-  const krabProImage = require("../assets/images/krab-pro.png");
-  const krabAutoImage = require("../assets/images/krab-auto.png");
+  const krabGoImage = require("@/assets/images/krab-go.png");
+  const krabMotoImage = require("@/assets/images/krab-moto.png");
+  const krabProImage = require("@/assets/images/krab-pro.png");
+  const krabAutoImage = require("@/assets/images/krab-auto.png");
 
   const rideOptions = [
     {
@@ -69,7 +69,7 @@ const ChoiceCarScreen = () => {
       alert("Please select a car first!");
       return;
     }
-    router.push("/lookingRider");
+    router.push("/bookingFlow/lookingRider");
   };
 
   return (

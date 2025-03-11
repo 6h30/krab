@@ -35,7 +35,6 @@ const LoginScreen = () => {
     }
     // Add your logic here for handling the continue action
     router.push('/privacy');
-    console.log('Continue with phone number:', phoneNumber);
   };
 
   const handleGoogleLogin = () => {

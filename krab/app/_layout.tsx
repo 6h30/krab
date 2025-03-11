@@ -31,14 +31,17 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="verifyCode" />
-        <Stack.Screen name="searchLocation" />
 
-        <Stack.Screen name="choiceCar" />
-        <Stack.Screen name="lookingRider" />
-        <Stack.Screen name="riderDetail" />
-        
+        <Stack.Screen name="verifyCode" />
+        {/* <Stack.Screen name="searchLocation" /> */}
+
+        {/* <Stack.Screen name="choiceCar" /> */}
+        {/* <Stack.Screen name="lookingRider" /> */}
+        {/* <Stack.Screen name="riderDetail" /> */}
+
         <Stack.Screen name="privacy" />
+        <Stack.Screen name="paymentMethod" />
+
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

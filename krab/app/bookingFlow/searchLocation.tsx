@@ -8,7 +8,7 @@ const SearchLocationScreen = () => {
   const router = useRouter();
 
   const handleChoiceCar = () => {
-    router.push("/choiceCar");
+    router.push("/bookingFlow/choiceCar");
   };
 
   return (
