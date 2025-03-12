@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import MapComponent from "@/components/MapComponent";
-import Button2 from '@/components/Button/index';
+import Button2 from "@/components/Button/index";
+import CardComponent from "@/components/card";
+import { BlurView } from 'expo-blur';
 
 const ChoiceCarScreen = () => {
   const router = useRouter();
@@ -26,6 +28,7 @@ const ChoiceCarScreen = () => {
       title: "UberGo",
       rating: 4,
       time: "2 mins away",
+      originalPrice: "200.00",
       price: "193.20",
       description: "Affordable, compact rides",
       image: krabGoImage,
@@ -35,6 +38,7 @@ const ChoiceCarScreen = () => {
       title: "Moto",
       rating: 1,
       time: "3 mins away",
+      originalPrice: "70.00",
       price: "65.17",
       description: "Affordable motorcycle rides",
       image: krabMotoImage,
@@ -44,6 +48,7 @@ const ChoiceCarScreen = () => {
       title: "Premier",
       rating: 4,
       time: "4 mins away",
+      originalPrice: "200.00",
       price: "193.20",
       description: "Comfortable sedans, top-quality drivers",
       image: krabProImage,
@@ -53,6 +58,7 @@ const ChoiceCarScreen = () => {
       title: "UberAuto",
       rating: 3,
       time: "2 mins away",
+      originalPrice: "120.00",
       price: "118.21",
       description: "Affordable auto rides",
       image: krabAutoImage,
@@ -78,8 +84,12 @@ const ChoiceCarScreen = () => {
       {/* 🗺 Bản đồ */}
       <View style={styles.mapContainer}>
         {/* <MapComponent /> */}
-      </View>
-
+        </View>
+      <CardComponent
+        title="Card"
+        description="Mobile & web design references. Built with the latest Figma and Framer features, the meticulously crafted, fully customisable components will turbocharge your design workflow, ensuring seamless consistency and efficiency in all your projects."
+        creator="Jiho Lim, Creator of Mobbin"
+      />
       {/* 📌 Nút "Leave Now" */}
       <TouchableOpacity style={styles.leaveNowButton}>
         <Text style={styles.leaveNowText}>Leave Now</Text>
@@ -92,75 +102,41 @@ const ChoiceCarScreen = () => {
         persistentScrollbar={true}
       >
         {rideOptions.map((option) => (
-          // <TouchableOpacity
-          //   key={option.id}
-          //   style={[
-          //     styles.rideOption,
-          //     selectedCarId === option.id && styles.selectedRide, // 🎨 Thay đổi màu nếu xe được chọn
-          //   ]}
-          //   // onPress={() => handleSelectCar(option.id)}
-          //   onPress={handleSelectCar.bind(null, option.id)}
-
-          // >
-          //   <Image style={styles.vehicleImage} source={option.image} />
-          //   <View style={styles.rideDetails}>
-          //     <View style={styles.headerRow}>
-          //       <Text style={styles.rideTitle}>{option.title}</Text>
-          //       <Text style={styles.rating}>{"★".repeat(option.rating)}</Text>
-          //     </View>
-          //     <Text style={styles.timeText}>{option.time}</Text>
-          //     <Text style={styles.description}>{option.description}</Text>
-          //   </View>
-          //   <Text style={styles.price}>${option.price}</Text>
-          // </TouchableOpacity>
-
-          // <TouchableOpacity
-          //   key={option.id}
-          //   style={[
-          //     styles.rideOption,
-          //     selectedCarId === option.id && styles.selectedRide,
-          //   ]}
-          //   onPress={handleSelectCar.bind(null, option.id)}
-          //   activeOpacity={0.7} // Adds subtle press feedback
-          // >
-          //   <Image style={styles.vehicleImage} source={option.image} />
-          //   <View style={styles.rideDetails}>
-          //     <View style={styles.headerRow}>
-          //       <Text style={styles.rideTitle}>{option.title}</Text>
-          //       <Text style={styles.rating}>{"★".repeat(option.rating)}</Text>
-          //     </View>
-          //     <Text style={styles.timeText}>{option.time}</Text>
-          //     <Text style={styles.description}>{option.description}</Text>
-          //   </View>
-          //   <Text style={styles.price}>${option.price}</Text>
-          // </TouchableOpacity>
-
+ 
           <TouchableOpacity
-  key={option.id}
-  style={[
-    styles.rideOption,
-    selectedCarId === option.id && styles.selectedRide,
-  ]}
-  onPress={handleSelectCar.bind(null, option.id)}
-  activeOpacity={0.7}
->
-  {/* Left Section: Image */}
-  <Image style={styles.vehicleImage} source={option.image} />
-
-  {/* Center Section: Details */}
-  <View style={styles.rideDetails}>
-    <View style={styles.headerRow}>
-      <Text style={styles.rideTitle}>{option.title}</Text>
-      <Text style={styles.rating}>{"★".repeat(option.rating)}</Text>
-    </View>
-    <View style={styles.infoRow}>
-      <Text style={styles.timeText}>{option.time}</Text>
-      <Text style={styles.price}>${option.price}</Text> {/* Move price here */}
-    </View>
-    <Text style={styles.description}>{option.description}</Text>
-  </View>
-</TouchableOpacity>
-
+          key={option.id}
+          style={[
+            styles.rideOption,
+            selectedCarId === option.id && styles.selectedRide,
+          ]}
+          onPress={handleSelectCar.bind(null, option.id)}
+          activeOpacity={0.7}
+        >
+          <BlurView
+            style={styles.blurContainer}
+            tint="light" // Options: 'light', 'default', 'dark'
+            intensity={80} // Blur intensity (0-100)
+          >
+            {/* Left Section: Image */}
+            <Image style={styles.vehicleImage} source={option.image} />
+    
+            {/* Right Section: Details */}
+            <View style={styles.rideDetails}>
+              <View style={styles.infoRow}>
+                 <Text style={styles.rideTitle}>{option.title}</Text>
+                 <Text style={styles.originalPrice}>${option.originalPrice}</Text>
+              </View>
+             
+              
+              <View style={styles.infoRow}>
+                <Text style={styles.timeText}>{option.time}</Text>
+                <View style={styles.priceContainer}>                 
+                  <Text style={styles.price}>${option.price}</Text>
+                </View>
+              </View>
+            </View>
+          </BlurView>
+        </TouchableOpacity>
         ))}
       </ScrollView>
 
@@ -181,7 +157,6 @@ const ChoiceCarScreen = () => {
       >
         <Text style={{ color: "white", fontSize: 16 }}>Confrim</Text>
       </Button2>
-
     </SafeAreaView>
   );
 };
@@ -191,7 +166,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-
   },
   mapContainer: {
     height: 200, // 📏 Giảm chiều cao bản đồ để tối ưu không gian
@@ -209,91 +183,9 @@ const styles = StyleSheet.create({
   },
   rideList: {
     maxHeight: 300,
-    flexDirection: 'column',
-
+    flexDirection: "column",
   },
-  // rideOption: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   backgroundColor: '#f5f7fa',
-  //   borderRadius: 20,
-  //   padding: 15,
-  //   marginVertical: 8,
-  //   // Single shadow configuration
-  //   shadowColor: '#d1d5db',
-  //   shadowOffset: { width: 6, height: 6 },
-  //   shadowOpacity: 0.3,
-  //   shadowRadius: 8,
-  //   elevation: 5,
-  //   // Use border for subtle depth
-  //   borderWidth: 1,
-  //   borderColor: 'rgba(255, 255, 255, 0.8)',
-  // },
-  // selectedRide: {
-  //   backgroundColor: '#e5e9f0',
-  //   borderWidth: 2,
-  //   borderColor: '#dbe2ef',
-  //   shadowOffset: { width: 4, height: 4 },
-  //   shadowOpacity: 0.35,
-  //   elevation: 6,
-  // },
-  // vehicleImage: {
-  //   width: 70,
-  //   height: 70,
-  //   borderRadius: 15,
-  //   marginRight: 15,
-  //   backgroundColor: '#f5f7fa',
-  //   padding: 5,
-  // },
-  // rideDetails: {
-  //   flex: 1,
-  //   backgroundColor: 'transparent',
-  //   borderRadius: 12,
-  //   padding: 8,
-  // },
-  // headerRow: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   marginBottom: 4,
-  // },
-  // rideTitle: {
-  //   fontSize: 18,
-  //   fontWeight: '600',
-  //   color: '#2d3748',
-  //   letterSpacing: 0.2,
-  // },
-  // rating: {
-  //   fontSize: 14,
-  //   color: '#f6ad55',
-  // },
-  // timeText: {
-  //   fontSize: 14,
-  //   color: '#718096',
-  //   marginBottom: 4,
-  //   fontWeight: '500',
-  // },
-  // description: {
-  //   fontSize: 12,
-  //   color: '#718096',
-  //   lineHeight: 16,
-  // },
-  // price: {
-  //   fontSize: 18,
-  //   fontWeight: '700',
-  //   color: '#2d3748',
-  //   marginLeft: 15,
-  //   backgroundColor: '#e5e9f0',
-  //   paddingHorizontal: 12,
-  //   paddingVertical: 6,
-  //   borderRadius: 12,
-  //   shadowColor: '#d1d5db',
-  //   shadowOffset: { width: 2, height: 2 },
-  //   shadowOpacity: 0.2,
-  //   shadowRadius: 4,
-  //   elevation: 2,
-  // },
-
+  
   continueButton: {
     backgroundColor: "#000",
     paddingVertical: 12,
@@ -307,87 +199,77 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-
   rideOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f5f7fa',
-    borderRadius: 20,
-    padding: 16, // Increased padding for breathing room
-    marginVertical: 8,
-    shadowColor: '#d1d5db',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    // Claymorphism outer style (shadows and border)
+    borderRadius: 16, // Soft, clay-like corners
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.8)',
+    borderColor: 'rgba(255, 255, 255, 0.18)', // Reflective glass edge
+    elevation: 6, // Clay-like shadow (Android)
+    shadowColor: '#000', // Multi-layered shadow (iOS)
+    shadowOffset: { width: 2, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    marginVertical: 8,
+    marginHorizontal: 12,
+    overflow: 'hidden', // Ensure blur doesn’t bleed outside
   },
   selectedRide: {
-    backgroundColor: '#e5e9f0',
-    borderWidth: 2,
-    borderColor: '#dbe2ef',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.35,
-    elevation: 6,
+    // Highlighted state
+    borderColor: 'rgba(74, 144, 226, 0.5)', // Blue tint for selection
+    elevation: 8,
+    shadowOpacity: 0.25,
+  },
+  blurContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12, // Balanced padding inside blur
+    borderRadius: 16, // Match outer radius
+    overflow: 'hidden', // Clip content to rounded corners
   },
   vehicleImage: {
-    width: 60, // Slightly smaller for balance
-    height: 60,
-    borderRadius: 12,
-    marginRight: 12, // Reduced margin for tighter layout
-    backgroundColor: '#f5f7fa',
-    padding: 4,
+    width: 70,
+    height: 70,
+    resizeMode: 'contain',
+    marginRight: 12,
+    elevation: 2, // Subtle clay shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   rideDetails: {
     flex: 1,
-    paddingVertical: 4, // Vertical padding for internal spacing
-  },
-  headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 6, // More space before next row
+    justifyContent: 'center',
   },
   rideTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#2d3748',
-    letterSpacing: 0.2,
-  },
-  rating: {
-    fontSize: 14,
-    color: '#f6ad55',
+    fontSize: 16,
+    fontWeight: '600', // Soft bold
+    color: '#333333',
+    marginBottom: 6, // Space between title and info
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 6, // Space before description
   },
   timeText: {
     fontSize: 14,
-    color: '#718096',
-    fontWeight: '500',
+    color: '#666666',
+  },
+  priceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  originalPrice: {
+    fontSize: 14,
+    color: '#888888',
+    textDecorationLine: 'line-through', // Strikethrough effect
+    marginRight: 6, // Space between original and current price
   },
   price: {
-    fontSize: 24, // Slightly smaller to fit better
-    fontWeight: '700',
-    color: '#2d3748',
-    backgroundColor: '#e5e9f0',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 10,
-    shadowColor: '#d1d5db',
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  description: {
-    fontSize: 12,
-    color: '#718096',
-    lineHeight: 16,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A90E2', // Blue for emphasis
   },
 });
 

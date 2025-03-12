@@ -29,7 +29,7 @@ const OnboardingScreen = () => {
                 // leftIcon={null}
                 // rightIcon={null}
                 containerStyles={{ marginVertical: 20 }} // Thêm khoảng cách
-            >
+                onPress={() => router.push('/onboarding/welcome')} >
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={{ color: 'white', fontSize: 16 }}>Custom Child</Text>
                 </View>

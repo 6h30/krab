@@ -1,90 +1,119 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { useRouter } from 'expo-router';
-import Button2 from '@/components/Button/index';
+import React from "react";
+import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
+import { useRouter } from "expo-router";
+import Button2 from "@/components/Button/index";
 
 const WelcomeScreen = () => {
-    const router = useRouter();
-    const krabGoImage = require("@/assets/images/krab-go.png"); 
+  const router = useRouter();
+  const krabGoImage = require("@/assets/images/krab-go.png");
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome to Krab</Text>
-            <Image style={styles.welcomeImage} source={krabGoImage} />
+  return (
+    <SafeAreaView style={styles.container}>
+        <View style={styles.scrollSection}>
+              <View style={styles.imageSection}>
+        <Image style={styles.welcomeImage} source={krabGoImage} />
+      </View>
 
-            {/* <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push("/onboarding/introStep1")}
-            >
-                <Text style={styles.buttonText}>Next →</Text>
-            </TouchableOpacity> */}
-
-            {/* <Button2
-                title="" // Không cần title vì dùng children
-                leftIcon={null}
-                rightIcon={null}
-                // theme = "standard"
-                containerStyles={{ marginVertical: 20 }} // Thêm khoảng cách
-                onPress={() => router.push("/onboarding/introStep1")}
-            >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: 'white', fontSize: 16 }}>Start Krab</Text>
-                </View>
-            </Button2> */}
-
-            {/* <Button2
-            title='Gradient Button'
-                containerStyles={{ marginVertical: 20 }}
-                onPress={() => router.push("/onboarding/introStep1")}
-            >
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={{ color: 'white', fontSize: 16 }}>Start Krab</Text>
-                </View>
-            </Button2> */}
-
-            <Button2
-                // onPress={(e) => console.log("Pressed", e.nativeEvent)}
-                onPress={() => router.push("/onboarding/introStep1")}
-                containerStyles={{ marginVertical: 10 }}
-            >
-                <Text style={{ color: "white", fontSize: 16 }}>Start Krab2</Text>
-            </Button2>
-
+      <View style={styles.textSection}>
+        <Text style={styles.title}>Welcome to Krab</Text>
+        {/* Pagination Dots */}
+      </View>
         </View>
-    );
+    
+
+      <View style={styles.buttonSection}>
+        <Button2
+          size="secondary"
+          onPress={() => router.push("/onboarding/introStep1")}
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </Button2>
+      </View>
+    </SafeAreaView>
+  );
 };
 
-export default WelcomeScreen;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#fff',
-        paddingHorizontal: 20,
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    welcomeImage: {
-        width: 300, // 
-        height: 350,
-        resizeMode: 'contain',
-        borderWidth: 1,
-        marginBottom: 30,
-    },
-    button: {
-        backgroundColor: '#007AFF',
-        paddingVertical: 12,
-        paddingHorizontal: 30,
-        borderRadius: 8,
-        alignItems: "center",
-    },
-    buttonText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#fff',
-    },
+  container: {
+    // flex: 1,
+    display: "flex",
+    flexDirection: "column",
+
+    backgroundColor: "#F0F2F5",
+  },
+  scrollView: {
+    height: "80%",
+    display: "flex",
+  },
+  slide: {
+    flex: 1,
+  },
+  imageSection: {
+    display: "flex",
+    height: "70%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  textSection: {
+    display: "flex",
+
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+  },
+  scrollSection: {
+    height: "80%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonSection: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  welcomeImage: {
+    width: 280,
+    height: 320,
+    resizeMode: "contain",
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#333333",
+    letterSpacing: 0.5,
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  pagination: {
+    flexDirection: "row",
+    marginTop: 10,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: "#D3D3D3",
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: "#FFA500",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+  },
 });
+
+export default WelcomeScreen;

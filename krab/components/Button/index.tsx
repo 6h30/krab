@@ -124,22 +124,10 @@ const Button2: React.FC<Button2Props> = ({
       disabled={disabled}
       {...props}
     >
-      {/* {theme === "standard" ? (
-        <LinearGradient
-          colors={disabled ? ["#cccccc", "#999999"] : gradientColors} 
-          locations={[0.13, 1]}        
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={buttonStyle}
-        >
-          <ButtonContent />
-        </LinearGradient>
-      ) : (
-        <View style={buttonStyle}>
-          <ButtonContent />
-        </View>
-      )} */}
-      <View style={{ ...buttonStyle, backgroundColor: "transparent" }}>
+      <View style={{ 
+        ...buttonStyle, 
+        // backgroundColor: "transparent" 
+        }}>
       {theme === "standard" ? (
         <LinearGradient
           colors={disabled ? ["#cccccc", "#999999"] : gradientColors}

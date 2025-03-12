@@ -137,7 +137,7 @@ const BaseStyle = StyleSheet.create({
 const standard = StyleSheet.create({
   wrapper: {
     ...BaseStyle.wrapper,
-    backgroundColor: '#f5f7fa', // Soft neutral base
+    backgroundColor: '#f5f7fa', 
     borderRadius: 16, // More pronounced rounding
     // Claymorphism shadows
     shadowColor: '#d1d5db',
