@@ -15,7 +15,7 @@ const SearchLocationScreen = () => {
     <View style={styles.container}>
       {/* Bản đồ */}
       <View style={styles.mapContainer}>
-        <MapComponent />
+        {/* <MapComponent /> */}
       </View>
 
       {/* Form nhập liệu */}

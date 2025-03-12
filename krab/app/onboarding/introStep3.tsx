@@ -1,17 +1,23 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import Button2 from '@/components/Button/index';
 
 const IntroStep3Screen = () => {
     const router = useRouter();
+    const krabProImage = require("@/assets/images/krab-moto.png");
     return (
+
         <View style={styles.container}>
-            <Text style={styles.text}>Intro 3 Screen</Text>
-            <TouchableOpacity
-                style={styles.button }
+            <Text style={styles.title}>We provide </Text>
+            <Image style={styles.welcomeImage} source={krabProImage} />
+
+            <Button2
                 onPress={() => router.push("/bookingFlow/searchLocation")}
+                containerStyles={{ marginVertical: 10 }}
             >
-                <Text style={styles.text}>Next →</Text>
-            </TouchableOpacity>
+                <Text style={{ color: "white", fontSize: 16 }}>Next 1</Text>
+            </Button2>
+
         </View>
     );
 };
@@ -34,5 +40,17 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 5,
         alignItems: "center",
-      },
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+    welcomeImage: {
+        width: 300, // 
+        height: 350,
+        resizeMode: 'contain',
+        borderWidth: 1,
+        marginBottom: 30,
+    },
 });

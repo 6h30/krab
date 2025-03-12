@@ -27,7 +27,7 @@ const LookingForDriverScreen = () => {
 
         {/* Map Component */}
         <View style={styles.mapContainer}>
-          <MapComponent />
+          {/* <MapComponent /> */}
         </View>
 
         {/* Car Image */}
