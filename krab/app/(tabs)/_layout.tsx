@@ -8,8 +8,9 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-import HomeSvg from '@/assets/svgs/home48.svg';
-import PersonSvg from '@/assets/svgs/person48.svg';
+import HomeSvg from '@/assets/svgs/homesl24.svg';
+import PersonSvg from '@/assets/svgs/personCircle.svg';
+import LoginSvg from '@/assets/svgs/login.svg';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -41,7 +42,8 @@ export default function TabLayout() {
         name="login"
         options={{
           title: 'Krab',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          // tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: () => <LoginSvg width={28} height={28} />,
         }}
       />
         <Tabs.Screen

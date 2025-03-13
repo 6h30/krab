@@ -22,6 +22,9 @@ interface Slide {
     | "/onboarding/introStep3"
     | "/onboarding/welcome";
 }
+const Step1Image = require("@/assets/images/step1.png");
+const Step2Image = require("@/assets/images/step2.png");
+const Step3Image = require("@/assets/images/step3.png");
 
 const WelcomeScreen = () => {
   const router = useRouter();
@@ -30,17 +33,17 @@ const WelcomeScreen = () => {
 
   const slides: Slide[] = [
     {
-      image: require("@/assets/images/krab-go.png"),
+      image: Step1Image,
       title: "We provide professional taxi services for you",
       nextRoute: "/onboarding/introStep2",
     },
     {
-      image: require("@/assets/images/krab-moto.png"), // Replace with Intro 2 image
+      image: Step2Image,
       title: "Safe and reliable rides anytime",
       nextRoute: "/onboarding/introStep3",
     },
     {
-      image: require("@/assets/images/krab-pro.png"), // Replace with Intro 3 image
+      image: Step3Image, 
       title: "Book your ride in just a few taps!",
       nextRoute: "/onboarding/welcome",
     },

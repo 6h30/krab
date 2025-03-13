@@ -13,18 +13,29 @@ import {
 import { useRouter } from 'expo-router';
 import Button2 from '@/components/Button/index';
 import InputField2 from '@/components/josh_component/input-feild';
+import { SvgProps } from "react-native-svg";
+
+import GoogleLogo from "@/assets/svgs/googleLogo.svg";
+import AppleLogo from "@/assets/svgs/appleLogo.svg";
+import FacebookLogo from "@/assets/svgs/facebookLogo.svg";
+import ButtonF from '@/components/stylesFunny/ButtonF';
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountryCode, setSelectedCountryCode] = useState('+84');
   const [showCountryCodeModal, setShowCountryCodeModal] = useState(false);
-
+ 
   const countryCodes = [
     { label: '+84 (Vietnam)', value: '+84' },
     { label: '+1 (USA)', value: '+1' },
     { label: '+44 (UK)', value: '+44' },
     { label: '+33 (France)', value: '+33' },
   ];
+  const socialIcons = {
+    Google: GoogleLogo,
+    Apple: AppleLogo,
+    Facebook: FacebookLogo,
+  };
 
   const router = useRouter();
 
@@ -71,6 +82,12 @@ const LoginScreen = () => {
           <Text style={styles.continueButtonText}>Continue</Text>
         </Button2>
 
+        <ButtonF
+          onPress={handleContinue}
+        >
+          <Text style={styles.continueButtonText}>Continue1</Text>
+        </ButtonF>
+
         <View style={styles.divider}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>or</Text>
@@ -78,20 +95,16 @@ const LoginScreen = () => {
         </View>
 
         <View style={styles.socialButtonsContainer}>
-          {[
-            { type: 'Google', icon: 'https://www.google.com/favicon.ico' },
-            { type: 'Apple', icon: 'https://www.apple.com/favicon.ico' },
-            { type: 'Facebook', icon: 'https://www.facebook.com/favicon.ico' },
-          ].map((social) => (
-            <TouchableOpacity
-              key={social.type}
-              style={styles.socialButton}
-              onPress={() => handleSocialLogin(social.type)}
-            >
-              <Image source={{ uri: social.icon }} style={styles.socialIcon} />
-            </TouchableOpacity>
-          ))}
-        </View>
+      {Object.entries(socialIcons).map(([type, Icon]) => (
+        <TouchableOpacity
+          key={type}
+          style={styles.socialButton}
+          onPress={() => handleSocialLogin(type)}
+        >
+          <Icon width={28} height={28} />
+        </TouchableOpacity>
+      ))}
+    </View>
 
         <Text style={styles.consentText}>
           By proceeding, you consent to get calls, SMS or Zalo messages from Krab

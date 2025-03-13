@@ -2,16 +2,21 @@ import React from "react";
 import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
 import { useRouter } from "expo-router";
 import Button2 from "@/components/Button/index";
+import ButtonF from "@/components/stylesFunny/ButtonF";
 
 const WelcomeScreen = () => {
   const router = useRouter();
-  const krabGoImage = require("@/assets/images/krab-go.png");
+  // const krabGoImage = require("@/assets/images/krab-go.png");
+  const WelcomeImage = require("@/assets/images/welcomeKrab.jpg");
+  // const Step1Image = require("@/assets/images/step1.png");
+  // const Step2Image = require("@/assets/images/step2.png");
+  // const Step3Image = require("@/assets/images/step3.png");
 
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.scrollSection}>
               <View style={styles.imageSection}>
-        <Image style={styles.welcomeImage} source={krabGoImage} />
+        <Image style={styles.welcomeImage} source={WelcomeImage} />
       </View>
 
       <View style={styles.textSection}>
@@ -28,6 +33,13 @@ const WelcomeScreen = () => {
         >
           <Text style={styles.buttonText}>Next</Text>
         </Button2>
+
+        <ButtonF
+          size="offlight"
+          onPress={() => router.push("/onboarding/introStep1")}
+        >
+          <Text style={styles.buttonText}>Next</Text>
+        </ButtonF>
       </View>
     </SafeAreaView>
   );
@@ -39,7 +51,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
 
-    backgroundColor: "#F0F2F5",
+    backgroundColor: "#FFFFFF",
+    height: "100%",
   },
   scrollView: {
     height: "80%",
@@ -77,14 +90,14 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   welcomeImage: {
-    width: 280,
+    width: 400,
     height: 320,
     resizeMode: "contain",
-    elevation: 4,
-    shadowColor: "#000",
-    shadowOffset: { width: 1, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    // elevation: 4,
+    // shadowColor: "#000",
+    // shadowOffset: { width: 1, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
   },
   title: {
     fontSize: 28,
