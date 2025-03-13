@@ -27,7 +27,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ icon, title, isSubItem, isEditable,
         <FontAwesome
             name={icon}
             size={isSubItem ? 18 : 24}
-            color={isEditable ? '#28a745' : '#000'} // Màu xanh cho EDIT ACCOUNT
+            color={isEditable ? '#28a745' : '#000'} 
         />
         <Text style={[styles.menuText, isEditable && styles.editableText]}>{title}</Text>
     </TouchableOpacity>
@@ -36,11 +36,8 @@ const MenuItem: React.FC<MenuItemProps> = ({ icon, title, isSubItem, isEditable,
 const UserSettingScreen: React.FC = () => {
     const menuItems: MenuItemData[] = [
         { id: '1', icon: 'user-circle', title: 'dcviet', isEditable: true, onPress: () => router.push(`/accounts/authencation/`) },
-        { id: '2', icon: 'map-marker', title: 'Saved places', isSubItem: false, onPress: () => router.push(`/accounts/authencation/`) },
-        { id: '3', icon: 'home', title: 'Home address', isSubItem: true, onPress: () => router.push(`/accounts/authencation/`) },
-        { id: '4', icon: 'briefcase', title: 'Work address', isSubItem: true, onPress: () => router.push(`/accounts/authencation/`) },
+        { id: '2', icon: 'map-marker', title: 'Security', isSubItem: false, onPress: () => router.push(`/accounts/SecuritySettings`) },
         { id: '5', icon: 'ellipsis-h', title: 'setNewPass', isSubItem: false, onPress: () => router.push(`/accounts/authencation/setNewPass`) },
-        { id: '6', icon: 'sign-out', title: 'Sign Out', isSubItem: true, onPress: () => router.push(`/login`) },
     ];
 
     const renderItem = ({ item }: { item: MenuItemData }) => (
@@ -50,35 +47,19 @@ const UserSettingScreen: React.FC = () => {
             isSubItem={item.isSubItem}
             isEditable={item.isEditable}
             onPress={item.onPress || (() => { })}
-            // onPress={() => router.push(`/accounts/${item.slug}`)}
+        // onPress={() => router.push(`/accounts/${item.slug}`)}
         />
     );
 
-      const router = useRouter();
-    
-    //   const renderItem = ({ item }: { item: MenuItemData }) => (
-    //     <MenuItem 
-    //       icon={item.icon} 
-    //       title={item.title} 
-    //       // onPress={() => router.push(`/accounts/${item.id}`)} 
-    //       onPress={() => router.push(`/accounts/${item.slug}`)} 
-    //     />
-    //   );
+    const router = useRouter();
 
     return (
         <View style={styles.container}>
-            {/* Header với nút Back và tiêu đề */}
-            {/* <View style={styles.header}>
-                <TouchableOpacity onPress={() => alert('Go back')}>
-                    <FontAwesome name="arrow-left" size={24} color="#000" />
-                </TouchableOpacity>
-                <Text style={styles.headerText}>Settings</Text>
-            </View> */}
 
             {/* Phần thông tin người dùng */}
             <View style={styles.userInfo}>
                 <Image
-                    source={{ uri: 'https://via.placeholder.com/50' }} // Placeholder avatar
+                    source={require('@/assets/images/krab-go.png')}
                     style={styles.avatar}
                 />
                 <View>
@@ -107,60 +88,72 @@ const UserSettingScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
-    },
-    headerText: {
-        marginLeft: 10,
-        fontSize: 18,
-        fontWeight: 'bold',
+      flex: 1,
+      backgroundColor: '#F0F4F8', // Màu nền nhẹ nhàng
+      padding: 15,
     },
     userInfo: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F8FBFD',
+      borderRadius: 20,
+      padding: 20,
+      marginBottom: 20,
+      // Hiệu ứng nổi nhẹ
+      shadowColor: '#A0A0A0',
+      shadowOffset: { width: 4, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 8,
+      elevation: 6,
     },
     avatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        marginRight: 15,
-        backgroundColor: '#ccc', // Placeholder màu xám
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      marginRight: 15,
+      // Bóng đổ cho avatar
+      shadowColor: '#A0A0A0',
+      shadowOffset: { width: 2, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 5,
     },
     userName: {
-        fontSize: 18,
-        fontWeight: 'bold',
+      fontSize: 20,
+      fontWeight: '600',
+      color: '#4A4A4A',
+      marginBottom: 5,
     },
     menuItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingVertical: 15,
-        paddingHorizontal: 20,
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F8FBFD',
+      borderRadius: 15,
+      padding: 15,
+      // Hiệu ứng nổi
+      shadowColor: '#A0A0A0',
+      shadowOffset: { width: 4, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 8,
+      elevation: 6,
     },
     menuText: {
-        marginLeft: 20,
-        fontSize: 16,
+      fontSize: 16,
+      fontWeight: '500',
+      color: '#4A4A4A',
+      marginLeft: 15,
+      flex: 1,
     },
     editableText: {
-        color: '#28a745', // Màu xanh cho EDIT ACCOUNT và Sign Out
+      color: '#7A90C2', // Màu xanh nhạt thay cho #28a745 để phù hợp Claymorphism
+      fontWeight: '600',
     },
     list: {
-        paddingVertical: 10,
+      paddingBottom: 20,
     },
     separator: {
-        height: 1,
-        backgroundColor: '#eee',
-        marginHorizontal: 20,
+      height: 10, // Khoảng cách giữa các mục
+      backgroundColor: 'transparent',
     },
-});
+  });
 
 export default UserSettingScreen;

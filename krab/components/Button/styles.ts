@@ -148,6 +148,7 @@ const standard = StyleSheet.create({
     // Subtle border for depth
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.8)',
+    width: '100%',
   },
   title: {
     ...BaseStyle.title,

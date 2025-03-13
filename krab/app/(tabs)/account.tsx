@@ -1,11 +1,17 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
+
+import { SvgProps } from 'react-native-svg';
+import OrdersIcon from '@/assets/svgs/home48.svg';
+import HeartIcon from '@/assets/svgs/home48.svg';
+import GiftIcon from '@/assets/svgs/home48.svg';
 
 // Định nghĩa kiểu cho các tham số của MenuItem
 interface MenuItemProps {
   icon: string;
+  SvgIcon?: React.FC<SvgProps>;
   title: string;
   onPress: () => void;
 }
@@ -14,49 +20,57 @@ interface MenuItemProps {
 interface MenuItemData {
   id: string;
   icon: string;
+  SvgIcon?: React.FC<SvgProps>;
   title: string;
   slug: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ icon, title, onPress }) => (
+const MenuItem: React.FC<MenuItemProps> = ({ icon, SvgIcon, title, onPress }) => (
   <TouchableOpacity style={styles.menuItem} onPress={onPress}>
-    <FontAwesome name={icon} size={24} color="#000" />
+    <View style={styles.iconContainer}>
+      {SvgIcon ? (
+        <SvgIcon width={24} height={24} color="#007AFF" />
+      ) : (
+        <FontAwesome name={icon} size={24} color="#007AFF" />
+      )}
+    </View>
     <Text style={styles.menuText}>{title}</Text>
+    <FontAwesome name="chevron-right" size={16} color="#666" style={styles.arrowIcon} />
   </TouchableOpacity>
 );
 
 const AccountScreen: React.FC = () => {
-  const menuItems: MenuItemData[] = [
-    { id: '1', icon: 'receipt', title: 'Orders', slug: 'history' },
-    { id: '2', icon: 'heart', title: 'Your favourites', slug: 'authencation/forgotPassword' },
-    { id: '3', icon: 'gift', title: 'forgotPassOTP', slug: 'authencation/forgotPassOTP' },
-    { id: '4', icon: 'credit-card', title: 'Wallet', slug: 'wallet' },
-    { id: '5', icon: 'send', title: 'Send a gift', slug: 'authencation/setNewPass' },
-    { id: '6', icon: 'question-circle', title: 'Help', slug: '6' },
-    { id: '7', icon: 'tag', title: 'Promotions', slug: '7' },
-    { id: '8', icon: 'ticket', title: 'Uber Pass', slug: '8' },
-    { id: '9', icon: 'cog', title: 'Settings', slug: 'setting' },
-  ];
-
-  // const renderItem = ({ item }: { item: MenuItemData }) => (
-  //   <MenuItem icon={item.icon} title={item.title} onPress={() => alert(`Pressed ${item.title}`)} />
-  // );
   const router = useRouter();
 
+  const menuItems: MenuItemData[] = [
+    { id: '1', icon: 'history', SvgIcon: OrdersIcon, title: 'Historys', slug: 'history' },
+    { id: '2', icon: 'heart', SvgIcon: HeartIcon, title: 'Your Favourites', slug: 'favourites' },
+    { id: '3', icon: 'credit-card', title: 'Wallet', slug: 'wallet' }, 
+    { id: '4', icon: 'question-circle', title: 'Help', slug: 'help' },
+    { id: '5', icon: 'tag', title: 'Promotions', slug: 'promotions' },
+    { id: '6', icon: 'cog', title: 'Settings', slug: 'settings' },
+    { id: '7', icon: 'sign-out', title: 'Logout', slug: 'logout' }, 
+  ];
+
   const renderItem = ({ item }: { item: MenuItemData }) => (
-    <MenuItem 
-      icon={item.icon} 
-      title={item.title} 
-      // onPress={() => router.push(`/accounts/${item.id}`)} 
-      onPress={() => router.push(`/accounts/${item.slug}`)} 
+    <MenuItem
+      icon={item.icon}
+      SvgIcon={item.SvgIcon}
+      title={item.title}
+      onPress={() => router.push(`/accounts/${item.slug}`)}
     />
   );
- 
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <FontAwesome name="user" size={30} color="#000" />
-        <Text style={styles.headerText}>dcviet</Text>
+        <View style={styles.userIconContainer}>
+          <FontAwesome name="user" size={30} color="#fff" />
+        </View>
+        <View>
+          <Text style={styles.headerText}>dcviet</Text>
+          <Text style={styles.subHeaderText}>Krab Premium</Text>
+        </View>
       </View>
       <FlatList
         data={menuItems}
@@ -64,7 +78,7 @@ const AccountScreen: React.FC = () => {
         keyExtractor={item => item.id}
         contentContainerStyle={styles.list}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -79,41 +93,48 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
+    backgroundColor: '#f5f5f5',
+  },
+  userIconContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#007AFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
   },
   headerText: {
-    marginLeft: 15,
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    color: '#333',
+  },
+  subHeaderText: {
+    fontSize: 14,
+    color: '#007AFF',
+    marginTop: 4,
   },
   list: {
-    paddingVertical: 10,
+    padding: 20,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 15,
-    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
+  iconContainer: {
+    width: 40,
+    alignItems: 'center',
+  },
   menuText: {
-    marginLeft: 20,
+    flex: 1,
     fontSize: 16,
+    color: '#333',
   },
-  continueButton: {
-    position: "absolute",
-    bottom: 60,
-    left: "10%",
-    width: "80%",
-    backgroundColor: "#000",
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  continueButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+  arrowIcon: {
+    marginLeft: 10,
   },
 });
 

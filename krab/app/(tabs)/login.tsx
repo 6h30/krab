@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   StyleSheet,
   Image,
   Alert,
   Modal,
-  FlatList
+  FlatList,
+  SafeAreaView,
 } from 'react-native';
-
 import { useRouter } from 'expo-router';
+import Button2 from '@/components/Button/index';
+import InputField2 from '@/components/josh_component/input-feild';
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -23,7 +24,6 @@ const LoginScreen = () => {
     { label: '+1 (USA)', value: '+1' },
     { label: '+44 (UK)', value: '+44' },
     { label: '+33 (France)', value: '+33' },
-    // Add more country codes as needed
   ];
 
   const router = useRouter();
@@ -33,89 +33,73 @@ const LoginScreen = () => {
       Alert.alert('Error', 'Please enter your phone number');
       return;
     }
-    // Add your logic here for handling the continue action
     router.push('/privacy');
   };
 
-  const handleGoogleLogin = () => {
-    // Add Google login logic here
-    console.log('Continue with Google');
+  const handleSocialLogin = (type:string) => {
+    console.log(`Continue with ${type}`);
   };
 
-  const handleAppleLogin = () => {
-    // Add Apple login logic here
-    console.log('Continue with Apple');
-  };
-
-  const handleFacebookLogin = () => {
-    // Add Facebook login logic here
-    console.log('Continue with Facebook');
-  };
-
-  const handleCountryCodeSelect = (code:string) => {
-    setSelectedCountryCode(code);
-    setShowCountryCodeModal(false);
-  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>What's your phone number or email?</Text>
-
-      {/* Country Code Picker and Phone Number Input */}
-      <View style={styles.inputContainer}>
-      <TouchableOpacity
-          style={styles.countryCodeButton}
-          onPress={() => setShowCountryCodeModal(true)}
-        >
-          <Text style={styles.countryCodeText}>{selectedCountryCode}</Text>
-        </TouchableOpacity>
-
-        <TextInput
-          style={styles.phoneInput}
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="phone-pad"
-          placeholder="Số điện thoại"
-        />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.subtitle}>Sign in with your phone number</Text>
       </View>
 
-      <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
-        <Text style={styles.continueButtonText}>Continue</Text>
-      </TouchableOpacity>
+      <View style={styles.formContainer}>
+        <View style={styles.phoneInputContainer}>
+          <TouchableOpacity
+            style={styles.countryCodeButton}
+            onPress={() => setShowCountryCodeModal(true)}
+          >
+            <Text style={styles.countryCodeText}>{selectedCountryCode}</Text>
+          </TouchableOpacity>
+          <InputField2
+            label="Phone Number"
+            inputValue={phoneNumber}
+            onChangeText={setPhoneNumber}
+            // keyboardType="phone-pad"
+            containerStyles={styles.inputField}
+          />
+        </View>
 
-      <Text style={styles.orText}>or</Text>
+        <Button2
+          // containerStyles={styles.continueButton}
+          onPress={handleContinue}
+        >
+          <Text style={styles.continueButtonText}>Continue</Text>
+        </Button2>
 
-      <TouchableOpacity style={styles.socialButton} onPress={handleGoogleLogin}>
-        <Image
-          source={{ uri: 'https://www.google.com/favicon.ico' }} // Replace with actual Google icon
-          style={styles.icon}
-        />
-        <Text style={styles.socialButtonText}>Continue with Google</Text>
-      </TouchableOpacity>
+        <View style={styles.divider}>
+          <View style={styles.dividerLine} />
+          <Text style={styles.dividerText}>or</Text>
+          <View style={styles.dividerLine} />
+        </View>
 
-      <TouchableOpacity style={styles.socialButton} onPress={handleAppleLogin}>
-        <Image
-          source={{ uri: 'https://www.apple.com/favicon.ico' }} // Replace with actual Apple icon
-          style={styles.icon}
-        />
-        <Text style={styles.socialButtonText}>Continue with Apple</Text>
-      </TouchableOpacity>
+        <View style={styles.socialButtonsContainer}>
+          {[
+            { type: 'Google', icon: 'https://www.google.com/favicon.ico' },
+            { type: 'Apple', icon: 'https://www.apple.com/favicon.ico' },
+            { type: 'Facebook', icon: 'https://www.facebook.com/favicon.ico' },
+          ].map((social) => (
+            <TouchableOpacity
+              key={social.type}
+              style={styles.socialButton}
+              onPress={() => handleSocialLogin(social.type)}
+            >
+              <Image source={{ uri: social.icon }} style={styles.socialIcon} />
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      <TouchableOpacity style={styles.socialButton} onPress={handleFacebookLogin}>
-        <Image
-          source={{ uri: 'https://www.facebook.com/favicon.ico' }} // Replace with actual Facebook icon
-          style={styles.icon}
-        />
-        <Text style={styles.socialButtonText}>Continue with Facebook</Text>
-      </TouchableOpacity>
+        <Text style={styles.consentText}>
+          By proceeding, you consent to get calls, SMS or Zalo messages from Krab
+          and its affiliates to the number provided.
+        </Text>
+      </View>
 
-      <Text style={styles.consentText}>
-        By proceeding, you consent to get calls, WhatsApp or SMS messages,
-        including by automated means, from Uber and its affiliates to the number
-        provided.
-      </Text>
-
-
-       <Modal
+      <Modal
         visible={showCountryCodeModal}
         animationType="slide"
         transparent={true}
@@ -123,161 +107,142 @@ const LoginScreen = () => {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Select Country Code</Text>
             <FlatList
               data={countryCodes}
               keyExtractor={(item) => item.value}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.countryCodeItem}
-                  onPress={() => handleCountryCodeSelect(item.value)}
+                  onPress={() => {
+                    setSelectedCountryCode(item.value);
+                    setShowCountryCodeModal(false);
+                  }}
                 >
                   <Text style={styles.countryCodeItemText}>{item.label}</Text>
                 </TouchableOpacity>
               )}
             />
-            <TouchableOpacity
-              style={styles.closeModalButton}
-              onPress={() => setShowCountryCodeModal(false)}
-            >
-              <Text style={styles.closeModalButtonText}>Close</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
     backgroundColor: '#fff',
   },
+  header: {
+    paddingTop: 60,
+    paddingHorizontal: 20,
+  },
   title: {
-    fontSize: 18,
-    marginBottom: 20,
-    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#333',
   },
-  inputContainer: {
-    flexDirection: 'row',
+  subtitle: {
+    fontSize: 16,
+    color: '#666',
+    marginTop: 8,
+    marginBottom: 40,
+  },
+  formContainer: {
+    paddingHorizontal: 20,
     alignItems: 'center',
-    marginBottom: 20,
-    width: '80%',
   },
-  pickerContainer: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginRight: 10,
-    overflow: 'hidden',
-  },
-  picker: {
-    height: 40,
+  phoneInputContainer: {
+    flexDirection: 'row',
     width: '100%',
-    paddingHorizontal: 5,
+    marginBottom: 20,
   },
-  phoneInput: {
-    flex: 3,
-    height: 40,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+  countryCodeButton: {
+    padding: 14,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    marginRight: 10,
+  },
+  countryCodeText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  inputField: {
+    flex: 1,
   },
   continueButton: {
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    width: '80%',
-    alignItems: 'center',
+    width: '100%',
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingVertical: 14,
   },
   continueButtonText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
   },
-  orText: {
-    marginVertical: 20,
-    fontSize: 16,
-  },
-  socialButton: {
+  divider: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    width: '100%',
+    marginVertical: 30,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#eee',
+  },
+  dividerText: {
+    marginHorizontal: 10,
+    color: '#666',
+    fontSize: 14,
+  },
+  socialButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '80%',
-    marginVertical: 10,
+    marginBottom: 30,
   },
-  icon: {
-    width: 20,
-    height: 20,
-    marginRight: 10,
+  socialButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#f5f5f5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  socialButtonText: {
-    fontSize: 16,
+  socialIcon: {
+    width: 30,
+    height: 30,
   },
   consentText: {
-    marginTop: 20,
-    textAlign: 'center',
     fontSize: 12,
     color: '#666',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    lineHeight: 18,
   },
-  countryCodeButton: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    marginRight: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  countryCodeText: {
-    fontSize: 16,
-  },
-
   modalOverlay: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContainer: {
     backgroundColor: '#fff',
-    width: '80%',
-    borderRadius: 5,
-    padding: 20,
-  },
-  modalTitle: {
-    fontSize: 18,
-    marginBottom: 10,
-    textAlign: 'center',
+    maxHeight: '50%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 20,
   },
   countryCodeItem: {
-    paddingVertical: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
   },
   countryCodeItemText: {
     fontSize: 16,
-    textAlign: 'center',
-  },
-  closeModalButton: {
-    marginTop: 20,
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  closeModalButtonText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#333',
   },
 });
 

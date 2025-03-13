@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -57,7 +57,11 @@ const WelcomeScreen = () => {
     }
   };
 
-  const scrollToNext = () => {
+  // const handlePress = useCallback(() => {
+  //   router.push("/new-page");
+  // }, [router]);
+
+  const scrollToNext = useCallback(() => {
     if (currentStep < slides.length - 1) {
       if (scrollViewRef.current) {
         scrollViewRef.current.scrollTo({
@@ -68,7 +72,7 @@ const WelcomeScreen = () => {
     } else {
       router.push(slides[currentStep].nextRoute);
     }
-  };
+  } , [router]);
 
   return (
     <SafeAreaView style={styles.container}>

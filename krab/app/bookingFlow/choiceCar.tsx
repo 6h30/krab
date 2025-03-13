@@ -85,11 +85,13 @@ const ChoiceCarScreen = () => {
       <View style={styles.mapContainer}>
         {/* <MapComponent /> */}
         </View>
-      <CardComponent
+        
+      {/* <CardComponent
         title="Card"
         description="Mobile & web design references. Built with the latest Figma and Framer features, the meticulously crafted, fully customisable components will turbocharge your design workflow, ensuring seamless consistency and efficiency in all your projects."
         creator="Jiho Lim, Creator of Mobbin"
-      />
+      /> */}
+
       {/* 📌 Nút "Leave Now" */}
       <TouchableOpacity style={styles.leaveNowButton}>
         <Text style={styles.leaveNowText}>Leave Now</Text>
@@ -140,28 +142,19 @@ const ChoiceCarScreen = () => {
         ))}
       </ScrollView>
 
-      {/* ✅ Nút xác nhận */}
-      {/* <TouchableOpacity
-        style={styles.continueButton}
-        onPress={handleLookingRider}
-      >
-        <Text style={styles.buttonText}>
-          {selectedCarId ? "Confirm Car and Look" : "Select a Car First"}
-        </Text>
-      </TouchableOpacity> */}
-
       <Button2
         // onPress={() => router.push("/bookingFlow/searchLocation")}
         onPress={handleLookingRider}
         containerStyles={{ marginVertical: 10 }}
       >
-        <Text style={{ color: "white", fontSize: 16 }}>Confrim</Text>
+        <Text style={{ color: "white", fontSize: 16 }}>Confrim
+        {/* {selectedCarId ? "Confirm Car and Look" : "Select a Car First"} */}
+        </Text>
       </Button2>
     </SafeAreaView>
   );
 };
 
-// 🎨 **StyleSheet tối ưu**
 const styles = StyleSheet.create({
   container: {
     flex: 1,

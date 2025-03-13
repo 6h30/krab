@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-// Định nghĩa kiểu cho props của component
 interface RideDetailProps {
   dateTime: string;
   driverInfo: string;
@@ -60,112 +59,118 @@ const RideDetailComponent: React.FC<RideDetailProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 15,
-    margin: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
+    backgroundColor: '#F0F4F8', // Màu nền nhẹ nhàng
+    borderRadius: 20,
+    padding: 20,
+    margin: 15,
+    // Bóng đổ cho hiệu ứng 3D
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8, // Cho Android
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   dateTime: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 16,
+    color: '#4A4A4A',
+    fontWeight: '600',
   },
   driverInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    backgroundColor: '#F8FBFD',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 20,
+    // Bóng đổ bên trong nhẹ
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: -2, height: -2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   avatar: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: '#eee',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#E0E6ED',
     marginRight: 10,
   },
   driverText: {
-    fontSize: 14,
-    color: '#000',
+    fontSize: 16,
+    color: '#4A4A4A',
+    fontWeight: '500',
   },
   routeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginVertical: 10,
   },
   locationDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#000',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: '#A0B5EB',
     marginRight: 10,
+    // Hiệu ứng nổi nhẹ
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   addressText: {
     fontSize: 14,
-    color: '#000',
+    color: '#666',
     flex: 1,
   },
   line: {
-    height: 30,
     width: 2,
-    backgroundColor: '#000',
-    alignSelf: 'center',
-    marginHorizontal: 4,
+    height: 20,
+    backgroundColor: '#D0D8E0',
+    marginLeft: 5,
+    borderRadius: 1,
   },
   addStop: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    backgroundColor: '#E8EDF3',
+    borderRadius: 12,
+    padding: 10,
+    marginVertical: 10,
+    // Hiệu ứng lõm nhẹ
+    shadowColor: '#FFFFFF',
+    shadowOffset: { width: -2, height: -2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
   addStopText: {
     fontSize: 14,
-    color: '#000',
-    textDecorationLine: 'underline',
+    color: '#7A90C2',
+    fontWeight: '500',
   },
   completedButton: {
-    backgroundColor: '#000',
-    paddingVertical: 10,
-    borderRadius: 5,
+    backgroundColor: '#A0B5EB',
+    borderRadius: 15,
+    paddingVertical: 12,
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 20,
+    // Hiệu ứng nổi
+    shadowColor: '#8095CC',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   completedText: {
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '600',
   },
 });
 
 export default RideDetailComponent;
-
-// Ví dụ sử dụng component
-/*
-import React from 'react';
-import { View } from 'react-native';
-import RideDetailComponent from './RideDetailComponent';
-
-const App = () => {
-  return (
-    <View>
-      <RideDetailComponent
-        dateTime="06 Mar 2024, 11:59"
-        driverInfo="Driver at company: 1 year, Ride: 1000"
-        pickupAddress="1901 Thornridge Cir. Shiloh, Hawaii 81063"
-        dropoffAddress="6391 Elgin St. Celina, Delaware 10299"
-        onAddStop={() => alert('Add stop clicked')}
-        onComplete={() => alert('Ride completed')}
-      />
-    </View>
-  );
-};
-
-export default App;
-*/

@@ -1,155 +1,206 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useRouter } from 'expo-router';
 
 // Constants
 const driver_avt = require("@/assets/images/krab-go.png");
 
 const RideDetailScreen = () => {
+  const router = useRouter();
+
+  const handleSafety = () => {
+    // Logic for safety feature
+    console.log("Safety clicked");
+  };
+
+  const handleShareTrip = () => {
+    router.push('/bookingFlow/shareT');
+  };
+
+  const handleCallDriver = () => {
+    router.push('/bookingFlow/callS');
+  };
+
+  const handleMessage = () => {
+    router.push('/bookingFlow/chatS');
+    
+  };
+
   return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Meet at the pickup point</Text>
-        <Text style={styles.timeText}>2 min</Text>
-      </View>
-
-      {/* Driver Info */}
-      <View style={styles.driverInfo}>
-        <Image style={styles.driverImage} source={driver_avt} />
-        <View style={styles.driverDetails}>
-          <Text style={styles.driverName}>KA15AK00-0</Text>
-          <Text style={styles.driverFullName}>SANTH</Text>
-          <Text style={styles.carInfo}>White Suzuki S-Presso XL</Text>
-          <Text style={styles.rating}>4.9 ★</Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meet Your Driver</Text>
+          <Text style={styles.subtitle}>At the pickup point in <Text style={styles.timeHighlight}>2 min</Text></Text>
         </View>
-      </View>
 
-      {/* Location Info */}
-      <View style={styles.locationInfo}>
-        <Text style={styles.locationText}>562/11-A</Text>
-        <Text style={styles.locationDetails}>
-          Kaikondrahalli, Bengaluru, Karnataka
-        </Text>
-      </View>
+        <View style={styles.content}>
+          <View style={styles.driverInfo}>
+            <Image style={styles.driverImage} source={driver_avt} />
+            <View style={styles.driverDetails}>
+              <Text style={styles.driverName}>KA15AK00-0</Text>
+              <Text style={styles.driverFullName}>Santh</Text>
+              <Text style={styles.carInfo}>White Suzuki S-Presso XL</Text>
+              <Text style={styles.rating}>4.9 ★</Text>
+            </View>
+          </View>
 
-      {/* Action Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <FontAwesome name="shield" size={24} color="#007AFF" />
-          <Text style={styles.buttonText}>Safety</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <FontAwesome name="share-alt" size={24} color="#007AFF" />
-          <Text style={styles.buttonText}>Share my trip</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <FontAwesome name="phone" size={24} color="#007AFF" />
-          <Text style={styles.buttonText}>Call driver</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.locationContainer}>
+            <View style={styles.locationRow}>
+              <Text style={styles.locationIcon}>📍</Text>
+              <View>
+                <Text style={styles.locationText}>562/11-A</Text>
+                <Text style={styles.locationDetails}>
+                  Kaikondrahalli, Bengaluru, Karnataka
+                </Text>
+              </View>
+            </View>
+          </View>
 
-      {/* Message Button */}
-      <TouchableOpacity style={styles.messageButton}>
-        <Text style={styles.messageButtonText}>Send a message...</Text>
-      </TouchableOpacity>
-    </View>
+          <View style={styles.actionContainer}>
+            <TouchableOpacity style={styles.actionButton} onPress={handleSafety}>
+              <FontAwesome name="shield" size={24} color="#007AFF" />
+              <Text style={styles.actionButtonText}>Safety</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={handleShareTrip}>
+              <FontAwesome name="share-alt" size={24} color="#007AFF" />
+              <Text style={styles.actionButtonText}>Share</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionButton} onPress={handleCallDriver}>
+              <FontAwesome name="phone" size={24} color="#007AFF" />
+              <Text style={styles.actionButtonText}>Call</Text>
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.messageButton} onPress={handleMessage}>
+            <Text style={styles.messageButtonText}>Send a message...</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
     backgroundColor: '#fff',
   },
-
-  /* Header */
+  scrollContainer: {
+    padding: 20,
+    paddingBottom: 100,
+  },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: 20,
   },
-  headerText: {
-    fontSize: 18,
+  title: {
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#333',
   },
-  timeText: {
+  subtitle: {
     fontSize: 16,
-    color: '#888',
+    color: '#666',
+    marginTop: 8,
   },
-
-  /* Driver Info */
+  timeHighlight: {
+    fontWeight: 'bold',
+    color: '#007AFF',
+  },
+  content: {
+    flex: 1,
+  },
   driverInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    backgroundColor: '#f5f5f5',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 20,
   },
   driverImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginRight: 12,
   },
   driverDetails: {
     flex: 1,
   },
   driverName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
   },
   driverFullName: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: 16,
+    color: '#666',
+    marginTop: 2,
   },
   carInfo: {
     fontSize: 14,
-    color: '#555',
+    color: '#666',
+    marginTop: 4,
   },
   rating: {
     fontSize: 14,
-    color: '#FFD700', // Màu vàng cho sao
+    color: '#333',
+    fontWeight: '600',
+    marginTop: 4,
   },
-
-  /* Location Info */
-  locationInfo: {
+  locationContainer: {
     marginBottom: 20,
+    padding: 12,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  locationIcon: {
+    fontSize: 20,
+    marginRight: 10,
+    marginTop: 2,
   },
   locationText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    color: '#333',
   },
   locationDetails: {
     fontSize: 14,
-    color: '#555',
+    color: '#666',
+    lineHeight: 20,
   },
-
-  /* Action Buttons */
-  buttonContainer: {
+  actionContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
-  button: {
+  actionButton: {
+    width: '30%',
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 12,
+    borderRadius: 8,
     alignItems: 'center',
   },
-  buttonText: {
-    fontSize: 12,
+  actionButtonText: {
+    fontSize: 14,
     color: '#007AFF',
-    marginTop: 5,
+    marginTop: 6,
   },
-
-  /* Message Button */
   messageButton: {
-    backgroundColor: '#007AFF',
-    padding: 10,
-    borderRadius: 5,
+    width: '100%',
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 14,
+    borderRadius: 8,
     alignItems: 'center',
   },
   messageButtonText: {
-    color: '#fff',
     fontSize: 16,
+    color: '#666',
   },
 });
 

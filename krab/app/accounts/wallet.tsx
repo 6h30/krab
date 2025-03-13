@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useRouter } from 'expo-router';
 
-// Định nghĩa kiểu cho mỗi mục trong danh sách menu
 interface MenuItemData {
   id: string;
   title: string;
@@ -10,7 +10,6 @@ interface MenuItemData {
   onPress?: () => void;
 }
 
-// Định nghĩa kiểu cho props của MenuItem
 interface MenuItemProps {
   title: string;
   subTitle?: string;
@@ -34,19 +33,18 @@ const MenuItem: React.FC<MenuItemProps> = ({ title, subTitle, onPress }) => (
 );
 
 const WalletScreen: React.FC = () => {
+  const router = useRouter();
+
   const menuItems: MenuItemData[] = [
-    { id: '1', title: 'Payment methods', subTitle: 'Add payment method', onPress: () => alert('Add payment method') },
+    { id: '1', title: 'Payment methods', subTitle: 'Add payment method', onPress: () => router.push('/accounts/AddPaymentMethod') },
     { id: '2', title: 'Vouchers', subTitle: 'Add voucher', onPress: () => alert('Add voucher') },
   ];
 
   return (
     <View style={styles.container}>
-      {/* Tiêu đề */}
       <View style={styles.header}>
         <Text style={styles.headerText}>Krab Wallet</Text>
       </View>
-
-      {/* Thẻ Uber Cash */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>Krab Cash</Text>
         <Text style={styles.balance}>0.00</Text>
@@ -55,8 +53,6 @@ const WalletScreen: React.FC = () => {
           <Text style={styles.giftCardText}>Gift card</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Danh sách menu */}
       {menuItems.map(item => (
         <MenuItem
           key={item.id}
@@ -72,70 +68,102 @@ const WalletScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F0F4F8',
+    padding: 15,
   },
   header: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    backgroundColor: '#F8FBFD',
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 20,
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+    alignItems: 'center',
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#4A4A4A',
   },
   card: {
-    margin: 20,
+    backgroundColor: '#F8FBFD',
+    borderRadius: 20,
     padding: 20,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 10,
+    marginBottom: 20,
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: 5, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#666',
+    fontWeight: '500',
+    marginBottom: 10,
   },
   balance: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 10,
+    fontSize: 36,
+    fontWeight: '700',
+    color: '#4A4A4A',
+    marginBottom: 20,
   },
   giftCardButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#000',
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 20,
+    backgroundColor: '#A0B5EB',
+    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    shadowColor: '#8095CC',
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 4,
   },
   giftCardText: {
-    color: '#fff',
-    marginLeft: 5,
-    fontSize: 14,
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '500',
+    marginLeft: 8,
   },
   menuItem: {
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    backgroundColor: '#F8FBFD',
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 15,
+    shadowColor: '#A0A0A0',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 6,
   },
   menuTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
+    color: '#4A4A4A',
+    marginBottom: 8,
   },
   subItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 10,
+    backgroundColor: '#E8EDF3',
+    borderRadius: 12,
+    padding: 10,
+    shadowColor: '#FFFFFF',
+    shadowOffset: { width: -2, height: -2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
   },
   subTitle: {
-    marginLeft: 10,
     fontSize: 14,
-    color: '#000',
+    color: '#7A90C2',
+    fontWeight: '500',
+    marginLeft: 8,
   },
 });
 

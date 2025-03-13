@@ -8,6 +8,9 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import HomeSvg from '@/assets/svgs/home48.svg';
+import PersonSvg from '@/assets/svgs/person48.svg';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
@@ -30,7 +33,8 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          // tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: () => <HomeSvg width={28} height={28} />,
         }}
       />
        <Tabs.Screen
@@ -44,7 +48,8 @@ export default function TabLayout() {
         name="account"
         options={{
           title: 'Acc',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          // tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: () => <PersonSvg width={28} height={28} />,
         }}
       />
       
@@ -52,7 +57,7 @@ export default function TabLayout() {
         name="onBoarding"
         options={{
           title: 'Welcome screen',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
         }}
       />
 
