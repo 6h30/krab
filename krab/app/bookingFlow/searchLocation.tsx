@@ -3,6 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } fro
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import MapComponent from "@/components/MapComponent";
+import ButtonF from "@/components/stylesFunny/ButtonF";
+import InputFieldF from "@/components/stylesFunny/input-field";
+import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
+import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
 
 const SearchLocationScreen = () => {
   const router = useRouter();
@@ -24,29 +28,77 @@ const SearchLocationScreen = () => {
 
         <View style={styles.inputSection}>
           <View style={styles.inputContainer}>
-            <Icon name="map-marker" size={20} color="#666" style={styles.icon} />
-            <TextInput 
-              placeholder="Add a pick-up location" 
+            {/* <Icon name="location-arrow" size={20} color="#666" style={styles.icon} /> */}
+
+            {/* <TextInput 
+              placeholder="Enter your destination" 
               style={styles.input}
               placeholderTextColor="#999"
+            /> */}
+
+            <HomePoint style={styles.icon} width={28} height={28} />
+            
+            <InputFieldF
+              theme="secondary"
+              size="secondary"
+              radius="standard"
+              // rightIcon="location"
+              inputValue="Add a pick-up location"
+              onChangeText={(text) => console.log(text)}
             />
           </View>
 
+
           <View style={styles.inputContainer}>
+            {/* <Icon name="map-marker" size={20} color="#666" style={styles.icon} /> */}
+            <PickPoint style={styles.icon} width={28} height={28} />
+
+            {/* <TextInput
+              placeholder="Add a pick-up location"
+              style={styles.input}
+              placeholderTextColor="#999"
+            /> */}
+
+            <InputFieldF
+              theme="secondary"
+              size="secondary"
+              radius="standard"
+              inputValue="Enter your destination"
+            />
+          </View>
+
+          {/* <InputFieldF
+            label="Username"
+            theme="secondary"
+            size="secondary"
+            radius="standard"
+            leftIcon="map"
+            inputValue="Enter your destination"
+          /> */}
+
+          {/* <View style={styles.inputContainer}>
             <Icon name="location-arrow" size={20} color="#666" style={styles.icon} />
+            <HomePoint style={styles.icon} width={28} height={28} />
             <TextInput 
               placeholder="Enter your destination" 
               style={styles.input}
               placeholderTextColor="#999"
             />
-          </View>
 
-          <TouchableOpacity 
+          </View> */}
+
+          {/* <TouchableOpacity 
             style={styles.button} 
             onPress={handleChoiceCar}
           >
             <Text style={styles.buttonText}>Choose Car</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <ButtonF
+            onPress={handleChoiceCar}
+            title='Continue'
+          >
+          </ButtonF>
         </View>
       </View>
     </SafeAreaView>
@@ -92,11 +144,13 @@ const styles = StyleSheet.create({
   },
   inputSection: {
     width: '100%',
+    gap: 10,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    // backgroundColor: '#f5f5f5',
+    borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
     marginBottom: 15,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
+import ButtonF from '@/components/stylesFunny/ButtonF';
 
 const VerifyCodeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,12 +60,12 @@ const VerifyCodeScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.continueButton} 
+        <ButtonF
+          // onPress={handleContinue}
           onPress={() => router.push('/bookingFlow/searchLocation')}
-        >
-          <Text style={styles.continueButtonText}>Continue</Text>
-        </TouchableOpacity>
+          title='Continue2'
+        >         
+        </ButtonF>
       </View>
 
       <Modal
@@ -137,8 +138,8 @@ const styles = StyleSheet.create({
   codeBox: {
     width: 60,
     height: 60,
-    borderWidth: 2,
-    borderColor: '#eee',
+    borderWidth: 1,
+    borderColor: '#111',
     borderRadius: 8,
     textAlign: 'center',
     fontSize: 24,

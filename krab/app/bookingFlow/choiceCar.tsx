@@ -13,6 +13,7 @@ import MapComponent from "@/components/MapComponent";
 import Button2 from "@/components/Button/index";
 import CardComponent from "@/components/card";
 import { BlurView } from 'expo-blur';
+import ButtonF from "@/components/stylesFunny/ButtonF";
 
 const ChoiceCarScreen = () => {
   const router = useRouter();
@@ -128,8 +129,7 @@ const ChoiceCarScreen = () => {
                  <Text style={styles.rideTitle}>{option.title}</Text>
                  <Text style={styles.originalPrice}>${option.originalPrice}</Text>
               </View>
-             
-              
+                          
               <View style={styles.infoRow}>
                 <Text style={styles.timeText}>{option.time}</Text>
                 <View style={styles.priceContainer}>                 
@@ -142,15 +142,23 @@ const ChoiceCarScreen = () => {
         ))}
       </ScrollView>
 
-      <Button2
+      {/* <Button2
         // onPress={() => router.push("/bookingFlow/searchLocation")}
         onPress={handleLookingRider}
         containerStyles={{ marginVertical: 10 }}
       >
         <Text style={{ color: "white", fontSize: 16 }}>Confrim
-        {/* {selectedCarId ? "Confirm Car and Look" : "Select a Car First"} */}
+        {selectedCarId ? "Confirm Car and Look" : "Select a Car First"}
         </Text>
-      </Button2>
+      </Button2> */}
+
+      <ButtonF
+          // onPress={handleContinue}
+          onPress={handleLookingRider}
+          title='Confirm Car and Look'
+          containerStyles={{ marginVertical: 30 }}
+        >         
+        </ButtonF>
     </SafeAreaView>
   );
 };
@@ -177,6 +185,7 @@ const styles = StyleSheet.create({
   rideList: {
     maxHeight: 300,
     flexDirection: "column",
+    backgroundColor: "#eee",
   },
   
   continueButton: {

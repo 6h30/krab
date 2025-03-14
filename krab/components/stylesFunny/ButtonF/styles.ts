@@ -1,5 +1,15 @@
 import { StyleSheet } from "react-native";
 
+const COLORS = {
+  purple: "#7E49FF",
+  white: "#FFFFFF",
+  lightPurple: "#ECE8FF",
+  slate: "#020617",
+  gray: "#E2E8F0",
+  black: "#111",
+};
+
+// Base styles for common layout properties
 const BaseStyle = StyleSheet.create({
   wrapper: {
     justifyContent: "center",
@@ -20,84 +30,46 @@ const BaseStyle = StyleSheet.create({
   },
 });
 
-const standard = StyleSheet.create({
-  wrapper: {
-    ...BaseStyle.wrapper,
-    // backgroundColor: "#ECE8FF",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-    
-    borderWidth: 1,
-    borderColor: "#000000",
-    width: '100%',
-  },
-
-  title: {
-    ...BaseStyle.title,
-    color: "#FFFFFF",
-  },
-  dot: {
-    ...BaseStyle.dot,
-    backgroundColor: "#ffffff",
-  },
-});
-
-const secondary = StyleSheet.create({
-  wrapper: {
-    ...BaseStyle.wrapper,
-    backgroundColor: "#ECE8FF",
-  },
-  title: {
-    ...BaseStyle.title,
-    color: "#7E49FF",
-  },
-  dot: {
-    ...BaseStyle.dot,
-    backgroundColor: "#7E49FF",
-  },
-});
-
-const light = StyleSheet.create({
-  wrapper: {
-    ...BaseStyle.wrapper,
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    backgroundColor: "#FFFFFF",
-  },
-  title: {
-    ...BaseStyle.title,
-    color: "#020617",
-  },
-  dot: {
-    ...BaseStyle.dot,
-    backgroundColor: "#020617",
-  },
-});
-
-const offlight = StyleSheet.create({
-  wrapper: {
-    ...BaseStyle.wrapper,
-  },
-  title: {
-    ...BaseStyle.title,
-    color: "#7E49FF",
-    fontSize: 14,
-    textDecorationLine: "underline",
-  },
-  dot: {
-    ...BaseStyle.dot,
-    backgroundColor: "#7E49FF",
-  },
-});
-
 const styles = {
-  standard,
-  secondary,
-  light,
-  offlight,
+  standard: StyleSheet.create({
+    wrapper: {
+      ...BaseStyle.wrapper,
+      shadowColor: COLORS.black,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 5,
+      
+      borderWidth: 2,
+      borderColor: COLORS.black,
+    },
+    title: {
+      ...BaseStyle.title,
+      color: COLORS.white,
+    },
+    dot: {
+      ...BaseStyle.dot,
+      backgroundColor: COLORS.white,
+    },
+  }),
+  secondary: StyleSheet.create({
+    wrapper: {
+      ...BaseStyle.wrapper,
+      backgroundColor: COLORS.gray,
+      
+      borderWidth: 1,
+      borderColor: COLORS.black,
+    },
+    title: {
+      ...BaseStyle.title,
+      color: COLORS.black,
+    },
+    dot: {
+      ...BaseStyle.dot,
+      backgroundColor: COLORS.purple,
+    },
+  }),
+
 };
 
 const sizes = {
@@ -114,4 +86,3 @@ const radiusList = {
 };
 
 export { styles, sizes, radiusList };
-

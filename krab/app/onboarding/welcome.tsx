@@ -27,18 +27,17 @@ const WelcomeScreen = () => {
     
 
       <View style={styles.buttonSection}>
-        <Button2
+        {/* <Button2
           size="secondary"
           onPress={() => router.push("/onboarding/introStep1")}
         >
           <Text style={styles.buttonText}>Next</Text>
-        </Button2>
+        </Button2> */}
 
         <ButtonF
-          size="offlight"
+          title="Next"
           onPress={() => router.push("/onboarding/introStep1")}
         >
-          <Text style={styles.buttonText}>Next</Text>
         </ButtonF>
       </View>
     </SafeAreaView>

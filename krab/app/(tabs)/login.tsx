@@ -40,10 +40,10 @@ const LoginScreen = () => {
   const router = useRouter();
 
   const handleContinue = () => {
-    if (!phoneNumber) {
-      Alert.alert('Error', 'Please enter your phone number');
-      return;
-    }
+    // if (!phoneNumber) {
+    //   Alert.alert('Error', 'Please enter your phone number');
+    //   return;
+    // }
     router.push('/privacy');
   };
 
@@ -71,21 +71,21 @@ const LoginScreen = () => {
             inputValue={phoneNumber}
             onChangeText={setPhoneNumber}
             // keyboardType="phone-pad"
-            containerStyles={styles.inputField}
+            // containerStyles={styles.inputField}
           />
         </View>
 
-        <Button2
+        {/* <Button2
           // containerStyles={styles.continueButton}
           onPress={handleContinue}
         >
           <Text style={styles.continueButtonText}>Continue</Text>
-        </Button2>
+        </Button2> */}
 
         <ButtonF
           onPress={handleContinue}
-        >
-          <Text style={styles.continueButtonText}>Continue1</Text>
+          title='Continue2'
+        >         
         </ButtonF>
 
         <View style={styles.divider}>
@@ -185,10 +185,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   continueButton: {
-    width: '100%',
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    paddingVertical: 14,
+    // width: '100%',
+    // backgroundColor: '#007AFF',
+    // borderRadius: 8,
+    // paddingVertical: 14,
   },
   continueButtonText: {
     color: '#fff',
