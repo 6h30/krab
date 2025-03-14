@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useRouter } from 'expo-router';
+import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
+import Safety from "@/assets/svgs/bookingFlowSvgs/shield.svg";
+import Share from "@/assets/svgs/bookingFlowSvgs/share.svg";
+import Call from "@/assets/svgs/bookingFlowSvgs/phoneCall.svg";
 
 // Constants
 const driver_avt = require("@/assets/images/krab-go.png");
@@ -24,7 +28,7 @@ const RideDetailScreen = () => {
 
   const handleMessage = () => {
     router.push('/bookingFlow/chatS');
-    
+
   };
 
   return (
@@ -39,8 +43,8 @@ const RideDetailScreen = () => {
           <View style={styles.driverInfo}>
             <Image style={styles.driverImage} source={driver_avt} />
             <View style={styles.driverDetails}>
-              <Text style={styles.driverName}>KA15AK00-0</Text>
-              <Text style={styles.driverFullName}>Santh</Text>
+              <Text style={styles.driverName}>51L-12345</Text>
+              <Text style={styles.driverFullName}>4 seats</Text>
               <Text style={styles.carInfo}>White Suzuki S-Presso XL</Text>
               <Text style={styles.rating}>4.9 ★</Text>
             </View>
@@ -48,11 +52,12 @@ const RideDetailScreen = () => {
 
           <View style={styles.locationContainer}>
             <View style={styles.locationRow}>
-              <Text style={styles.locationIcon}>📍</Text>
+              {/* <Text style={styles.locationIcon}>📍</Text> */}
+              <HomePoint style={styles.locationIcon} width={28} height={28} />
               <View>
-                <Text style={styles.locationText}>562/11-A</Text>
+                <Text style={styles.locationText}>487/47</Text>
                 <Text style={styles.locationDetails}>
-                  Kaikondrahalli, Bengaluru, Karnataka
+                  Vo Thi Nho street, District 7, HCM city
                 </Text>
               </View>
             </View>
@@ -60,15 +65,18 @@ const RideDetailScreen = () => {
 
           <View style={styles.actionContainer}>
             <TouchableOpacity style={styles.actionButton} onPress={handleSafety}>
-              <FontAwesome name="shield" size={24} color="#007AFF" />
+              {/* <FontAwesome name="shield" size={24} color="#007AFF" /> */}
+              <Safety style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Safety</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.actionButton} onPress={handleShareTrip}>
-              <FontAwesome name="share-alt" size={24} color="#007AFF" />
+              {/* <FontAwesome name="share-alt" size={24} color="#007AFF" /> */}
+              <Share style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Share</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.actionButton} onPress={handleCallDriver}>
-              <FontAwesome name="phone" size={24} color="#007AFF" />
+              {/* <FontAwesome name="phone" size={24} color="#007AFF" /> */}
+              <Call style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Call</Text>
             </TouchableOpacity>
           </View>
@@ -118,12 +126,15 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 8,
     marginBottom: 20,
+    borderWidth: 1,
+
   },
   driverImage: {
     width: 80,
     height: 80,
     borderRadius: 40,
     marginRight: 12,
+    borderWidth: 1,
   },
   driverDetails: {
     flex: 1,
@@ -154,6 +165,8 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: '#f5f5f5',
     borderRadius: 8,
+
+    borderWidth: 1,
   },
   locationRow: {
     flexDirection: 'row',
@@ -185,6 +198,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
+    borderWidth: 1,
   },
   actionButtonText: {
     fontSize: 14,
@@ -197,6 +211,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
+    borderWidth: 1,
   },
   messageButtonText: {
     fontSize: 16,

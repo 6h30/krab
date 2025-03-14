@@ -11,7 +11,7 @@ import { styles, sizes, radiusList } from "./styles";
 type ButtonFProps = {
   children?: React.ReactNode;
   title?: string;
-  theme?: "standard" | "secondary" | "light" | "offlight";
+  theme?: "standard" | "secondary" ;
   size?: "standard" | "secondary" | "light" | "offlight";
   radius?: "standard" | "full" | "none";
   leftIcon?: React.FC<{ color: string }>;

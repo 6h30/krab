@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import Button2 from "@/components/Button/index";
+import ButtonF from "@/components/stylesFunny/ButtonF";
 
 interface Slide {
   image: any;
@@ -120,11 +121,20 @@ const WelcomeScreen = () => {
 
       {/* Fixed Bottom Section: Button (20%) */}
       <View style={styles.buttonSection}>
-        <Button2 size="secondary" onPress={scrollToNext}>
+        {/* <Button2 size="secondary" onPress={scrollToNext}>
           <Text style={styles.buttonText}>
             {currentStep === slides.length - 1 ? "Get Started" : "Next"}
           </Text>
-        </Button2>
+        </Button2> */}
+
+        <ButtonF
+          title="N"
+          onPress={scrollToNext}
+        >
+          <Text style={styles.buttonText}>
+            {currentStep === slides.length - 1 ? "Get Started" : "Next"}
+          </Text>
+        </ButtonF>
       </View>
     </SafeAreaView>
   );

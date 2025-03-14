@@ -10,6 +10,12 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import MapComponent from "@/components/MapComponent";
+import ButtonF from "@/components/stylesFunny/ButtonF";
+import { SvgProps } from "react-native-svg";
+
+import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
+import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
+import Cash from "@/assets/svgs/bookingFlowSvgs/coinCash.svg";
 
 const LookingForDriverScreen = () => {
   const router = useRouter();
@@ -39,11 +45,13 @@ const LookingForDriverScreen = () => {
 
           <View style={styles.locationContainer}>
             <View style={styles.locationRow}>
-              <Text style={styles.locationIcon}>📍</Text>
+              {/* <Text style={styles.locationIcon}>📍</Text> */}
+              <HomePoint style={styles.locationIcon} width={28} height={28} />
+
               <View>
-                <Text style={styles.locationText}>562/11-A</Text>
+                <Text style={styles.locationText}>487/47</Text>
                 <Text style={styles.locationDetails}>
-                  Kaikondrahalli, Bengaluru, Karnataka
+                  Vo Thi Nho street, District 7, HCM city
                 </Text>
               </View>
             </View>
@@ -51,12 +59,12 @@ const LookingForDriverScreen = () => {
 
           <View style={styles.locationContainer}>
             <View style={styles.locationRow}>
-              <Text style={styles.locationIcon}>📍</Text>
+              <PickPoint style={styles.locationIcon} width={28} height={28} />
+
               <View>
-                <Text style={styles.locationText}>Third Wave Coffee</Text>
+                <Text style={styles.locationText}>Soul 22 Coffee</Text>
                 <Text style={styles.locationDetails}>
-                  17th Cross Rd, PWD Quarters, 1st Sector, HSR Layout, Bengaluru,
-                  Karnataka
+                Vo Thi Nho street, District 1, HCM city
                 </Text>
               </View>
             </View>
@@ -64,15 +72,24 @@ const LookingForDriverScreen = () => {
 
           <View style={styles.priceContainer}>
             <Text style={styles.priceText}>$193.20</Text>
-            <Text style={styles.paymentMethod}>Cash</Text>
+            {/* <Text style={styles.paymentMethod}>Cash</Text> */}
+            <Cash style={styles.locationIcon} width={28} height={28} />
           </View>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.continueButton}
             onPress={handleFindRider}
           >
             <Text style={styles.continueButtonText}>Confirm Rider</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+          <ButtonF
+         onPress={handleFindRider}
+          title='Booking'
+          containerStyles={{ marginVertical: 30 }}
+        >         
+        </ButtonF>
+
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -129,6 +146,8 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: "#f5f5f5",
     borderRadius: 8,
+    borderWidth: 1,
+
   },
   locationRow: {
     flexDirection: "row",
@@ -157,6 +176,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     borderRadius: 8,
     marginBottom: 20,
+    borderWidth: 1,
   },
   priceText: {
     fontSize: 20,
