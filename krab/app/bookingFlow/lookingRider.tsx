@@ -64,7 +64,7 @@ const LookingForDriverScreen = () => {
               <View>
                 <Text style={styles.locationText}>Soul 22 Coffee</Text>
                 <Text style={styles.locationDetails}>
-                Vo Thi Nho street, District 1, HCM city
+                  Vo Thi Nho street, District 1, HCM city
                 </Text>
               </View>
             </View>
@@ -84,12 +84,11 @@ const LookingForDriverScreen = () => {
           </TouchableOpacity> */}
 
           <ButtonF
-         onPress={handleFindRider}
-          title='Booking'
-          containerStyles={{ marginVertical: 30 }}
-        >         
-        </ButtonF>
-
+            bgColor="#58d8e5"
+            onPress={handleFindRider}
+            title="Booking"
+            containerStyles={{ marginVertical: 30 }}
+          ></ButtonF>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -147,7 +146,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
     borderRadius: 8,
     borderWidth: 1,
-
   },
   locationRow: {
     flexDirection: "row",

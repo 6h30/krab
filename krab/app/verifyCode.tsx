@@ -62,8 +62,11 @@ const VerifyCodeScreen = () => {
 
         <ButtonF
           // onPress={handleContinue}
-          onPress={() => router.push('/bookingFlow/searchLocation')}
-          title='Continue2'
+          bgColor='#66E1FF'
+          theme='secondary'
+          // onPress={() => router.push('/bookingFlow/searchLocation')}
+          onPress={() => router.push('/bookingFlow/move/moveScreen')}
+          title='Next'
         >         
         </ButtonF>
       </View>

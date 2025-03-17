@@ -154,6 +154,7 @@ const ChoiceCarScreen = () => {
 
       <ButtonF
           // onPress={handleContinue}
+          bgColor="#58d8e5"
           onPress={handleLookingRider}
           title='Confirm Car and Look'
           containerStyles={{ marginVertical: 30 }}

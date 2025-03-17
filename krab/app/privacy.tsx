@@ -7,6 +7,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useRouter } from "expo-router";
+import ButtonF from "@/components/stylesFunny/ButtonF";
 
 const TermsScreen = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -53,7 +54,7 @@ const TermsScreen = () => {
             <Text style={styles.backButtonText}>← Back</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[
               styles.nextButton,
               isChecked ? styles.nextButtonActive : styles.nextButtonDisabled,
@@ -68,8 +69,16 @@ const TermsScreen = () => {
               ]}
             >
               Next →
-            </Text>
-          </TouchableOpacity>
+            </Text>           
+          </TouchableOpacity> */}
+
+          <ButtonF
+           onPress={handleNext}
+           disabled={!isChecked}
+          // onPress={() => router.push('/bookingFlow/searchLocation')}
+          title='Next'
+        >         
+        </ButtonF>
         </View>
       </View>
     </SafeAreaView>

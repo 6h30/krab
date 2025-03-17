@@ -6,18 +6,20 @@ import {
   GestureResponderEvent,
 } from "react-native";
 
-import { styles, sizes, radiusList } from "./styles";
+import { styles, sizes, radiusList, getDynamicStyles } from "./styles";
 
 type ButtonFProps = {
   children?: React.ReactNode;
   title?: string;
-  theme?: "standard" | "secondary" ;
-  size?: "standard" | "secondary" | "light" | "offlight";
-  radius?: "standard" | "full" | "none";
+  theme?: "standard" | "secondary" | "st_mini";
+  size?: "standard" | "secondary" | "light" | "offlight" | "mini" | "none";
+  radius?: "standard" | "full" | "mini" | "none";
   leftIcon?: React.FC<{ color: string }>;
   rightIcon?: React.FC<{ color: string }>;
   containerStyles?: object;
   disabled?: boolean;
+  textColor?: string;
+  bgColor?: string;
   onPress?: (event: GestureResponderEvent) => void;
   onPressIn?: (event: GestureResponderEvent) => void;
   onPressOut?: (event: GestureResponderEvent) => void;
@@ -36,6 +38,8 @@ const ButtonF: React.FC<ButtonFProps> = ({
   rightIcon: RightIcon = null,
   containerStyles = {},
   disabled = false,
+  textColor,
+  bgColor,
   onPress,
   onPressIn,
   onPressOut,
@@ -43,25 +47,17 @@ const ButtonF: React.FC<ButtonFProps> = ({
   stopPropagation = false,
   ...props
 }) => {
-  const style = styles[theme] || styles.standard;
+  const defaultStyle = styles[theme] || styles.standard;
   const padding = sizes[size] || sizes.standard;
   const borderRadius = radiusList[radius] || radiusList.standard;
-  const colorList = {
-    standard: "#FFFFFF",
-    secondary: "#7E49FF",
-    light: "#000000",
-    offlight: "#7E49FF",
-  };
+  
+  const defaultTextColor = defaultStyle?.title?.color || "#000000";
+  const defaultBgColor = defaultStyle?.wrapper?.backgroundColor || "#FFFFFF";
 
-  const backgroundColors = {
-    standard: "#30cbed",
-    secondary: "#FFFFFF",
-    light: "#FFFFFF",
-    offlight: "#FFFFFF",
-  };
-
-  const iconColor = colorList[theme];
-  const buttonBackground = disabled ? "#999999" : backgroundColors[theme];
+  const dynamicStyle = getDynamicStyles(
+    textColor || defaultTextColor,
+    disabled ? "#999999" : bgColor || defaultBgColor
+  );
 
   const handleEvent = (
     event: GestureResponderEvent,
@@ -83,13 +79,13 @@ const ButtonF: React.FC<ButtonFProps> = ({
         <>
           {Icon && (
             <View style={{ marginRight: 8 }}>
-              <Icon color={iconColor} />
+              <Icon color={textColor || defaultTextColor} />
             </View>
           )}
-          {title && <Text style={style.title}>{title}</Text>}
+          {title && <Text style={dynamicStyle.title}>{title}</Text>}
           {RightIcon && (
             <View style={{ marginLeft: 8 }}>
-              <RightIcon color={iconColor} />
+              <RightIcon color={textColor || defaultTextColor} />
             </View>
           )}
         </>
@@ -98,10 +94,9 @@ const ButtonF: React.FC<ButtonFProps> = ({
   );
 
   const buttonStyle = {
-    ...style.wrapper,
+    ...dynamicStyle.wrapper,
     padding,
     borderRadius,
-    backgroundColor: buttonBackground,
   };
 
   return (

@@ -23,9 +23,9 @@ interface Slide {
     | "/onboarding/introStep3"
     | "/onboarding/welcome";
 }
-const Step1Image = require("@/assets/images/step1.png");
-const Step2Image = require("@/assets/images/step2.png");
-const Step3Image = require("@/assets/images/step3.png");
+const Step1Image = require("@/assets/images/onBoarding/step1.png");
+const Step2Image = require("@/assets/images/onBoarding/step2.png");
+const Step3Image = require("@/assets/images/onBoarding/step3.png");
 
 const WelcomeScreen = () => {
   const router = useRouter();
@@ -44,7 +44,7 @@ const WelcomeScreen = () => {
       nextRoute: "/onboarding/introStep3",
     },
     {
-      image: Step3Image, 
+      image: Step3Image,
       title: "Book your ride in just a few taps!",
       nextRoute: "/onboarding/welcome",
     },
@@ -76,7 +76,13 @@ const WelcomeScreen = () => {
     } else {
       router.push(slides[currentStep].nextRoute);
     }
-  } , [router]);
+  }, [router]);
+
+  const getButtonColor = (step: number) => {
+    if (step === 0) return "#54b1f7"; // Màu cho bước đầu tiên
+    if (step === 1) return "#12d488"; // Màu cho bước giữa
+    return "#9353d1"; // Màu cho bước cuối cùng
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,10 +133,16 @@ const WelcomeScreen = () => {
           </Text>
         </Button2> */}
 
-        <ButtonF
+        {/* <ButtonF
+          bgColor={currentStep === slides.length - 1 ? "#ff9900" : "#54b1f7"}
           title="N"
           onPress={scrollToNext}
         >
+          <Text style={styles.buttonText}>
+            {currentStep === slides.length - 1 ? "Get Started" : "Next"}
+          </Text>
+        </ButtonF> */}
+        <ButtonF bgColor={getButtonColor(currentStep)} onPress={scrollToNext}>
           <Text style={styles.buttonText}>
             {currentStep === slides.length - 1 ? "Get Started" : "Next"}
           </Text>

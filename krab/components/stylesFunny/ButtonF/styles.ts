@@ -5,11 +5,11 @@ const COLORS = {
   white: "#FFFFFF",
   lightPurple: "#ECE8FF",
   slate: "#020617",
+  green: "#8fce00",
   gray: "#E2E8F0",
-  black: "#111",
+  black: "#333",
 };
 
-// Base styles for common layout properties
 const BaseStyle = StyleSheet.create({
   wrapper: {
     justifyContent: "center",
@@ -30,17 +30,36 @@ const BaseStyle = StyleSheet.create({
   },
 });
 
+const getDynamicStyles = (color = COLORS.white, backgroundColor = COLORS.gray, dotColor = COLORS.purple) =>
+  StyleSheet.create({
+    wrapper: {
+      ...BaseStyle.wrapper,
+      backgroundColor: backgroundColor,
+      borderWidth: 1,
+      borderColor: COLORS.black,
+    },
+    title: {
+      ...BaseStyle.title,
+      color: color,
+    },
+    dot: {
+      ...BaseStyle.dot,
+      backgroundColor: dotColor,
+    },
+  });
+
 const styles = {
   standard: StyleSheet.create({
     wrapper: {
       ...BaseStyle.wrapper,
+      backgroundColor: "#FFFFFF", // Thêm dòng này
       shadowColor: COLORS.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.2,
       shadowRadius: 4,
       elevation: 5,
       
-      borderWidth: 2,
+      borderWidth: 1.5,
       borderColor: COLORS.black,
     },
     title: {
@@ -70,6 +89,24 @@ const styles = {
     },
   }),
 
+  st_mini: StyleSheet.create({
+    wrapper: {
+      ...BaseStyle.wrapper,
+      backgroundColor: COLORS.gray,
+      
+      borderWidth: 1,
+      borderColor: COLORS.black,
+    },
+    title: {
+      ...BaseStyle.title,
+      color: COLORS.black,
+    },
+    dot: {
+      ...BaseStyle.dot,
+      backgroundColor: COLORS.purple,
+    },
+  }),
+
 };
 
 const sizes = {
@@ -77,12 +114,15 @@ const sizes = {
   secondary: 12,
   light: 8,
   offlight: 4,
+  mini: 8,
+  none: 0,
 };
 
 const radiusList = {
   standard: 12,
   full: 9999,
+  mini: 8,
   none: 0,
 };
 
-export { styles, sizes, radiusList };
+export { styles, sizes, radiusList, getDynamicStyles };

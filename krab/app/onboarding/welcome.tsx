@@ -7,24 +7,23 @@ import ButtonF from "@/components/stylesFunny/ButtonF";
 const WelcomeScreen = () => {
   const router = useRouter();
   // const krabGoImage = require("@/assets/images/krab-go.png");
-  const WelcomeImage = require("@/assets/images/welcomeKrab.jpg");
+  const WelcomeImage = require("@/assets/images/onBoarding/welcome.png");
   // const Step1Image = require("@/assets/images/step1.png");
   // const Step2Image = require("@/assets/images/step2.png");
   // const Step3Image = require("@/assets/images/step3.png");
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.scrollSection}>
-              <View style={styles.imageSection}>
-        <Image style={styles.welcomeImage} source={WelcomeImage} />
-      </View>
-
-      <View style={styles.textSection}>
-        <Text style={styles.title}>Welcome to Krab</Text>
-        {/* Pagination Dots */}
-      </View>
+      <View style={styles.scrollSection}>
+        <View style={styles.imageSection}>
+          <Image style={styles.welcomeImage} source={WelcomeImage} />
         </View>
-    
+
+        <View style={styles.textSection}>
+          <Text style={styles.title}>Welcome to Krab</Text>
+          {/* Pagination Dots */}
+        </View>
+      </View>
 
       <View style={styles.buttonSection}>
         {/* <Button2
@@ -35,10 +34,10 @@ const WelcomeScreen = () => {
         </Button2> */}
 
         <ButtonF
+          bgColor="#62e1af"
           title="Next"
           onPress={() => router.push("/onboarding/introStep1")}
-        >
-        </ButtonF>
+        ></ButtonF>
       </View>
     </SafeAreaView>
   );

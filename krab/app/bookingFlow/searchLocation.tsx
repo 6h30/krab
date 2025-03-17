@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
 import MapComponent from "@/components/MapComponent";
@@ -36,8 +43,8 @@ const SearchLocationScreen = () => {
               placeholderTextColor="#999"
             /> */}
 
-            <HomePoint style={styles.icon} width={28} height={28} />
-            
+            {/* <HomePoint style={styles.icon} width={28} height={28} /> */}
+
             <InputFieldF
               theme="secondary"
               size="secondary"
@@ -47,7 +54,6 @@ const SearchLocationScreen = () => {
               onChangeText={(text) => console.log(text)}
             />
           </View>
-
 
           <View style={styles.inputContainer}>
             {/* <Icon name="map-marker" size={20} color="#666" style={styles.icon} /> */}
@@ -95,10 +101,10 @@ const SearchLocationScreen = () => {
           </TouchableOpacity> */}
 
           <ButtonF
+            bgColor="#58d8e5"
             onPress={handleChoiceCar}
-            title='Continue'
-          >
-          </ButtonF>
+            title="Continue"
+          ></ButtonF>
         </View>
       </View>
     </SafeAreaView>
@@ -108,24 +114,24 @@ const SearchLocationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   mapContainer: {
     flex: 1,
-    backgroundColor: '#eee',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#eee",
+    justifyContent: "center",
+    alignItems: "center",
   },
   mapPlaceholder: {
-    color: '#666',
+    color: "#666",
     fontSize: 16,
   },
   bottomContainer: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 10,
     elevation: 5,
@@ -133,22 +139,22 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
     marginBottom: 20,
   },
   inputSection: {
-    width: '100%',
+    width: "100%",
     gap: 10,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     // backgroundColor: '#f5f5f5',
     borderWidth: 1,
     borderRadius: 8,
@@ -162,21 +168,21 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#333',
-    height: '100%',
+    color: "#333",
+    height: "100%",
   },
   button: {
-    width: '100%',
-    backgroundColor: '#007AFF',
+    width: "100%",
+    backgroundColor: "#007AFF",
     paddingVertical: 14,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
