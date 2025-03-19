@@ -12,6 +12,7 @@ interface InputField2Props {
   inputValue?: string;
   label?: string;
   onChangeText?: (text: string) => void;
+  keyboardType?: string;
   theme?: keyof typeof themeStyles;
   size?: keyof typeof sizes;
   radius?: keyof typeof radiusList;

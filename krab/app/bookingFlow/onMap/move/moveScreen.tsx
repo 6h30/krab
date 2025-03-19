@@ -18,7 +18,6 @@ import {
   advanceBookings,
 } from "@/data/MockData";
 
-
 const RideBookingScreen = () => {
   const [destination, setDestination] = useState("");
   const [isSticky, setIsSticky] = useState(false);

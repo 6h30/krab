@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MapIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mapIcon.svg";
+import { router } from "expo-router";
 
 const Header = () => {
   return (
@@ -11,7 +12,10 @@ const Header = () => {
       </TouchableOpacity>
       <Text style={styles.headerTitle}>Transport</Text>
 
-      <TouchableOpacity style={styles.headerRight}>
+      <TouchableOpacity
+        style={styles.headerRight}
+        onPress={() => router.push("/bookingFlow/onMap/onDestinationScreen")}
+      >
         <Text style={{ fontSize: 12, color: "#000" }}>Map</Text>
 
         {/* <Icon name="map" size={24} color="#000" /> */}
@@ -35,7 +39,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    
   },
   headerTitle: {
     fontSize: 18,

@@ -98,9 +98,9 @@ const PickScreen: React.FC = () => {
         </View>
 
         <View style={styles.section3}>
-          <TouchableOpacity  onPress={() =>
-              router.push("/bookingFlow/pickLocation/addLocation")
-            }>
+          <TouchableOpacity
+            onPress={() => router.push("/bookingFlow/pickLocation/addLocation")}
+          >
             <AddCirle width={24} height={24} />
           </TouchableOpacity>
         </View>
@@ -135,7 +135,10 @@ const PickScreen: React.FC = () => {
           </Text>
           <Icon name="chevron-right" size={20} color="#666" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.chooseButton}>
+        <TouchableOpacity
+          style={styles.chooseButton}
+          onPress={() => router.push("/bookingFlow/onMap/onDestinationScreen")}
+        >
           <MapIcon width={20} height={20} />
           <Text style={styles.chooseButtonText}>Choose on KrabMaps</Text>
         </TouchableOpacity>
@@ -152,10 +155,10 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
   },
-  section1: { 
+  section1: {
     // flex: 1,
     width: 30,
-   },
+  },
   section2: {
     flex: 9,
     flexDirection: "row",

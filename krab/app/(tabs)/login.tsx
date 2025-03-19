@@ -70,8 +70,8 @@ const LoginScreen = () => {
             label="Phone Number"
             inputValue={phoneNumber}
             onChangeText={setPhoneNumber}
-            // keyboardType="phone-pad"
-            // containerStyles={styles.inputField}
+            keyboardType="phone-pad"
+            containerStyles={styles.inputField}
           />
         </View>
 

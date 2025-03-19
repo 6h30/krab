@@ -11,7 +11,7 @@ export const suggestions: Suggestion[] = [
 ];
 
 export const offers: Offer[] = [
-  { id: '1', title: 'DucBa Basilica', discount: '20% Off', image: require('@/assets/svgs/bookingFlowSvgs/krabHotSpot/ntdb.png') },
+  { id: '1', title: 'DucBa Church', discount: '20% Off', image: require('@/assets/svgs/bookingFlowSvgs/krabHotSpot/ntdb.png') },
   { id: '2', title: 'Ben Thanh Market', discount: '15% Off', image: require('@/assets/svgs/bookingFlowSvgs/krabHotSpot/cbt.png') },
   { id: '3', title: 'SG Opera House', discount: '20% Off', image: require('@/assets/svgs/bookingFlowSvgs/krabHotSpot/nhtp.png') },
   { id: '4', title: 'Dragon Wharf', discount: '20% Off', image: require('@/assets/svgs/bookingFlowSvgs/krabHotSpot/bnr.png') },
