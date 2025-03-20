@@ -46,7 +46,7 @@ const OnDestinationScreen: React.FC = () => {
 
   const [text, setText] = useState(""); // State lưu nội dung nhập
   const maxChars = 150; // Số ký tự tối đa
-  const charsLeft = maxChars - text.length; // Số ký tự còn lại
+  // const charsLeft = maxChars - text.length;
 
   const renderRecentItem = ({ item }: { item: Location }) => (
     <TouchableOpacity style={styles.locationItem}>
@@ -144,19 +144,18 @@ const OnDestinationScreen: React.FC = () => {
     }).start(() => setIsModalVisible(false));
   };
 
-  
-// Kết hợp animation trượt modal và chiều cao bàn phím
-const modalTranslateY = Animated.add(
-  slideAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [300, 0], // Trượt từ dưới lên
-  }),
-  keyboardHeight.interpolate({
-    inputRange: [0, 500], // Giả sử chiều cao bàn phím tối đa là 500
-    outputRange: [0, -500], // Di chuyển modal lên khi bàn phím xuất hiện
-    extrapolate: 'clamp',
-  })
-);
+  // Kết hợp animation trượt modal và chiều cao bàn phím
+  const modalTranslateY = Animated.add(
+    slideAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [300, 0], // Trượt từ dưới lên
+    }),
+    keyboardHeight.interpolate({
+      inputRange: [0, 500], // Giả sử chiều cao bàn phím tối đa là 500
+      outputRange: [0, -500], // Di chuyển modal lên khi bàn phím xuất hiện
+      extrapolate: "clamp",
+    })
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -192,7 +191,7 @@ const modalTranslateY = Animated.add(
             alignSelf: "flex-end",
             position: "absolute",
             right: 10,
-            top: -80,
+            top: -90,
             borderWidth: 1,
             borderColor: "#bcbbc1",
             borderRadius: 8,
@@ -200,12 +199,15 @@ const modalTranslateY = Animated.add(
             backgroundColor: "#fff",
           }}
         >
-          <TouchableOpacity style={{ marginBottom: 8 }}>
-            <LikeChat width={24} height={24} />
+          <TouchableOpacity
+            style={{ marginBottom: 8 }}
+            onPress={() => router.push("/bookingFlow/onMap/placeChat")}
+          >
+            <LikeChat width={28} height={28} />
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <CursorTaget width={24} height={24} />
+            <CursorTaget width={28} height={28} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -235,6 +237,7 @@ const modalTranslateY = Animated.add(
           title="Choose this pickup"
           // style={styles.chooseButton}
           // textStyle={styles.chooseButtonText}
+          onPress={() => router.push("/bookingFlow/choiceCar/selectCar")}
         />
       </View>
 
@@ -254,6 +257,8 @@ const modalTranslateY = Animated.add(
               multiline
               maxLength={maxChars}
               value={text}
+              // onChangeText={setText} // Viết gọn
+              onChangeText={(value) => setText(value)}
             />
             <Text style={{ marginBottom: 10 }}>
               {text.length} / {maxChars} characters

@@ -92,7 +92,9 @@ const OnDestinationScreen: React.FC = () => {
 
       <View style={styles.searchBar}>
         <View style={styles.section1}>
-          <TouchableOpacity style={{ borderWidth: 1, padding: 5, borderRadius: 5 }}>
+          <TouchableOpacity
+            style={{ borderWidth: 1, padding: 5, borderRadius: 5 }}
+          >
             <Icon name="arrow-back" size={24} color="#000" />
           </TouchableOpacity>
         </View>
@@ -118,7 +120,7 @@ const OnDestinationScreen: React.FC = () => {
             alignSelf: "flex-end",
             position: "absolute",
             right: 10,
-            top: -80,
+            top: -90,
             borderWidth: 1,
             borderColor: "#bcbbc1",
             borderRadius: 8,
@@ -126,12 +128,15 @@ const OnDestinationScreen: React.FC = () => {
             backgroundColor: "#fff",
           }}
         >
-          <TouchableOpacity style={{ marginBottom: 8 }}>
-            <LikeChat width={24} height={24} />
+          <TouchableOpacity
+            style={{ marginBottom: 8 }}
+            onPress={() => router.push("/bookingFlow/onMap/placeChat")}
+          >
+            <LikeChat width={28} height={28} />
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <CursorTaget width={24} height={24} />
+            <CursorTaget width={28} height={28} />
           </TouchableOpacity>
         </View>
         <FlatList
@@ -147,7 +152,7 @@ const OnDestinationScreen: React.FC = () => {
           bgColor="#66E1FF"
           textColor="#333"
           title="Choose this Destination"
-          onPress={() => router.push('/bookingFlow/onMap/onPickUpScreen')}
+          onPress={() => router.push("/bookingFlow/onMap/onPickUpScreen")}
           // style={styles.chooseButton}
           // textStyle={styles.chooseButtonText}
         />
