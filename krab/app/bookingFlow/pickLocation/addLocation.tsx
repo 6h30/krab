@@ -19,8 +19,13 @@ import TabMenu from "./menuTab";
 import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
 import DeleteCirle from "@/assets/svgs/bookingFlowSvgs/preBook/deleteCircle.svg";
 import ButtonF from "@/components/stylesFunny/ButtonF";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
+import { useRouter } from "expo-router";
 
 const AddLocationScreen: React.FC = () => {
+    const router = useRouter();
   const [searchText, setSearchText] = useState<string>("");
   const [activeTab, setActiveTab] = useState("recent");
   const [stopCount, setStopCount] = useState(2);
@@ -204,12 +209,13 @@ const AddLocationScreen: React.FC = () => {
       {/* <TabMenu tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} /> */}
 
       <View style={styles.footer}>
-        <ButtonF
+      <ButtonF
           bgColor="#66E1FF"
           textColor="#333"
           title="Done"
-          // style={styles.chooseButton}
-          // textStyle={styles.chooseButtonText}
+          size="secondary"
+          radius="mini"
+          onPress={() => router.push("/bookingFlow/pickLocation/pickScreen")}
         />
       </View>
     </SafeAreaView>
@@ -222,78 +228,36 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
+    ...pickScreenStyles.searchBar,
+    paddingVertical: spacing[14],
   },
   section1: {
     width: 30,
   },
   section2: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    gap: 10,
+    ...pickScreenStyles.section2,
   },
   section2_noborder: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    gap: 10,
+   ...pickScreenStyles.section2_noborder,
   },
   section3: {
     width: 60,
     alignItems: "center",
   },
   searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    paddingHorizontal: 5,
+   ...pickScreenStyles.searchInput,
   },
   currentLocationText: {
-    marginLeft: 5,
     fontSize: 16,
-    color: "#000",
+    color: colors.textPrimary,
   },
   locationListContainer: {
     flex: 1,
     paddingHorizontal: 10,
     paddingTop: 10,
   },
-  groupContainer: {
-    marginBottom: 15,
-  },
-  groupTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 5,
-  },
-  locationItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
-  locationName: {
-    fontSize: 16,
-    color: "#000",
-  },
-
   footer: {
-    padding: 10,
-    borderTopWidth: 1,
-    borderTopColor: "#f0f0f0",
-    width: "90%",
-    alignSelf: "center",
-    position: "absolute",
-    bottom: 2,
+    ...pickScreenStyles.footer__absolute,
   },
 });
 

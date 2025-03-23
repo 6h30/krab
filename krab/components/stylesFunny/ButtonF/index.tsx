@@ -13,7 +13,7 @@ type ButtonFProps = {
   title?: string;
   theme?: "standard" | "secondary" | "st_mini";
   size?: "standard" | "secondary" | "light" | "offlight" | "mini" | "none";
-  radius?: "standard" | "full" | "mini" | "none";
+  radius?: "standard" | "secondary" | "full" | "mini" | "none";
   leftIcon?: React.FC<{ color: string }>;
   rightIcon?: React.FC<{ color: string }>;
   containerStyles?: object;
@@ -50,7 +50,7 @@ const ButtonF: React.FC<ButtonFProps> = ({
   const defaultStyle = styles[theme] || styles.standard;
   const padding = sizes[size] || sizes.standard;
   const borderRadius = radiusList[radius] || radiusList.standard;
-  
+
   const defaultTextColor = defaultStyle?.title?.color || "#000000";
   const defaultBgColor = defaultStyle?.wrapper?.backgroundColor || "#FFFFFF";
 

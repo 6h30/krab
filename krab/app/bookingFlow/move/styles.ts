@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 
   optionsSection: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
     paddingVertical: 8,
     backgroundColor: "#FFF",
     // borderWidth: 1,

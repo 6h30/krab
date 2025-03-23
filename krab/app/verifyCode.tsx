@@ -1,22 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Modal, SafeAreaView } from 'react-native';
-import { useRouter } from 'expo-router';
-import ButtonF from '@/components/stylesFunny/ButtonF';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+} from "react-native";
+import { useRouter } from "expo-router"; // Assuming you're using Expo Router
+import ButtonF from "@/components/stylesFunny/ButtonF";
+import { colors } from "@/theme/colors";
+import { commonStyles, screenStyles } from "@/theme/styles";
+import { spacing } from "@/theme/spacing";
 
 const VerifyCodeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
-  const [codeActive, setCodeActive] = useState(true); // Bật bộ đếm ngay từ đầu
-  const [timer, setTimer] = useState(60); // Đếm ngược từ 60
+  const [codeActive, setCodeActive] = useState(true);
+  const [timer, setTimer] = useState(60);
+  const [code, setCode] = useState<string[]>(Array(4).fill(""));
+
+  // Create refs for each TextInput
+  const inputRefs = useRef<(TextInput | null)[]>([]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (codeActive && timer > 0) {
       interval = setInterval(() => {
-        setTimer(prev => prev - 1);
+        setTimer((prev) => prev - 1);
       }, 1000);
     } else if (timer === 0) {
-      setCodeActive(false); // Tắt bộ đếm khi về 0
+      setCodeActive(false);
     }
     return () => clearInterval(interval);
   }, [codeActive, timer]);
@@ -24,52 +39,83 @@ const VerifyCodeScreen = () => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const handleInputChange = (text: string, index: number) => {
+    const newCode = [...code];
+    newCode[index] = text;
+    setCode(newCode);
+
+    // Move focus to the next input if text is entered and not the last input
+    if (text && index < 3) {
+      inputRefs.current[index + 1]?.focus();
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header Section */}
       <View style={styles.header}>
-        <Text style={styles.title}>Verify Your Number</Text>
-        <Text style={styles.subtitle}>Enter the 4-digit code sent to you</Text>
-        <Text style={styles.phoneNumber}>0868680111</Text>
+        <Text style={styles.header__title}>Verify Your Number</Text>
+        <Text style={styles.header__subtitle}>
+          Enter the 4-digit code sent to you
+        </Text>
+        <Text style={styles.header__phoneNumber}>0868680111</Text>
       </View>
 
+      {/* Content Section */}
       <View style={styles.content}>
+        {/* Code Input Section */}
         <View style={styles.codeContainer}>
-          {[...Array(4)].map((_, index) => (
-            <TextInput 
-              key={index} 
-              style={styles.codeBox} 
-              maxLength={1} 
+          {code.map((value, index) => (
+            <TextInput
+              key={index}
+              ref={(ref) => (inputRefs.current[index] = ref)} // Assign ref
+              style={[
+                styles.codeBox,
+                index === 0 && value === "" && styles["codeBox--focused"], // Ví dụ trạng thái focus
+              ]}
+              maxLength={1}
               keyboardType="numeric"
               autoFocus={index === 0}
+              value={value}
+              onChangeText={(text) => handleInputChange(text, index)}
             />
           ))}
         </View>
 
-        <TouchableOpacity 
-          disabled={timer > 0} // Chỉ bật lại khi bộ đếm hết thời gian
+        {/* Resend Action */}
+        <TouchableOpacity
+          disabled={timer > 0}
           onPress={() => {
-            setTimer(20); // Reset bộ đếm
-            setCodeActive(true); // Bật lại bộ đếm
+            setTimer(20);
+            setCodeActive(true);
           }}
         >
-          <Text style={[styles.resendText, timer > 0 && { color: 'gray' }]}>
+          <Text
+            style={[
+              styles.resendText,
+              timer > 0 && styles["resendText--disabled"], 
+            ]}
+          >
             I haven't received a code ({formatTime(timer)})
           </Text>
         </TouchableOpacity>
 
+        {/* Next Button */}
         <ButtonF
-          // onPress={handleContinue}
-          bgColor='#66E1FF'
-          theme='secondary'
-          // onPress={() => router.push('/bookingFlow/searchLocation')}
-          onPress={() => router.push('/bookingFlow/move/moveScreen')}
-          title='Next'
-        >         
-        </ButtonF>
+          bgColor="#66E1FF"
+          theme="secondary"
+          onPress={() => router.push("/bookingFlow/move/moveScreen")}
+          title="Next"
+          containerStyles={{ width: "100%" }}
+        ></ButtonF>
       </View>
+
+      {/* Modal code remains unchanged */}
 
       <Modal
         animationType="slide"
@@ -77,23 +123,25 @@ const VerifyCodeScreen = () => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity 
-              style={styles.resendButton}
+        <View style={styles.modal__overlay}>
+          <View style={styles.modal__content}>
+            <TouchableOpacity
+              style={styles.modal__resendButton}
               onPress={() => {
                 setModalVisible(false);
                 setTimer(60); // Reset bộ đếm khi gửi lại mã
                 setCodeActive(true);
               }}
             >
-              <Text style={styles.resendButtonText}>Resend code by SMS</Text>
+              <Text style={styles.modal__resendButtonText}>
+                Resend code by SMS
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.cancelButton} 
+            <TouchableOpacity
+              style={styles.modal__cancelButton}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.cancelButtonText}>Cancel</Text>
+              <Text style={styles.modal__cancelButtonText}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -102,102 +150,89 @@ const VerifyCodeScreen = () => {
   );
 };
 
+// Sử dụng các biến màu trong StyleSheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.backgroundPrimary,
   },
   header: {
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    ...screenStyles.header,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+  header__title: {
+    ...screenStyles.header__title,
   },
-  subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 8,
-    marginBottom: 20,
+  header__subtitle: {
+    ...screenStyles.header__subtitle,
   },
-  phoneNumber: {
-    fontSize: 18,
-    color: '#333',
-    fontWeight: '600',
+  header__phoneNumber: {
+    ...screenStyles.header__phoneNumber,
   },
   content: {
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    marginTop: 40,
+    ...screenStyles.content,
   },
   codeContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '80%',
-    marginBottom: 30,
+    ...commonStyles.flexRow,
+    justifyContent: "space-between",
+    width: "80%",
+    marginBottom: spacing.xxl,
   },
   codeBox: {
     width: 60,
     height: 60,
     borderWidth: 1,
-    borderColor: '#111',
-    borderRadius: 8,
-    textAlign: 'center',
+    borderColor: colors.borderDark,
+    borderRadius: spacing.sm,
+    textAlign: "center",
     fontSize: 24,
-    color: '#333',
-    backgroundColor: '#f5f5f5',
+    color: colors.textPrimary,
+    backgroundColor: colors.backgroundSecondary,
+  },
+  "codeBox--focused": {
+    borderColor: colors.primary,
+    borderWidth: 2,
   },
   resendText: {
-    color: '#007AFF',
+    color: colors.primary,
     fontSize: 14,
-    marginBottom: 40,
+    marginBottom: spacing.xxxl,
   },
-  continueButton: {
-    width: '100%',
-    backgroundColor: '#007AFF',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
+  "resendText--disabled": {
+    color: colors.textDisabled,
   },
-  continueButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  modalOverlay: {
+  // Block: Modal
+  modal__overlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.backgroundOverlay,
   },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
+  modal__content: {
+    backgroundColor: colors.backgroundPrimary,
+    borderTopLeftRadius: spacing.xl, // 24
+    borderTopRightRadius: spacing.xl, // 24
+    padding: spacing[20], // 20
     width: '100%',
   },
-  resendButton: {
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 10,
+  modal__resendButton: {
+    backgroundColor: colors.backgroundSecondary,
+    paddingVertical: spacing[14], // 14
+    borderRadius: spacing.sm, // 8
+    ...commonStyles.center,
+    marginBottom: spacing.md, // 12 (thay vì 10 để đồng bộ với thang spacing)
   },
-  resendButtonText: {
+  modal__resendButtonText: {
     fontSize: 16,
-    color: '#333',
+    color: colors.textPrimary,
     fontWeight: '500',
   },
-  cancelButton: {
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
+  modal__cancelButton: {
+    paddingVertical: spacing[14], // 14
+    borderRadius: spacing.sm, // 8
+    ...commonStyles.center,
   },
-  cancelButtonText: {
+  modal__cancelButtonText: {
     fontSize: 16,
-    color: '#007AFF',
+    color: colors.primary,
     fontWeight: '500',
   },
 });

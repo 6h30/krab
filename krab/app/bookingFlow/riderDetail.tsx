@@ -1,11 +1,20 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useRouter } from 'expo-router';
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+
+import { useRouter } from "expo-router";
 import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
 import Safety from "@/assets/svgs/bookingFlowSvgs/shield.svg";
 import Share from "@/assets/svgs/bookingFlowSvgs/share.svg";
 import Call from "@/assets/svgs/bookingFlowSvgs/phoneCall.svg";
+import ButtonF from "@/components/stylesFunny/ButtonF";
 
 // Constants
 const driver_avt = require("@/assets/images/krab-go.png");
@@ -19,27 +28,35 @@ const RideDetailScreen = () => {
   };
 
   const handleShareTrip = () => {
-    router.push('/bookingFlow/shareT');
+    router.push("/bookingFlow/shareT");
   };
 
   const handleCallDriver = () => {
-    router.push('/bookingFlow/callS');
+    router.push("/bookingFlow/callS");
   };
 
   const handleMessage = () => {
-    router.push('/bookingFlow/chatS');
+    router.push("/bookingFlow/chatS");
+  };
 
+  const handleRateDriver = () => {
+    router.push("/bookingFlow/rateDriver");
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.scrollContainer}>
         <View style={styles.header}>
           <Text style={styles.title}>Meet Your Driver</Text>
-          <Text style={styles.subtitle}>At the pickup point in <Text style={styles.timeHighlight}>2 min</Text></Text>
+          <Text style={styles.subtitle}>
+            At the pickup point in{" "}
+            <Text style={styles.timeHighlight}>2 min</Text>
+          </Text>
         </View>
 
-        <View style={styles.content}>
+        <View style={styles.mapContainer}>{/* <MapComponent /> */}</View>
+
+        <View style={styles.contentContainer}>
           <View style={styles.driverInfo}>
             <Image style={styles.driverImage} source={driver_avt} />
             <View style={styles.driverDetails}>
@@ -52,7 +69,6 @@ const RideDetailScreen = () => {
 
           <View style={styles.locationContainer}>
             <View style={styles.locationRow}>
-              {/* <Text style={styles.locationIcon}>📍</Text> */}
               <HomePoint style={styles.locationIcon} width={28} height={28} />
               <View>
                 <Text style={styles.locationText}>487/47</Text>
@@ -64,70 +80,103 @@ const RideDetailScreen = () => {
           </View>
 
           <View style={styles.actionContainer}>
-            <TouchableOpacity style={styles.actionButton} onPress={handleSafety}>
-              {/* <FontAwesome name="shield" size={24} color="#007AFF" /> */}
+            <TouchableOpacity
+              style={styles.actionButton}
+              // onPress={handleSafety}
+              onPress={handleRateDriver}
+            >
               <Safety style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Safety</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={handleShareTrip}>
-              {/* <FontAwesome name="share-alt" size={24} color="#007AFF" /> */}
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={handleShareTrip}
+            >
               <Share style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Share</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton} onPress={handleCallDriver}>
-              {/* <FontAwesome name="phone" size={24} color="#007AFF" /> */}
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={handleCallDriver}
+            >
               <Call style={styles.locationIcon} width={28} height={28} />
               <Text style={styles.actionButtonText}>Call</Text>
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity style={styles.messageButton} onPress={handleMessage}>
-            <Text style={styles.messageButtonText}>Send a message...</Text>
-          </TouchableOpacity>
+          <ButtonF
+            bgColor="#66E1FF"
+            textColor="#000"
+            onPress={handleMessage}
+            title="Send a message..."
+            size="secondary"
+            radius="secondary"
+          />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
+};
+
+const colors = {
+  white: "#fff", // Màu nền chính
+  lightGray: "#f0f0f0", // Màu nền map
+  borderGray: "#bcbbc1", // Màu viền
+  textDark: "#1A1A1A", // Màu tiêu đề chính
+  textPrimary: "#333", // Màu chữ chính
+  textGray: "#666", // Màu chữ phụ
+  highlightBlue: "#007AFF", // Màu nổi bật (time, button text)
+  lightBlue: "#f1f1f1", // Màu nền cho các container
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
+    // padding: 20,
   },
   scrollContainer: {
-    padding: 20,
-    paddingBottom: 100,
+    flex: 1,
+    padding: 15,
+  },
+  mapContainer: {
+    // height: 250,
+    flex: 1,
+    borderRadius: 14,
+    overflow: "hidden",
+    backgroundColor: colors.lightGray,
+    // marginBottom: 14,
   },
   header: {
-    marginBottom: 20,
+    marginBottom: 14,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 24,
+    fontWeight: "700",
+    color: colors.textDark,
   },
   subtitle: {
-    fontSize: 16,
-    color: '#666',
-    marginTop: 8,
+    fontSize: 14,
+    color: colors.textGray,
+    marginTop: 4,
   },
   timeHighlight: {
-    fontWeight: 'bold',
-    color: '#007AFF',
+    fontWeight: "bold",
+    color: colors.highlightBlue,
   },
-  content: {
-    flex: 1,
+  contentContainer: {
+    // flex: 1,
+    paddingTop: 14,
   },
   driverInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.lightBlue,
     padding: 12,
-    borderRadius: 8,
-    marginBottom: 20,
+    borderRadius: 14,
+    marginBottom: 14,
     borderWidth: 1,
-
+    borderColor: colors.borderGray,
   },
   driverImage: {
     width: 80,
@@ -135,42 +184,44 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     marginRight: 12,
     borderWidth: 1,
+    borderColor: colors.borderGray,
+    backgroundColor: colors.white,
   },
   driverDetails: {
     flex: 1,
   },
   driverName: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: colors.textPrimary,
   },
   driverFullName: {
     fontSize: 16,
-    color: '#666',
+    color: colors.textGray,
     marginTop: 2,
   },
   carInfo: {
     fontSize: 14,
-    color: '#666',
+    color: colors.textGray,
     marginTop: 4,
   },
   rating: {
     fontSize: 14,
-    color: '#333',
-    fontWeight: '600',
+    color: colors.textPrimary,
+    fontWeight: "600",
     marginTop: 4,
   },
   locationContainer: {
-    marginBottom: 20,
-    padding: 12,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 8,
-
+    marginBottom: 14,
+    padding: 8,
+    backgroundColor: colors.lightBlue,
+    borderRadius: 14,
     borderWidth: 1,
+    borderColor: colors.borderGray,
   },
   locationRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
   },
   locationIcon: {
     fontSize: 20,
@@ -179,43 +230,33 @@ const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
+    fontWeight: "600",
+    color: colors.textPrimary,
   },
   locationDetails: {
     fontSize: 14,
-    color: '#666',
+    color: colors.textGray,
     lineHeight: 20,
   },
   actionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 14,
   },
   actionButton: {
-    width: '30%',
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 12,
-    borderRadius: 8,
-    alignItems: 'center',
+    flexDirection: "row",
+    width: "30%",
+    backgroundColor: colors.lightBlue,
+    paddingVertical: 8,
+    borderRadius: 14,
+    justifyContent: "center",
     borderWidth: 1,
+    borderColor: colors.borderGray,
   },
   actionButtonText: {
     fontSize: 14,
-    color: '#007AFF',
+    color: colors.highlightBlue,
     marginTop: 6,
-  },
-  messageButton: {
-    width: '100%',
-    backgroundColor: '#f5f5f5',
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    borderWidth: 1,
-  },
-  messageButtonText: {
-    fontSize: 16,
-    color: '#666',
   },
 });
 

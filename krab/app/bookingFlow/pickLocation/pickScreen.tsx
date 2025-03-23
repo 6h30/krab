@@ -23,26 +23,13 @@ import RecentComponent from "./recentTab";
 import SuggestedComponent from "./suggestedTab";
 import SavedComponent from "./savedTab";
 import TabMenu from "./menuTab";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
 
 const PickScreen: React.FC = () => {
   const router = useRouter();
   const [searchText, setSearchText] = useState<string>("");
-  // const [activeTab, setActiveTab] = useState<"recent" | "suggested" | "saved">(
-  //   "recent"
-  // );
-
-  // const renderItem = () => {
-  //   switch (activeTab) {
-  //     case "suggested":
-  //       return <SuggestedComponent />;
-  //     case "saved":
-  //       return <SavedComponent />;
-  //     case "recent":
-  //     default:
-  //       return <RecentComponent />;
-  //   }
-  // };
-
   const [activeTab, setActiveTab] = useState("recent");
 
   const tabs = [
@@ -53,177 +40,154 @@ const PickScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <View style={styles.scrollContainer}>
+        <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
-      <View style={styles.searchBar}>
-        <View style={styles.section1}>
-          <TouchableOpacity>
-            <Icon name="arrow-back" size={24} color="#000" />
+        <View style={styles.searchBar}>
+          <View style={styles.section1}>
+            <TouchableOpacity>
+              <Icon name="arrow-back" size={24} color="#000" />
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.section2_noborder}>
+            <CursorTaget width={24} height={24} />
+            <Text style={styles.currentLocationText}>Current location</Text>
           </TouchableOpacity>
+
+          <View style={styles.section3}>
+            <TouchableOpacity
+              onPress={() =>
+                router.push("/bookingFlow/pickLocation/selectCountry")
+              }
+            >
+              <Image
+                source={require("@/assets/svgs/bookingFlowSvgs/preBook/vnFlag.png")}
+                style={{ width: 24, height: 24 }}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <TouchableOpacity style={styles.section2_noborder}>
-          <CursorTaget width={24} height={24} />
-          <Text style={styles.currentLocationText}>Current location</Text>
-        </TouchableOpacity>
+        <View style={styles.searchBar}>
+          <View style={styles.section1} />
 
-        <View style={styles.section3}>
+          <View style={styles.section2}>
+            <SearchCircle width={24} height={24} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Find airports by flight no."
+              value={searchText}
+              onChangeText={setSearchText}
+            />
+            <TouchableOpacity>
+              <FocusCamera width={24} height={24} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.section3}>
+            <TouchableOpacity
+              onPress={() =>
+                router.push("/bookingFlow/pickLocation/addLocation")
+              }
+            >
+              <AddCirle width={24} height={24} />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TabMenu tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+
+        <View style={styles.footer}>
+          <Text style={styles.screenTitle}>Need help?</Text>
+          <TouchableOpacity style={styles.footerButton}>
+            <TimeStop width={28} height={28} />
+            <Text style={styles.footerText}>
+              If you haven't decided where to go, select a ride with metered
+              fare.
+            </Text>
+            <Icon name="chevron-right" size={20} color="#666" />
+          </TouchableOpacity>
           <TouchableOpacity
+            style={styles.chooseButton}
             onPress={() =>
-              router.push("/bookingFlow/pickLocation/selectCountry")
+              router.push("/bookingFlow/onMap/onDestinationScreen")
             }
           >
-            <Image
-              source={require("@/assets/svgs/bookingFlowSvgs/preBook/vnFlag.png")}
-              style={{ width: 24, height: 24 }}
-            />
+            <MapIcon width={20} height={20} />
+            <Text style={styles.chooseButtonText}>Choose on KrabMaps</Text>
           </TouchableOpacity>
         </View>
-      </View>
-
-      <View style={styles.searchBar}>
-        <View style={styles.section1} />
-
-        <View style={styles.section2}>
-          <SearchCircle width={24} height={24} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Find airports by flight no."
-            value={searchText}
-            onChangeText={setSearchText}
-          />
-          <TouchableOpacity>
-            <FocusCamera width={24} height={24} />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section3}>
-          <TouchableOpacity
-            onPress={() => router.push("/bookingFlow/pickLocation/addLocation")}
-          >
-            <AddCirle width={24} height={24} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* <View style={styles.tabs}>
-        {["recent", "suggested", "saved"].map((tab) => (
-          <TouchableOpacity
-            key={tab}
-            style={activeTab === tab ? styles.tabActive : styles.tab}
-            onPress={() => setActiveTab(tab as any)}
-          >
-            <Text
-              style={activeTab === tab ? styles.tabTextActive : styles.tabText}
-            >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      <View style={{ flex: 1 }}>{renderItem()}</View> */}
-
-      <TabMenu tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-
-      <View style={styles.footer}>
-        <Text style={styles.screenTitle}>Need help?</Text>
-        <TouchableOpacity style={styles.footerButton}>
-          <TimeStop width={28} height={28} />
-          <Text style={styles.footerText}>
-            If you haven't decided where to go, select a ride with metered fare.
-          </Text>
-          <Icon name="chevron-right" size={20} color="#666" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.chooseButton}
-          onPress={() => router.push("/bookingFlow/onMap/onDestinationScreen")}
-        >
-          <MapIcon width={20} height={20} />
-          <Text style={styles.chooseButtonText}>Choose on KrabMaps</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: colors.backgroundPrimary,
+  },
+  scrollContainer: {
+    flex: 1,
+    //  ...padding.horizontal('lg'),
+  },
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#fff",
+    ...pickScreenStyles.searchBar,
   },
   section1: {
-    // flex: 1,
     width: 30,
   },
   section2: {
-    flex: 9,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    gap: 10,
+    ...pickScreenStyles.section2,
   },
   section2_noborder: {
-    flex: 9,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    gap: 10,
+    ...pickScreenStyles.section2_noborder,
   },
   section3: {
-    // flex: 1,
-    width: 50,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    ...pickScreenStyles.section3,
   },
   searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    borderRadius: 8,
+    ...pickScreenStyles.searchInput,
   },
   currentLocationText: {
     fontSize: 16,
-    color: "#333",
+    color: colors.textPrimary,
   },
-  screenTitle: { fontSize: 18, fontWeight: "bold", color: "#333" },
-  tabs: { flexDirection: "row", paddingHorizontal: 10, marginVertical: 10 },
-  tab: { paddingVertical: 5, paddingHorizontal: 15 },
-  tabActive: {
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderRadius: 6,
-    backgroundColor: "#8be8ff",
+  screenTitle: {
+    ...pickScreenStyles.screenTitle,
   },
-  tabText: { fontSize: 16, color: "#666" },
-  tabTextActive: { fontSize: 16, color: "#333", fontWeight: "bold" },
-  footer: { padding: 10, borderTopWidth: 1, borderTopColor: "#f0f0f0" },
+  footer: {
+    ...pickScreenStyles.footer,
+  },
   footerButton: {
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 10,
+    ...padding.vertical("sm"),
   },
-  footerText: { fontSize: 14, color: "#666", flex: 1, marginHorizontal: 5 },
+  footerText: {
+    fontSize: 14,
+    color: colors.textSecondary,
+    flex: 1,
+    ...margin.horizontal("md"),
+  },
   chooseButton: {
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     justifyContent: "center",
-    backgroundColor: "#66E1FF",
-    paddingVertical: 10,
+    backgroundColor: colors.secondary,
+    ...padding.vertical("md"),
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: spacing.sm,
     borderWidth: 1,
-    gap: 5,
+    gap: 8,
   },
-  chooseButtonText: { color: "#333", fontSize: 16, fontWeight: "bold" },
+  chooseButtonText: {
+    color: colors.textPrimary,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
 
 export default PickScreen;

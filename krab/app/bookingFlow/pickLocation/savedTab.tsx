@@ -1,4 +1,3 @@
-// src/components/SavedComponent.tsx
 import React from "react";
 import {
   View,
@@ -13,6 +12,8 @@ import EditAdd from "@/assets/svgs/bookingFlowSvgs/preBook/editAdd.svg";
 
 import { savedLocations } from "@/data/MockData";
 import { Location } from "@/data/types";
+import { spacing } from "@/theme/spacing";
+import { commonStyles, tabScreenStyles } from "@/theme/styles";
 
 const SavedComponent = () => {
   const renderSavedItem = ({ item }: { item: Location }) => (
@@ -43,7 +44,7 @@ const SavedComponent = () => {
         keyExtractor={(item) => item.id}
       />
     </View>
-  ); 
+  );
 };
 
 export default SavedComponent;
@@ -54,39 +55,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   locationItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+    ...tabScreenStyles.locationItem,
   },
   locationIcon: {
     marginHorizontal: 5,
   },
   locationDetails: {
-    flex: 1,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDetails,
   },
   locationName: {
-    fontSize: 16,
-    fontWeight: "bold",
+    ...tabScreenStyles.locationName,
   },
   locationAddress: {
-    fontSize: 14,
-    color: "#666",
-    marginVertical: 2,
-    lineHeight: 20,
+    ...tabScreenStyles.locationAddress,
   },
   locationDistance: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 8,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDistance,
   },
   addNewContainer: {
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
-    padding: 10,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: 16,
+    gap: 8,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
   },

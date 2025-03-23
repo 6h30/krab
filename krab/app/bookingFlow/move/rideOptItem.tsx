@@ -1,24 +1,28 @@
+// src/components/RideOptionItem/RideOptionItem.tsx
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { RideOption } from "@/data/types";
+import { colors } from "@/theme/colors";
+import { spacing } from "@/theme/spacing";
+import { commonStyles } from "@/theme/styles";
 
 const RideOptionItem: React.FC<{ item: RideOption }> = ({ item }) => {
   const IconComponent = item.icon;
 
   return (
-    <View style={styles.wrapper}>
-      <TouchableOpacity style={[styles.screenContainer]}>
-        {/* <Image source={item.icon} style={styles.screenIcon} /> */}
+    <View style={styles.rideOptionItem}>
+      <TouchableOpacity style={styles.rideOptionItem__container}>
         {IconComponent && typeof IconComponent === "function" ? (
           <IconComponent width={50} height={35} />
         ) : (
-          <Image source={item.icon} style={styles.screenIcon} />
+          <Image source={item.icon} style={styles.rideOptionItem__icon} />
         )}
-
-        <View style={styles.screenTextContainer}>
-          <Text style={styles.screenTitle}>{item.title}</Text>
+        <View style={styles.rideOptionItem__textContainer}>
+          <Text style={styles.rideOptionItem__title}>{item.title}</Text>
           {item.description && (
-            <Text style={styles.screenDescription}>{item.description}</Text>
+            <Text style={styles.rideOptionItem__description}>
+              {item.description}
+            </Text>
           )}
         </View>
       </TouchableOpacity>
@@ -26,47 +30,46 @@ const RideOptionItem: React.FC<{ item: RideOption }> = ({ item }) => {
   );
 };
 
-export default RideOptionItem;
-
-const styles = StyleSheet.create({
-  wrapper: {
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+// Styles theo BEM
+export const styles = StyleSheet.create({
+  rideOptionItem: {
+    paddingVertical: spacing.xs, 
+    paddingHorizontal: spacing.xs, 
     width: "50%",
   },
-  screenContainer: {
-    flexDirection: "row",
+
+  rideOptionItem__container: {
+    ...commonStyles.flexRow, 
     alignItems: "center",
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 12,
-    // aspectRatio: 2.2,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 3,
+    backgroundColor: colors.backgroundPrimary, 
+    borderRadius: spacing.md, 
+    padding: spacing.md, 
+
     borderWidth: 1,
-    // borderColor: "#ddd",
   },
-  screenIcon: {
+
+  rideOptionItem__icon: {
     width: 28,
     height: 28,
-    // resizeMode: "contain",
-    marginHorizontal: 10,
+    marginHorizontal: spacing.sm, 
   },
-  screenTextContainer: {
+
+  rideOptionItem__textContainer: {
     flex: 1,
-    marginLeft: 10,
+    marginLeft: spacing.sm, 
   },
-  screenTitle: {
+
+  rideOptionItem__title: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#333",
+    color: colors.textPrimary, 
   },
-  screenDescription: {
+
+  rideOptionItem__description: {
     fontSize: 14,
-    color: "#666",
-    marginTop: 4,
+    color: colors.textSecondary, 
+    marginTop: spacing.xs, 
   },
 });
+
+export default RideOptionItem;

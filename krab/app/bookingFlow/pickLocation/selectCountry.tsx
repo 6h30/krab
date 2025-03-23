@@ -12,6 +12,9 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CursorTaget from "@/assets/svgs/bookingFlowSvgs/preBook/cursorTaget.svg";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
 
 const SelectCountryScreen: React.FC = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -26,11 +29,7 @@ const SelectCountryScreen: React.FC = () => {
       { name: "Bac Giang" },
       { name: "Bac Kan" },
     ],
-    C: [
-      { name: "Ca Mau" },
-      { name: "Can Tho" },
-      { name: "Cao Bang" },
-    ],
+    C: [{ name: "Ca Mau" }, { name: "Can Tho" }, { name: "Cao Bang" }],
     D: [
       { name: "Da Nang" },
       { name: "Dak Lak" },
@@ -81,18 +80,7 @@ const SelectCountryScreen: React.FC = () => {
       </View>
 
       {/* Thanh nhập liệu tìm kiếm và cờ */}
-      <View
-        style={
-          (styles.searchBar,
-          {
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: "#ddd",
-          })
-        }
-      >
+      <View style={styles.searchBar}>
         <View style={styles.section1} />
 
         <View style={styles.section2}>
@@ -148,41 +136,25 @@ const SelectCountryScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.backgroundPrimary,
   },
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
+    ...pickScreenStyles.searchBar,
   },
   section1: {
     width: 30,
   },
   section2: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    gap: 10,
+    ...pickScreenStyles.section2,
   },
   section2_noborder: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    gap: 10,
+    ...pickScreenStyles.section2_noborder,
   },
   section3: {
-    width: 60,
-    alignItems: "center",
+   ...pickScreenStyles.section3,
   },
   searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
+    ...pickScreenStyles.searchInput,
     paddingHorizontal: 5,
   },
   currentLocationText: {
@@ -192,7 +164,7 @@ const styles = StyleSheet.create({
   },
   locationListContainer: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     paddingTop: 10,
   },
   groupContainer: {

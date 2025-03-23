@@ -1,14 +1,12 @@
-// screens/RideBookingScreen.tsx
 import React, { useState, useRef, useEffect } from "react";
 import { View, FlatList, Text, Animated, TouchableOpacity } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./styles";
+
 import Header from "./header";
 import Illustration from "./illustration";
 import SearchBar from "./searchBar";
 import SuggestionItem from "./suggestionItem";
 import AdvanceBookingItem from "./advanceBooking";
-// import Icon from "react-native-vector-icons/MaterialIcons";
 import RideOptionItem from "./rideOptItem";
 import OfferItem from "./offerItem";
 import {
@@ -50,6 +48,7 @@ const RideBookingScreen = () => {
       scrollY.removeListener(listener);
     };
   }, []);
+
   // Tạo một danh sách các phần tử để FlatList quản lý
   const sections = [
     { type: "header", component: <Header /> },
@@ -125,7 +124,6 @@ const RideBookingScreen = () => {
   return (
     <View style={styles.safeContainer}>
       <Animated.FlatList
-        // style={styles.container}
         data={sections}
         renderItem={({ item }) => item.component}
         keyExtractor={(item, index) => item.type + index}

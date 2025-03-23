@@ -1,5 +1,9 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+// src/components/OfferItem/OfferItem.tsx
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { colors } from '@/theme/colors';
+import { spacing } from '@/theme/spacing';
+import { commonStyles } from '@/theme/styles';
 
 interface Offer {
   id: string;
@@ -10,42 +14,43 @@ interface Offer {
 
 const OfferItem: React.FC<{ item: Offer }> = ({ item }) => {
   return (
-    
-      <View style={styles.offersList}>
-        <Image source={item.image} style={styles.offerImage} />
-        <Text style={styles.offerTitle}>{item.title}</Text>
-        <Text style={styles.offerDiscount}>{item.discount}</Text>
-      </View>
-  
+    <View style={styles.offerItem}>
+      <Image source={item.image} style={styles.offerItem__image} />
+      <Text style={styles.offerItem__title}>{item.title}</Text>
+      <Text style={styles.offerItem__discount}>{item.discount}</Text>
+    </View>
   );
 };
 
-export default OfferItem;
-
-const styles = StyleSheet.create({
-  offersList: {
-    paddingHorizontal: 16,
-    paddingVertical: 20,
-  },
+// Styles theo BEM
+export const styles = StyleSheet.create({
   offerItem: {
-    marginRight: 16,
-    alignItems: "center",
-  
+    paddingHorizontal: spacing.sm, 
+    paddingVertical: spacing.sm,
+    // marginRight: spacing.lg,
+    ...commonStyles.center,
   },
-  offerImage: {
+
+  offerItem__image: {
     width: 100,
     height: 120,
-    borderRadius: 8,
+    borderRadius: spacing.md,
     borderWidth: 1,
+    // borderColor: colors.borderPrimary,
   },
-  offerTitle: {
+
+  offerItem__title: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#333",
-    marginTop: 4,
+    fontWeight: 'bold',
+    color: colors.textPrimary,
+    marginTop: spacing.xs,
   },
-  offerDiscount: {
+
+  offerItem__discount: {
     fontSize: 12,
-    color: "#FF0000",
+    color: colors.error,
+    paddingBottom: spacing.md, 
   },
 });
+
+export default OfferItem;

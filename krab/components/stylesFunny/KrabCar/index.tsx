@@ -1,8 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons"; // Sử dụng MaterialIcons
-import Car4 from "@/assets/svgs/bookingFlowSvgs/preBook/car4.svg";
-import InfoCircle from "@/assets/svgs/bookingFlowSvgs/preBook/infoCircle.svg";
 
 // Định nghĩa kiểu cho props
 interface KrabCarProps {
@@ -12,6 +9,7 @@ interface KrabCarProps {
   price: string; // Giá gốc (e.g., "68.000đ")
   promoPercentage?: number; // Phần trăm giảm giá (e.g., 20 cho 20%)
   image: any;
+  isSelected?: boolean;
 }
 
 // Hàm tính giá sau khi giảm
@@ -28,13 +26,17 @@ const calculatePromoPrice = (
   return `${finalPrice.toLocaleString("vi-VN")}đ`;
 };
 
-const KrabCarCard: React.FC<KrabCarProps> = ({
+const KrabCarCard: React.FC<
+  KrabCarProps & { isSelected?: boolean; InfoIcon?: JSX.Element }
+> = ({
   carType,
   seats,
   estimatedTime,
   price,
   promoPercentage,
   image,
+  InfoIcon,
+  isSelected,
 }) => {
   // Tính giá sau khi giảm nếu có promoPercentage
   const promoPrice = promoPercentage
@@ -42,17 +44,17 @@ const KrabCarCard: React.FC<KrabCarProps> = ({
     : null;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isSelected && styles.selectedCard]}>
       {/* Phần bên trái: Icon xe và thông tin */}
       <View style={styles.leftSection}>
-        {/* <Car4 width={40} height={40} style={styles.carIcon} /> */}
-        {/* <Image source={{ uri: image }} style={styles.carImage} /> */} 
-        <Image source={ image } style={styles.carImage} />
+        <Image source={image} style={styles.carImage} />
 
         <View style={styles.infoContainer}>
           <View style={styles.carTypeContainer}>
             <Text style={styles.carType}>{carType}</Text>
-            <InfoCircle width={16} height={16} style={styles.infoIcon} />
+            {/* <InfoCircle width={16} height={16} style={styles.infoIcon} /> */}
+            {InfoIcon && InfoIcon}
+            {/* {InfoIcon ?? <InfoCircle width={16} height={16} style={styles.infoIcon} />} */}
           </View>
           <Text style={styles.estimatedTime}>{estimatedTime}</Text>
           <Text style={styles.seats}>{seats}</Text>
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 5,
     marginVertical: 5,
-    marginHorizontal: 12,
+    marginHorizontal: 0,
     overflow: "hidden",
   },
   leftSection: {
@@ -106,10 +108,11 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   carImage: {
-    width: 60, 
-    height: 60,
+    width: 80,
+    height: 80,
     marginRight: 14,
-    resizeMode: 'contain',
+    resizeMode: "contain",
+    // borderWidth: 1,
   },
   infoContainer: {
     justifyContent: "center",
@@ -148,12 +151,19 @@ const styles = StyleSheet.create({
   originalPrice: {
     fontSize: 14,
     color: "#666",
-    textDecorationLine: "line-through", // Gạch ngang giá gốc
+    textDecorationLine: "line-through",
   },
   promoPrice: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FF0000", // Màu đỏ để nổi bật giá khuyến mãi
+    color: "#F34051",
+  },
+
+  selectedCard: {
+    backgroundColor: "rgba(223, 247, 255, 0.86)",
+    borderBottomColor: "#eee",
+    borderBottomWidth: 1,
+    borderRadius: 14,
   },
 });
 

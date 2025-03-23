@@ -10,6 +10,7 @@ import {
 import HistoryPick from "@/assets/svgs/bookingFlowSvgs/preBook/historyPick.svg";
 import { suggestedLocations } from "@/data/MockData";
 import { Location } from "@/data/types";
+import { tabScreenStyles } from "@/theme/styles";
 
 const SuggestedComponent = () => {
   const renderSuggestedItem = ({ item }: { item: Location }) => (
@@ -48,39 +49,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   locationItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+    ...tabScreenStyles.locationItem,
   },
   locationIcon: {
     marginHorizontal: 5,
   },
   locationDetails: {
-    flex: 1,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDetails,
   },
   locationName: {
-    fontSize: 16,
-    fontWeight: "bold",
+    ...tabScreenStyles.locationName,
   },
   locationAddress: {
-    fontSize: 14,
-    color: "#666",
-    marginVertical: 2,
-    lineHeight: 20,
+  ...tabScreenStyles.locationAddress,
   },
   locationDistance: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 8,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDistance,
   },
   componentTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginVertical: 10,
-    marginHorizontal: 10,
+    marginBottom: 8,
+    paddingHorizontal: 16,
   },
 });

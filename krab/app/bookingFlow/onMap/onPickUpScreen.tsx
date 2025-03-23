@@ -194,8 +194,9 @@ const OnDestinationScreen: React.FC = () => {
             top: -90,
             borderWidth: 1,
             borderColor: "#bcbbc1",
-            borderRadius: 8,
-            padding: 6,
+            borderRadius: 14,
+            paddingVertical: 8,
+            paddingHorizontal: 6,
             backgroundColor: "#fff",
           }}
         >
@@ -211,7 +212,7 @@ const OnDestinationScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          style={{ marginTop: 15 }}
+          style={{ marginTop: 15, marginBottom: 100 }}
           data={recentLocations}
           renderItem={renderRecentItem}
           keyExtractor={(item) => item.id}
@@ -235,6 +236,8 @@ const OnDestinationScreen: React.FC = () => {
           bgColor="#66E1FF"
           textColor="#333"
           title="Choose this pickup"
+          size="secondary"
+            radius="secondary"
           // style={styles.chooseButton}
           // textStyle={styles.chooseButtonText}
           onPress={() => router.push("/bookingFlow/choiceCar/selectCar")}
@@ -327,7 +330,7 @@ const styles = StyleSheet.create({
   screenTitle: { fontSize: 18, fontWeight: "bold", color: "#333" },
 
   footer: {
-    padding: 10,
+    padding: 14,
     borderTopWidth: 1,
     borderTopColor: "#f0f0f0",
     width: "100%",
@@ -365,7 +368,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#f0f0f0",
     borderWidth: 1,
     borderColor: "#bcbbc1",
-    borderRadius: 16,
+    borderRadius: 14,
   },
   locationItem: {
     flexDirection: "row",
@@ -452,9 +455,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flex: 1,
     alignItems: "center",
+    borderWidth : 1,
+    borderColor: "#bcbbc1",
   },
   buttonText: {
-    color: "#fff",
+    color: "#111",
     fontSize: 16,
   },
 });

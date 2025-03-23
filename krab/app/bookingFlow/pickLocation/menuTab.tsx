@@ -1,6 +1,7 @@
 // src/components/TabMenu.tsx
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { tabScreenStyles } from "@/theme/styles";
 
 interface Tab {
   id: string;
@@ -46,17 +47,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  tabs: { flexDirection: "row", paddingHorizontal: 10, marginVertical: 10 },
-  tab: { paddingVertical: 5, paddingHorizontal: 15 },
-  tabActive: {
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderRadius: 6,
-    // backgroundColor: "#8be8ff",
-    backgroundColor: "#66E1FF",
+  tabs: { 
+    ...tabScreenStyles.tabs,
   },
-  tabText: { fontSize: 16, color: "#666" },
+  tab: { 
+    paddingVertical: 5, 
+    paddingHorizontal: 15 
+  },
+  tabActive: {
+   ...tabScreenStyles.tab__active,
+  },
+  tabText: { ...tabScreenStyles.tab__text },
   tabTextActive: { fontSize: 16, color: "#111", fontWeight: "bold" },
   content: {
     flex: 1,

@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Clipboard } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useRouter } from 'expo-router';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Clipboard,
+} from "react-native";
+
+import { useRouter } from "expo-router";
+import MessageChat from "@/assets/svgs/bookingFlowSvgs/preBook/messageChat.svg";
+import MailIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mailIcon.svg";
+import CopyPaste from "@/assets/svgs/bookingFlowSvgs/preBook/copyPaste.svg";
+import PersonCheck from "@/assets/svgs/bookingFlowSvgs/preBook/personCheck.svg";
+import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
+import CalenderTrip from "@/assets/svgs/bookingFlowSvgs/calendar.svg";
 
 // Định nghĩa kiểu cho thông tin chuyến đi (giả lập)
 interface TripInfo {
@@ -18,11 +30,11 @@ const ShareTripScreen: React.FC = () => {
 
   // Giả lập thông tin chuyến đi (có thể truyền qua props)
   const tripInfo: TripInfo = {
-    id: 'TRIP123',
-    dateTime: '13 Mar 2025, 14:30',
-    pickupAddress: '1901 Thornridge Cir. Shiloh, Hawaii 81063',
-    dropoffAddress: '6391 Elgin St. Celina, Delaware 10299',
-    driverName: 'John Doe',
+    id: "TRIP123",
+    dateTime: "13 Mar 2025, 14:30",
+    pickupAddress: "Vo Thi Nho street, District 7, HCM city",
+    dropoffAddress: "Vo Thi Nho street, District 1, HCM city",
+    driverName: "Dc Viet",
   };
 
   // Giả lập liên kết chia sẻ
@@ -47,45 +59,50 @@ const ShareTripScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <FontAwesome name="arrow-left" size={20} color="#4A4A4A" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Share Your Trip</Text>
+        <Text style={styles.title}>Share Your Trip</Text>
       </View>
+
       <View style={styles.tripCard}>
         <Text style={styles.cardTitle}>Trip Details</Text>
         <View style={styles.cardRow}>
-          <FontAwesome name="calendar" size={18} color="#4A4A4A" />
+          <CalenderTrip width={18} height={18} />
           <Text style={styles.cardText}>{tripInfo.dateTime}</Text>
         </View>
         <View style={styles.cardRow}>
-          <FontAwesome name="map-marker" size={18} color="#4A4A4A" />
+          <PickPoint width={18} height={18} />
           <Text style={styles.cardText}>{tripInfo.pickupAddress}</Text>
         </View>
         <View style={styles.cardRow}>
-          <FontAwesome name="map-marker" size={18} color="#4A4A4A" />
+          <PickPoint width={18} height={18} />
           <Text style={styles.cardText}>{tripInfo.dropoffAddress}</Text>
         </View>
         <View style={styles.cardRow}>
-          <FontAwesome name="user" size={18} color="#4A4A4A" />
+          <PersonCheck width={18} height={18} />
           <Text style={styles.cardText}>{tripInfo.driverName}</Text>
         </View>
       </View>
+
       <View style={styles.shareContainer}>
         <Text style={styles.shareLinkLabel}>Share Link</Text>
         <View style={styles.linkContainer}>
           <Text style={styles.shareLink}>{shareLink}</Text>
           <TouchableOpacity style={styles.copyButton} onPress={handleCopyLink}>
-            <FontAwesome name={copied ? 'check' : 'copy'} size={20} color="#FFFFFF" />
+            <CopyPaste width={24} height={24} />
           </TouchableOpacity>
         </View>
         <View style={styles.shareButtons}>
-          <TouchableOpacity style={styles.shareOptionButton} onPress={handleShareViaMessage}>
-            <FontAwesome name="comment" size={24} color="#FFFFFF" />
+          <TouchableOpacity
+            style={styles.shareOptionButton}
+            onPress={handleShareViaMessage}
+          >
+            <MessageChat width={24} height={24} />
             <Text style={styles.shareOptionText}>Message</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.shareOptionButton} onPress={handleShareViaEmail}>
-            <FontAwesome name="envelope" size={24} color="#FFFFFF" />
+          <TouchableOpacity
+            style={styles.shareOptionButton}
+            onPress={handleShareViaEmail}
+          >
+            <MailIcon width={24} height={24} />
             <Text style={styles.shareOptionText}>Email</Text>
           </TouchableOpacity>
         </View>
@@ -94,131 +111,132 @@ const ShareTripScreen: React.FC = () => {
   );
 };
 
+const colors = {
+  white: "#fff",
+  primaryBackground: "#FFF", // Màu nền chính cho card và header
+  lightGray: "#E8EDF3", // Màu nền cho link container
+  borderGray: "#bcbbc1", // Màu viền
+  textDark: "#111", // Màu chữ chính
+  textGray: "#666", // Màu chữ phụ
+  textHeader: "#4A4A4A", // Màu chữ header
+  textTitle: "#1A1A1A", // Màu tiêu đề chính
+  linkBlue: "#7A90C2", // Màu link
+  buttonBlue: "#A0B5EB", // Màu nút copy
+  shareButton: "#66E1FF", // Màu nút share
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F4F8',
+    backgroundColor: colors.white,
     padding: 15,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8FBFD',
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#A0A0A0',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.primaryBackground,
+    paddingBottom: 14,
   },
   backButton: {
     marginRight: 15,
   },
   headerText: {
     fontSize: 24,
-    fontWeight: '600',
-    color: '#4A4A4A',
+    fontWeight: "600",
+    color: colors.textHeader,
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   tripCard: {
-    backgroundColor: '#F8FBFD',
-    borderRadius: 15,
+    backgroundColor: colors.primaryBackground,
+    borderRadius: 16,
     padding: 20,
-    marginBottom: 20,
-    shadowColor: '#A0A0A0',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 6,
+    borderWidth: 1,
+    borderColor: colors.borderGray,
+    marginBottom: 14,
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#4A4A4A',
+    fontWeight: "600",
+    color: colors.textDark,
     marginBottom: 15,
   },
   cardRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 10,
   },
   cardText: {
     fontSize: 14,
-    color: '#666',
+    color: colors.textGray,
     marginLeft: 10,
     flex: 1,
   },
   shareContainer: {
-    backgroundColor: '#F8FBFD',
-    borderRadius: 15,
+    backgroundColor: colors.primaryBackground,
+    borderRadius: 16,
     padding: 20,
-    shadowColor: '#A0A0A0',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 6,
+    borderWidth: 1,
+    borderColor: colors.borderGray,
   },
   shareLinkLabel: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#4A4A4A',
+    fontWeight: "500",
+    color: colors.textDark,
     marginBottom: 10,
   },
   linkContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#E8EDF3',
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.borderGray,
     borderRadius: 12,
     padding: 10,
     marginBottom: 20,
-    shadowColor: '#FFFFFF',
-    shadowOffset: { width: -2, height: -2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
   },
   shareLink: {
     fontSize: 14,
-    color: '#7A90C2',
+    color: colors.textDark,
     flex: 1,
   },
   copyButton: {
-    backgroundColor: '#A0B5EB',
+    backgroundColor: colors.buttonBlue,
+    borderWidth: 1,
+    borderColor: colors.borderGray,
     borderRadius: 10,
     padding: 8,
     marginLeft: 10,
-    shadowColor: '#8095CC',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 4,
   },
   shareButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
   },
   shareOptionButton: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#A0B5EB',
-    borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.shareButton,
+    borderRadius: 10,
     paddingVertical: 12,
-    marginHorizontal: 5,
-    shadowColor: '#8095CC',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 4,
+    borderWidth: 1,
   },
   shareOptionText: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#FFFFFF',
-    marginLeft: 8,
+    fontWeight: "500",
+    color: colors.textDark,
+    marginLeft: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: colors.textTitle,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: colors.textGray,
+    marginTop: 4,
   },
 });
 

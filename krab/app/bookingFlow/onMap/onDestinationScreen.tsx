@@ -15,21 +15,24 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import TimeStop from "@/assets/svgs/bookingFlowSvgs/preBook/timeStop.svg";
-import MapIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mapIcon.svg";
+import AddCirle from "@/assets/svgs/bookingFlowSvgs/preBook/addCircle.svg";
 import CursorTaget from "@/assets/svgs/bookingFlowSvgs/preBook/cursorTaget.svg";
 import FocusCamera from "@/assets/svgs/bookingFlowSvgs/preBook/focusCamera.svg";
-import AddCirle from "@/assets/svgs/bookingFlowSvgs/preBook/addCircle.svg";
-import SearchCircle from "@/assets/svgs/bookingFlowSvgs/preBook/searchCircle.svg";
-import HistoryPick from "@/assets/svgs/bookingFlowSvgs/preBook/historyPick.svg";
 import HandDrag from "@/assets/svgs/bookingFlowSvgs/preBook/handDrag.svg";
-import UpArrow from "@/assets/svgs/bookingFlowSvgs/preBook/upArrow.svg";
-import ScrollVertical from "@/assets/svgs/bookingFlowSvgs/preBook/scrollVertical.svg";
+import HistoryPick from "@/assets/svgs/bookingFlowSvgs/preBook/historyPick.svg";
 import LikeChat from "@/assets/svgs/bookingFlowSvgs/preBook/likeChat.svg";
+import MapIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mapIcon.svg";
+import ScrollVertical from "@/assets/svgs/bookingFlowSvgs/preBook/scrollVertical.svg";
+import SearchCircle from "@/assets/svgs/bookingFlowSvgs/preBook/searchCircle.svg";
+import TimeStop from "@/assets/svgs/bookingFlowSvgs/preBook/timeStop.svg";
+import UpArrow from "@/assets/svgs/bookingFlowSvgs/preBook/upArrow.svg";
 
 import ButtonF from "@/components/stylesFunny/ButtonF";
 import { Location } from "@/data/types";
 import { recentLocations } from "@/data/MockData";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles } from "@/theme/styles";
 
 const OnDestinationScreen: React.FC = () => {
   const router = useRouter();
@@ -123,8 +126,9 @@ const OnDestinationScreen: React.FC = () => {
             top: -90,
             borderWidth: 1,
             borderColor: "#bcbbc1",
-            borderRadius: 8,
-            padding: 6,
+            borderRadius: 14,
+            paddingVertical: 8,
+            paddingHorizontal: 6,
             backgroundColor: "#fff",
           }}
         >
@@ -140,7 +144,7 @@ const OnDestinationScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          style={{ marginTop: 15 }}
+          style={{ marginTop: 15, marginBottom: 90 }} 
           data={recentLocations}
           renderItem={renderRecentItem}
           keyExtractor={(item) => item.id}
@@ -152,9 +156,9 @@ const OnDestinationScreen: React.FC = () => {
           bgColor="#66E1FF"
           textColor="#333"
           title="Choose this Destination"
+          size="secondary"
+          radius="mini"
           onPress={() => router.push("/bookingFlow/onMap/onPickUpScreen")}
-          // style={styles.chooseButton}
-          // textStyle={styles.chooseButtonText}
         />
       </View>
     </SafeAreaView>
@@ -164,10 +168,11 @@ const OnDestinationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
   searchBar: {
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
-    padding: 10,
-    backgroundColor: "#fff",
+    paddingTop: spacing.md,
+    ...padding.horizontal("lg"),
+    backgroundColor: colors.backgroundPrimary,
   },
   section1: {
     // flex: 1,
@@ -175,25 +180,26 @@ const styles = StyleSheet.create({
   },
   section2: {
     flex: 9,
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
     borderWidth: 1,
-    paddingHorizontal: 10,
+    borderColor: colors.borderPrimary,
+    ...padding.horizontal("sm"),
     borderRadius: 8,
     gap: 10,
   },
   section2_noborder: {
     flex: 9,
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
-    paddingHorizontal: 10,
+    ...padding.horizontal("sm"),
     gap: 10,
   },
   section3: {
-    // flex: 1,
-    width: 50,
-    flexDirection: "row",
-    justifyContent: "space-around",
+    // width: 50,
+    paddingLeft: spacing.lg,
+    ...commonStyles.flexRow,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
   searchInput: {
@@ -204,14 +210,17 @@ const styles = StyleSheet.create({
   },
   currentLocationText: {
     fontSize: 16,
-    color: "#333",
+    color: colors.textPrimary,
   },
-  screenTitle: { fontSize: 18, fontWeight: "bold", color: "#333" },
-
+  screenTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.textPrimary,
+  },
   footer: {
-    padding: 10,
+     ...padding.all('lg'),
     borderTopWidth: 1,
-    borderTopColor: "#f0f0f0",
+    borderTopColor: colors.borderPrimary,
     width: "100%",
     alignSelf: "center",
     position: "absolute",
@@ -225,18 +234,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   footerText: { fontSize: 14, color: "#666", flex: 1, marginHorizontal: 5 },
-  chooseButton: {
-    flexDirection: "row",
-    justifyContent: "center",
-    backgroundColor: "#66E1FF",
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-    borderWidth: 1,
-    gap: 5,
-  },
-  chooseButtonText: { color: "#333", fontSize: 16, fontWeight: "bold" },
+
   mapViewContainer: {
     flex: 1,
   },
@@ -246,12 +244,13 @@ const styles = StyleSheet.create({
     // backgroundColor: "#f0f0f0",
     borderWidth: 1,
     borderColor: "#bcbbc1",
-    borderRadius: 16,
+    borderRadius: 14,
   },
   locationItem: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
+     paddingVertical: 8,
+    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
   },

@@ -1,49 +1,62 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Suggestion } from "@/data/types";
 import LocationPick from "@/assets/svgs/bookingFlowSvgs/locationPick.svg";
+import { colors } from "@/theme/colors";
+import { spacing } from "@/theme/spacing";
+import { commonStyles } from "@/theme/styles";
 
 const SuggestionItem: React.FC<{ item: Suggestion }> = ({ item }) => {
   return (
-    <View style={styles.suggestionItem}>
-      <LocationPick style={styles.locationIcon} width={28} height={28} />
-      <View style={styles.locationDetails}>
-        <Text style={styles.locationName}>{item.name}</Text>
-        <Text style={styles.locationAddress} numberOfLines={2}>
-          {item.address}
-        </Text>
+    <TouchableOpacity>
+      <View style={styles.suggestionItem}>
+        <LocationPick
+          style={styles.suggestionItem__locationIcon}
+          width={28}
+          height={28}
+        />
+        <View style={styles.suggestionItem__locationDetails}>
+          <Text style={styles.suggestionItem__locationName}>{item.name}</Text>
+          <Text
+            style={styles.suggestionItem__locationAddress}
+            numberOfLines={2}
+          >
+            {item.address}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-export default SuggestionItem;
-
-const styles = StyleSheet.create({
+// Styles theo BEM
+export const styles = StyleSheet.create({
   suggestionItem: {
-    flexDirection: "row",
-    padding: 10,
+    ...commonStyles.flexRow,
+    padding: spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: "#EEE",
-    backgroundColor: "#FFF",
+    borderBottomColor: colors.borderPrimary,
+    backgroundColor: colors.backgroundPrimary,
   },
-  locationDetails: {
+  suggestionItem__locationIcon: {
+    marginRight: spacing.sm,
+    marginTop: spacing.sm,
+  },
+  suggestionItem__locationDetails: {
     flex: 1,
-    marginHorizontal: 5,
+    marginHorizontal: spacing.xs,
   },
-  locationName: {
+  suggestionItem__locationName: {
     fontSize: 16,
     fontWeight: "bold",
-    marginVertical: 2,
+    color: colors.textPrimary,
+    marginVertical: spacing.xs / 2,
   },
-  locationAddress: {
+  suggestionItem__locationAddress: {
     fontSize: 14,
-    color: "#666",
+    color: colors.textSecondary,
     lineHeight: 20,
   },
-  locationIcon: {
-    fontSize: 20,
-    marginRight: 10,
-    marginTop: 8,
-  },
 });
+
+export default SuggestionItem;

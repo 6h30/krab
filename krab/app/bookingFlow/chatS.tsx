@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useRouter } from 'expo-router';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { useRouter } from "expo-router";
+import ArrowRight from "@/assets/svgs/bookingFlowSvgs/preBook/arrowRight.svg";
 
 // Định nghĩa kiểu cho tin nhắn
 interface Message {
   id: string;
   text: string;
-  isSent: boolean; // true: tin nhắn gửi đi, false: tin nhắn nhận được
+  isSent: boolean;
 }
 
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { id: '1', text: 'Hello! How can I assist you today?', isSent: false },
-    { id: '2', text: 'Hi, I need help with my ride.', isSent: true },
+    { id: "1", text: "Hello! How can I assist you today?", isSent: false },
+    { id: "2", text: "Hi, I need help with my ride.", isSent: true },
   ]);
-  const [newMessage, setNewMessage] = useState('');
-  
+  const [newMessage, setNewMessage] = useState("");
+
   const router = useRouter();
 
   const handleSend = () => {
@@ -26,70 +37,104 @@ const ChatScreen: React.FC = () => {
         text: newMessage,
         isSent: true,
       };
-      setMessages(prev => [...prev, message]);
-      setNewMessage('');
+      setMessages((prev) => [...prev, message]);
+      setNewMessage("");
       // Giả lập tin nhắn trả lời từ phía đối phương (có thể thay bằng logic thực tế)
       setTimeout(() => {
-        setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Sure, how can I help?', isSent: false }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            text: "Sure, how can I help?",
+            isSent: false,
+          },
+        ]);
       }, 1000);
     }
   };
 
   const renderMessage = ({ item }: { item: Message }) => (
-    <View style={[styles.messageBubble, item.isSent ? styles.sentBubble : styles.receivedBubble]}>
+    <View
+      style={[
+        styles.messageBubble,
+        item.isSent ? styles.sentBubble : styles.receivedBubble,
+      ]}
+    >
       <Text style={styles.messageText}>{item.text}</Text>
     </View>
   );
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 20}
-    >
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <FontAwesome name="arrow-left" size={20} color="#4A4A4A" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Chat with Support</Text>
-      </View>
-      <FlatList
-        data={messages}
-        renderItem={renderMessage}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.messageList}
-        showsVerticalScrollIndicator={false}
-      />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={newMessage}
-          onChangeText={setNewMessage}
-          placeholder="Type your message..."
-          placeholderTextColor="#666"
-          multiline
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === "ios" ? "padding" : "position"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      >
+        <View style={styles.header}>
+          <Text style={styles.title}>Chat with Driver</Text>
+        </View>
+
+        <FlatList
+          data={messages}
+          renderItem={renderMessage}
+          keyExtractor={(item) => item.id}
+          keyboardShouldPersistTaps="handled" // Cho phép nhấn vào input khi keyboard mở
+          contentContainerStyle={styles.messageList}
+          showsVerticalScrollIndicator={false}
+          style={{
+            borderWidth: 1,
+            borderColor: "#bcbbc1",
+            borderRadius: 14,
+            backgroundColor: "#fff",
+            flex: 1,
+          }}
         />
-        <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
-          <FontAwesome name="paper-plane" size={20} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
-    </KeyboardAvoidingView>
+        <View style={{ flex: 0 }}>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              value={newMessage}
+              onChangeText={setNewMessage}
+              placeholder="Type your message..."
+              placeholderTextColor="#666"
+              multiline
+            />
+            <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
+              <ArrowRight width={24} height={24} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
+};
+
+const colors = {
+  white: "#fff",
+  backgroundLight: "#F8FBFD", // Màu nền cho input container
+  backgroundGray: "#E8EDF3", // Màu nền cho received bubble và input
+  borderGray: "#bcbbc1", // Màu viền
+  shadowGray: "#A0A0A0", // Màu bóng đổ
+  shadowWhite: "#FFFFFF", // Màu bóng đổ cho received bubble
+  textPrimary: "#4A4A4A", // Màu chữ chính
+  textDark: "#1A1A1A", // Màu tiêu đề
+  textGray: "#666", // Màu chữ phụ
+  primaryBlue: "#66E1FF", // Màu chính cho sent bubble và button
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F4F8',
+    backgroundColor: colors.white,
+    padding: 15,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8FBFD',
-    borderRadius: 20,
-    padding: 20,
-    margin: 15,
-    shadowColor: '#A0A0A0',
+    flexDirection: "row",
+    alignItems: "center",
+    // backgroundColor: colors.white,
+    paddingBottom: 14,
+    shadowColor: colors.shadowGray,
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -100,78 +145,77 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 24,
-    fontWeight: '600',
-    color: '#4A4A4A',
+    fontWeight: "600",
+    color: colors.textPrimary,
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   messageList: {
     paddingHorizontal: 15,
-    paddingBottom: 20,
+    paddingTop: 10,
   },
   messageBubble: {
-    maxWidth: '70%',
-    borderRadius: 15,
-    padding: 15,
+    maxWidth: "70%",
+    borderRadius: 12,
+    padding: 10,
     marginVertical: 5,
-    shadowColor: '#A0A0A0',
+    shadowColor: colors.shadowGray,
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 3,
+    borderWidth: 1,
+    borderColor: colors.borderGray,
   },
   sentBubble: {
-    backgroundColor: '#A0B5EB',
-    alignSelf: 'flex-end',
+    backgroundColor: colors.primaryBlue,
+    alignSelf: "flex-end",
   },
   receivedBubble: {
-    backgroundColor: '#E8EDF3',
-    alignSelf: 'flex-start',
-    shadowColor: '#FFFFFF',
+    backgroundColor: colors.backgroundGray,
+    alignSelf: "flex-start",
+    shadowColor: colors.shadowWhite,
     shadowOffset: { width: -2, height: -2 },
     shadowOpacity: 0.5,
     shadowRadius: 5,
   },
   messageText: {
     fontSize: 14,
-    color: '#4A4A4A',
+    color: colors.textPrimary,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8FBFD',
-    borderRadius: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.backgroundLight,
+    borderRadius: 14,
     padding: 10,
-    margin: 15,
-    shadowColor: '#A0A0A0',
-    shadowOffset: { width: 4, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 6,
+    marginVertical: 14,
+    borderWidth: 1,
+    borderColor: colors.borderGray,
   },
   input: {
     flex: 1,
-    backgroundColor: '#E8EDF3',
-    borderRadius: 12,
-    padding: 10,
+    backgroundColor: colors.backgroundGray,
+    borderRadius: 10,
+    padding: 14,
     fontSize: 14,
-    color: '#4A4A4A',
+    color: colors.textPrimary,
     marginRight: 10,
-    shadowColor: '#FFFFFF',
-    shadowOffset: { width: -2, height: -2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    maxHeight: 100,
   },
   sendButton: {
-    backgroundColor: '#A0B5EB',
-    borderRadius: 12,
-    padding: 12,
-    shadowColor: '#8095CC',
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 4,
+    backgroundColor: colors.primaryBlue,
+    borderRadius: 10,
+    padding: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: colors.textDark,
+  },
+  subtitle: {
+    fontSize: 14,
+    color: colors.textGray,
+    marginTop: 4,
   },
 });
 

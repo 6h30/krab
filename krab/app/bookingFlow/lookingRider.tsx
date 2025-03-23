@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   View,
   Text,
   Image,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
+import LottieView from "lottie-react-native";
+
 import MapComponent from "@/components/MapComponent";
 import ButtonF from "@/components/stylesFunny/ButtonF";
-import { SvgProps } from "react-native-svg";
-
 import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
 import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
 import Cash from "@/assets/svgs/bookingFlowSvgs/coinCash.svg";
@@ -21,74 +21,75 @@ const LookingForDriverScreen = () => {
   const router = useRouter();
   const krabGoImage = require("@/assets/images/krab-go.png");
 
+  const animationRef = useRef<LottieView>(null);
   const handleFindRider = () => {
     router.push("/bookingFlow/riderDetail");
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.header}>
+      <View style={styles.header}>
+        <View>
           <Text style={styles.title}>Looking for Drivers</Text>
           <Text style={styles.subtitle}>Searching for nearby drivers</Text>
         </View>
+        <TouchableOpacity onPress={handleFindRider}>
+          <LottieView
+            ref={animationRef}
+            source={require("@/assets/carRun.json")}
+            autoPlay
+            loop
+            style={styles.carAnimation}
+          />
+        </TouchableOpacity>
+      </View>
 
-        <View style={styles.mapContainer}>
-          {/* <MapComponent /> */}
-          <Text style={styles.mapPlaceholder}>Map Placeholder</Text>
+      <View style={styles.mapContainer}>
+        {/* <MapComponent /> */}
+        {/* <Text style={styles.mapPlaceholder}>Map Placeholder</Text> */}
+      </View>
+
+      <ScrollView
+        style={styles.contentContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.carContainer}>
+          <Image source={krabGoImage} style={styles.carImage} />
+          <Text style={styles.waitingText}>Please wait a moment...</Text>
         </View>
 
-        <View style={styles.content}>
-          {/* <View style={styles.carContainer}>
-            <Image style={styles.carImage} source={krabGoImage} />
-          </View> */}
-
-          <View style={styles.locationContainer}>
-            <View style={styles.locationRow}>
-              {/* <Text style={styles.locationIcon}>📍</Text> */}
-              <HomePoint style={styles.locationIcon} width={28} height={28} />
-
-              <View>
-                <Text style={styles.locationText}>487/47</Text>
-                <Text style={styles.locationDetails}>
-                  Vo Thi Nho street, District 7, HCM city
-                </Text>
-              </View>
+        <View style={styles.infoContainer}>
+          <View style={styles.locationCard}>
+            <HomePoint width={24} height={24} style={styles.locationIcon} />
+            <View style={styles.locationTextContainer}>
+              <Text style={styles.locationTitle}>487/47</Text>
+              <Text style={styles.locationSubtitle}>
+                Vo Thi Nho street, District 7, HCM city
+              </Text>
             </View>
           </View>
 
-          <View style={styles.locationContainer}>
-            <View style={styles.locationRow}>
-              <PickPoint style={styles.locationIcon} width={28} height={28} />
-
-              <View>
-                <Text style={styles.locationText}>Soul 22 Coffee</Text>
-                <Text style={styles.locationDetails}>
-                  Vo Thi Nho street, District 1, HCM city
-                </Text>
-              </View>
+          <View style={styles.locationCard}>
+            <PickPoint width={24} height={24} style={styles.locationIcon} />
+            <View style={styles.locationTextContainer}>
+              <Text style={styles.locationTitle}>Soul 22 Coffee</Text>
+              <Text style={styles.locationSubtitle}>
+                Vo Thi Nho street, District 1, HCM city
+              </Text>
             </View>
           </View>
 
           <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>$193.20</Text>
-            {/* <Text style={styles.paymentMethod}>Cash</Text> */}
-            <Cash style={styles.locationIcon} width={28} height={28} />
+            <Text style={styles.priceText}>20.000đ</Text>
+            <Cash width={30} height={30} />
           </View>
 
-          {/* <TouchableOpacity
-            style={styles.continueButton}
-            onPress={handleFindRider}
-          >
-            <Text style={styles.continueButtonText}>Confirm Rider</Text>
-          </TouchableOpacity> */}
-
-          <ButtonF
+          {/* <ButtonF
             bgColor="#58d8e5"
             onPress={handleFindRider}
             title="Booking"
-            containerStyles={{ marginVertical: 30 }}
-          ></ButtonF>
+            containerStyles={styles.buttonContainer}
+          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -100,68 +101,80 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  scrollContainer: {
-    padding: 20,
-    paddingBottom: 100,
-  },
   header: {
-    marginBottom: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#333",
+    fontSize: 24,
+    fontWeight: "700",
+    color: "#1A1A1A",
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 14,
     color: "#666",
-    marginTop: 8,
+    marginTop: 4,
   },
   mapContainer: {
-    height: 200,
-    borderRadius: 10,
-    backgroundColor: "#eee",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
+    height: 250,
+    marginHorizontal: 16,
+    borderRadius: 12,
+    overflow: "hidden",
+    backgroundColor: "#f0f0f0",
   },
-  mapPlaceholder: {
-    color: "#666",
-    fontSize: 16,
-  },
-  content: {
+  contentContainer: {
     flex: 1,
+    paddingHorizontal: 16,
   },
   carContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    paddingVertical: 16,
   },
   carImage: {
-    width: 120,
-    height: 120,
+    width: 48,
+    height: 48,
+    marginRight: 12,
   },
-  locationContainer: {
-    marginBottom: 15,
-    padding: 12,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 8,
-    borderWidth: 1,
+  carAnimation: {
+    width: 60,
+    height: 60,
+    marginRight: 12,
+    // borderWidth: 1,
   },
-  locationRow: {
+  waitingText: {
+    fontSize: 16,
+    color: "#666",
+  },
+  infoContainer: {
+    paddingBottom: 32,
+  },
+  locationCard: {
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
+    backgroundColor: "#F8F8F8",
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: "#bcbbc1",
   },
   locationIcon: {
-    fontSize: 20,
-    marginRight: 10,
-    marginTop: 2,
+    marginRight: 12,
   },
-  locationText: {
+  locationTextContainer: {
+    flex: 1,
+  },
+  locationTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#333",
+    color: "#1A1A1A",
+    marginBottom: 2,
   },
-  locationDetails: {
+  locationSubtitle: {
     fontSize: 14,
     color: "#666",
     lineHeight: 20,
@@ -170,32 +183,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 12,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 8,
+    backgroundColor: "#F8F8F8",
+    borderRadius: 12,
+    padding: 16,
     marginBottom: 20,
     borderWidth: 1,
+    borderColor: "#bcbbc1",
   },
   priceText: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
+    fontWeight: "700",
+    color: "#1A1A1A",
   },
-  paymentMethod: {
-    fontSize: 16,
-    color: "#666",
-  },
-  continueButton: {
-    width: "100%",
-    backgroundColor: "#007AFF",
-    paddingVertical: 14,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  continueButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
+  buttonContainer: {
+    marginTop: 16,
   },
 });
 

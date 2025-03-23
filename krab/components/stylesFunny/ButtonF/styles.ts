@@ -111,15 +111,16 @@ const styles = {
 
 const sizes = {
   standard: 16,
-  secondary: 12,
-  light: 8,
-  offlight: 4,
+  secondary: 14,
+  light: 12,
+  offlight: 10,
   mini: 8,
   none: 0,
 };
 
 const radiusList = {
   standard: 12,
+  secondary: 14,
   full: 9999,
   mini: 8,
   none: 0,

@@ -3,55 +3,70 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MapIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mapIcon.svg";
 import { router } from "expo-router";
+import { colors } from "@/theme/colors";
+import { spacing } from "@/theme/spacing";
+import { commonStyles, screenStyles } from "@/theme/styles";
 
 const Header = () => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity>
-        <Icon name="arrow-back" size={24} color="#000" />
+      {/* Element: Back Button */}
+      <TouchableOpacity style={styles.header__backButton}>
+        <Icon name="arrow-back" size={24} color={colors.textPrimary} />
       </TouchableOpacity>
-      <Text style={styles.headerTitle}>Transport</Text>
 
+      {/* Element: Title */}
+      <Text style={styles.header__title}>Transport</Text>
+
+      {/* Element: Right Action */}
       <TouchableOpacity
-        style={styles.headerRight}
+        style={styles.header__rightAction}
         onPress={() => router.push("/bookingFlow/onMap/onDestinationScreen")}
       >
-        <Text style={{ fontSize: 12, color: "#000" }}>Map</Text>
-
-        {/* <Icon name="map" size={24} color="#000" /> */}
-        <MapIcon width={20} height={20} />
+        <Text style={styles.header__rightActionText}>Map</Text>
+        <MapIcon width={24} height={24} />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Header;
-
-const styles = StyleSheet.create({
+// Styles theo BEM
+export const styles = StyleSheet.create({
+  // Block: Header
   header: {
-    flexDirection: "row",
+    ...commonStyles.flexRow,
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 16,
-    backgroundColor: "#FFF",
-    elevation: 2, // Bóng nhẹ cho Android
-    shadowColor: "#000", // Bóng cho iOS
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    padding: spacing.lg,
+    backgroundColor: colors.backgroundPrimary,
+    ...commonStyles.shadow,
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333", // Màu chữ tối hơn cho rõ ràng
+
+  // Element: Back Button
+  header__backButton: {
+    padding: spacing.xs, // 4 (để vùng nhấn lớn hơn một chút)
   },
-  headerRight: {
-    flexDirection: "row",
+
+  // Element: Title
+  header__title: {
+    ...screenStyles.header__title,
+  },
+
+  // Element: Right Action
+  header__rightAction: {
+    ...commonStyles.flexRow,
     borderWidth: 1,
-    gap: 5,
+    borderColor: colors.borderDark,
+    gap: spacing.xs, // 4 (thay cho gap: 5 để đồng bộ với spacing)
     alignItems: "center",
-    paddingHorizontal: 5,
-    paddingVertical: 2,
-    borderRadius: 5,
+    paddingHorizontal: spacing.sm, // 8 (thay 5)
+    paddingVertical: spacing.xs, // 4 (thay 2)
+    borderRadius: spacing.sm, // 8
+  },
+  header__rightActionText: {
+    fontSize: 12,
+    color: colors.textPrimary, // Thay #000
   },
 });
+
+export default Header;
