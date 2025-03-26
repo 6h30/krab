@@ -13,6 +13,14 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import ArrowRight from "@/assets/svgs/bookingFlowSvgs/preBook/arrowRight.svg";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import {
+  commonStyles,
+  pickScreenStyles,
+  tabScreenStyles,
+} from "@/theme/styles";
+
 
 // Định nghĩa kiểu cho tin nhắn
 interface Message {
@@ -110,31 +118,18 @@ const ChatScreen: React.FC = () => {
   );
 };
 
-const colors = {
-  white: "#fff",
-  backgroundLight: "#F8FBFD", // Màu nền cho input container
-  backgroundGray: "#E8EDF3", // Màu nền cho received bubble và input
-  borderGray: "#bcbbc1", // Màu viền
-  shadowGray: "#A0A0A0", // Màu bóng đổ
-  shadowWhite: "#FFFFFF", // Màu bóng đổ cho received bubble
-  textPrimary: "#4A4A4A", // Màu chữ chính
-  textDark: "#1A1A1A", // Màu tiêu đề
-  textGray: "#666", // Màu chữ phụ
-  primaryBlue: "#66E1FF", // Màu chính cho sent bubble và button
-};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.backgroundPrimary,
     padding: 15,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: colors.white,
     paddingBottom: 14,
-    shadowColor: colors.shadowGray,
+    shadowColor: colors.borderDark,
     shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -159,25 +154,25 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     marginVertical: 5,
-    shadowColor: colors.shadowGray,
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 3,
+    // shadowColor: colors.borderDark,
+    // shadowOffset: { width: 2, height: 2 },
+    // shadowOpacity: 0.2,
+    // shadowRadius: 5,
+    // elevation: 3,
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
   },
   sentBubble: {
-    backgroundColor: colors.primaryBlue,
+    backgroundColor: colors.secondary,
     alignSelf: "flex-end",
   },
   receivedBubble: {
-    backgroundColor: colors.backgroundGray,
+    backgroundColor: colors.backgroundSecondary,
     alignSelf: "flex-start",
-    shadowColor: colors.shadowWhite,
-    shadowOffset: { width: -2, height: -2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
+    // shadowColor: colors.backgroundOverlay,
+    // shadowOffset: { width: -2, height: -2 },
+    // shadowOpacity: 0.5,
+    // shadowRadius: 5,
   },
   messageText: {
     fontSize: 14,
@@ -186,16 +181,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.backgroundLight,
+    backgroundColor: colors.backgroundSecondary,
     borderRadius: 14,
     padding: 10,
     marginVertical: 14,
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
   },
   input: {
     flex: 1,
-    backgroundColor: colors.backgroundGray,
+    backgroundColor: colors.backgroundPrimary,
     borderRadius: 10,
     padding: 14,
     fontSize: 14,
@@ -203,18 +198,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   sendButton: {
-    backgroundColor: colors.primaryBlue,
+    backgroundColor: colors.secondary,
     borderRadius: 10,
     padding: 8,
   },
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: colors.textDark,
+    color: colors.textPrimary,
   },
   subtitle: {
     fontSize: 14,
-    color: colors.textGray,
+    color: colors.textSecondary,
     marginTop: 4,
   },
 });

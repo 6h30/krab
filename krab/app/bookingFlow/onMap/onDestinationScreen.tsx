@@ -32,7 +32,11 @@ import { Location } from "@/data/types";
 import { recentLocations } from "@/data/MockData";
 import { colors } from "@/theme/colors";
 import { spacing, margin, padding } from "@/theme/spacing";
-import { commonStyles } from "@/theme/styles";
+import {
+  commonStyles,
+  pickScreenStyles,
+  tabScreenStyles,
+} from "@/theme/styles";
 
 const OnDestinationScreen: React.FC = () => {
   const router = useRouter();
@@ -144,7 +148,7 @@ const OnDestinationScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          style={{ marginTop: 15, marginBottom: 90 }} 
+          style={{ marginTop: 15, marginBottom: 80 }}
           data={recentLocations}
           renderItem={renderRecentItem}
           keyExtractor={(item) => item.id}
@@ -168,45 +172,23 @@ const OnDestinationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
   searchBar: {
-    ...commonStyles.flexRow,
-    alignItems: "center",
-    paddingTop: spacing.md,
-    ...padding.horizontal("lg"),
-    backgroundColor: colors.backgroundPrimary,
+   ...pickScreenStyles.searchBar,
   },
   section1: {
     // flex: 1,
     width: 40,
   },
   section2: {
-    flex: 9,
-    ...commonStyles.flexRow,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: colors.borderPrimary,
-    ...padding.horizontal("sm"),
-    borderRadius: 8,
-    gap: 10,
+    ...pickScreenStyles.section2,
   },
   section2_noborder: {
-    flex: 9,
-    ...commonStyles.flexRow,
-    alignItems: "center",
-    ...padding.horizontal("sm"),
-    gap: 10,
+    ...pickScreenStyles.section2_noborder,
   },
   section3: {
-    // width: 50,
-    paddingLeft: spacing.lg,
-    ...commonStyles.flexRow,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    ...pickScreenStyles.section3,
   },
   searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    borderRadius: 8,
+    ...pickScreenStyles.searchInput,
   },
   currentLocationText: {
     fontSize: 16,
@@ -218,23 +200,8 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   footer: {
-     ...padding.all('lg'),
-    borderTopWidth: 1,
-    borderTopColor: colors.borderPrimary,
-    width: "100%",
-    alignSelf: "center",
-    position: "absolute",
-    bottom: 2,
-    backgroundColor: "#fff",
+    ...pickScreenStyles.footer__absolute,
   },
-  footerButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: 10,
-  },
-  footerText: { fontSize: 14, color: "#666", flex: 1, marginHorizontal: 5 },
-
   mapViewContainer: {
     flex: 1,
   },
@@ -247,35 +214,22 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   locationItem: {
-    flexDirection: "row",
-    alignItems: "center",
-     paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+    ...tabScreenStyles.locationItem,
   },
   locationIcon: {
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationIcon,
   },
   locationDetails: {
-    flex: 1,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDetails,
   },
   locationName: {
-    fontSize: 16,
-    fontWeight: "bold",
+    ...tabScreenStyles.locationName,
   },
   locationAddress: {
-    fontSize: 14,
-    color: "#666",
-    marginVertical: 2,
-    lineHeight: 20,
+    ...tabScreenStyles.locationAddress,
   },
   locationDistance: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 8,
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationDistance,
   },
 });
 

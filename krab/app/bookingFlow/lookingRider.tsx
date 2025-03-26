@@ -16,6 +16,9 @@ import ButtonF from "@/components/stylesFunny/ButtonF";
 import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
 import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
 import Cash from "@/assets/svgs/bookingFlowSvgs/coinCash.svg";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
 
 const LookingForDriverScreen = () => {
   const router = useRouter();
@@ -29,42 +32,38 @@ const LookingForDriverScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <View>
+        <View style={styles.headerTextContainer}>
           <Text style={styles.title}>Looking for Drivers</Text>
-          <Text style={styles.subtitle}>Searching for nearby drivers</Text>
+          <Text style={styles.subtitle}>Searching for nearby drivers...</Text>
         </View>
-        <TouchableOpacity onPress={handleFindRider}>
-          <LottieView
-            ref={animationRef}
-            source={require("@/assets/carRun.json")}
-            autoPlay
-            loop
-            style={styles.carAnimation}
-          />
-        </TouchableOpacity>
+        <ButtonF
+          bgColor="#66E1FF"
+          textColor="#000"
+          title="Cancel"
+          size="secondary"
+          radius="mini"
+          containerStyles={{
+            width: "30%",
+            alignSelf: "flex-end",
+          }}
+        ></ButtonF>
       </View>
 
-      <View style={styles.mapContainer}>
-        {/* <MapComponent /> */}
-        {/* <Text style={styles.mapPlaceholder}>Map Placeholder</Text> */}
-      </View>
+      <View style={styles.mapContainer}></View>
 
-      <ScrollView
-        style={styles.contentContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.carContainer}>
-          <Image source={krabGoImage} style={styles.carImage} />
-          <Text style={styles.waitingText}>Please wait a moment...</Text>
-        </View>
-
+      <View style={styles.footer}>
         <View style={styles.infoContainer}>
+          <View style={styles.carContainer}>
+            <Image source={krabGoImage} style={styles.carImage} />
+            <Text style={styles.waitingText}>Please wait a moment...</Text>
+          </View>
+
           <View style={styles.locationCard}>
             <HomePoint width={24} height={24} style={styles.locationIcon} />
             <View style={styles.locationTextContainer}>
               <Text style={styles.locationTitle}>487/47</Text>
               <Text style={styles.locationSubtitle}>
-                Vo Thi Nho street, District 7, HCM city
+                Vo Thi Nho, District 7, HCM
               </Text>
             </View>
           </View>
@@ -74,24 +73,25 @@ const LookingForDriverScreen = () => {
             <View style={styles.locationTextContainer}>
               <Text style={styles.locationTitle}>Soul 22 Coffee</Text>
               <Text style={styles.locationSubtitle}>
-                Vo Thi Nho street, District 1, HCM city
+                Vo Thi Nho, District 1, HCM
               </Text>
             </View>
           </View>
 
           <View style={styles.priceContainer}>
-            <Text style={styles.priceText}>20.000đ</Text>
             <Cash width={30} height={30} />
+            <Text style={styles.priceText}>20.000đ</Text>
           </View>
-
-          {/* <ButtonF
-            bgColor="#58d8e5"
+          <TouchableOpacity
+            style={styles.footerButton}
             onPress={handleFindRider}
-            title="Booking"
-            containerStyles={styles.buttonContainer}
-          /> */}
+          >
+            <Text style={styles.footerText}>
+              Driver is on the way to pick you up. Please wait a moment...
+            </Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -99,68 +99,58 @@ const LookingForDriverScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F8F8",
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
+    alignItems: "center",
+    padding: 16,
+    backgroundColor: "#FFFFFF",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  headerTextContainer: {
+    flex: 1,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: "#1A1A1A",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
   },
   subtitle: {
     fontSize: 14,
     color: "#666",
-    marginTop: 4,
   },
   mapContainer: {
-    height: 250,
-    marginHorizontal: 16,
-    borderRadius: 12,
-    overflow: "hidden",
-    backgroundColor: "#f0f0f0",
-  },
-  contentContainer: {
     flex: 1,
-    paddingHorizontal: 16,
+    // backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
   },
   carContainer: {
-    flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 16,
+    marginBottom: 16,
   },
   carImage: {
-    width: 48,
-    height: 48,
-    marginRight: 12,
-  },
-  carAnimation: {
-    width: 60,
-    height: 60,
-    marginRight: 12,
-    // borderWidth: 1,
+    width: 80,
+    height: 80,
   },
   waitingText: {
-    fontSize: 16,
-    color: "#666",
+    fontSize: 14,
+    color: "#888",
   },
   infoContainer: {
-    paddingBottom: 32,
+    backgroundColor: "#FFF",
+    padding: 16,
+    borderRadius: 14,
   },
   locationCard: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F8F8F8",
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: "#bcbbc1",
+    marginBottom: 14,
   },
   locationIcon: {
     marginRight: 12,
@@ -170,33 +160,49 @@ const styles = StyleSheet.create({
   },
   locationTitle: {
     fontSize: 16,
-    fontWeight: "600",
-    color: "#1A1A1A",
-    marginBottom: 2,
+    fontWeight: "bold",
+    color: "#333",
   },
   locationSubtitle: {
     fontSize: 14,
     color: "#666",
-    lineHeight: 20,
   },
   priceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#F8F8F8",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 20,
+    marginTop: 8,
+    padding: 8,
     borderWidth: 1,
-    borderColor: "#bcbbc1",
+    borderColor: "#e0e0e0",
+    borderRadius: 8,
   },
   priceText: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#1A1A1A",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#00A551",
   },
-  buttonContainer: {
-    marginTop: 16,
+  footer: {
+    borderWidth: 1,
+    borderColor: colors.borderPrimary,
+    borderRadius: 14,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "#fff",
+  },
+
+  footerButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 8,
+  },
+  footerText: {
+    fontSize: 14,
+    color: "#666",
+    flex: 1,
+    marginHorizontal: 8,
   },
 });
 

@@ -1,4 +1,4 @@
-import { Appearance } from 'react-native';
+import { Appearance, useColorScheme } from 'react-native';
 
 // Định nghĩa các màu cơ bản
 const baseColors = {
@@ -37,6 +37,19 @@ const palette = {
   info: '#5856D6', // Thông tin
 };
 
+const colors2 = {
+  white: "#fff",
+  backgroundLight: "#F8FBFD", // Màu nền cho input container
+  backgroundGray: "#E8EDF3", // Màu nền cho received bubble và input
+  borderGray: "#bcbbc1", // Màu viền
+  shadowGray: "#A0A0A0", // Màu bóng đổ
+  shadowWhite: "#FFFFFF", // Màu bóng đổ cho received bubble
+  textPrimary: "#4A4A4A", // Màu chữ chính
+  textDark: "#1A1A1A", // Màu tiêu đề
+  textGray: "#666", // Màu chữ phụ
+  primaryBlue: "#66E1FF", // Màu chính cho sent bubble và button
+};
+
 // Theme cho chế độ sáng (Light Mode)
 const lightColors = {
   ...baseColors,
@@ -65,6 +78,8 @@ const darkColors = {
   info: '#5E5CE6',
 };
 
+
+
 // Hàm chọn theme dựa trên hệ thống
 const getColors = () => {
   const colorScheme = Appearance.getColorScheme();
@@ -73,6 +88,11 @@ const getColors = () => {
 
 // Xuất colors để sử dụng
 export const colors = getColors();
+
+// export const useThemeColors = () => {
+//   const colorScheme = useColorScheme();
+//   return colorScheme === "dark" ? darkColors : lightColors;
+// };
 
 // Nếu cần export cả light/dark riêng
 export { lightColors, darkColors };

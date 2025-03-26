@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     paddingHorizontal: 14,
-    paddingVertical: 6,
+    // paddingVertical: 4,
 
     // Claymorphism outer style (shadows and border)
     borderRadius: 8,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 5,
-    marginVertical: 5,
+    // marginVertical: 5,
     marginHorizontal: 0,
     overflow: "hidden",
   },

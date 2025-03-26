@@ -34,6 +34,13 @@ import LikeChat from "@/assets/svgs/bookingFlowSvgs/preBook/likeChat.svg";
 import ButtonF from "@/components/stylesFunny/ButtonF";
 import { Location } from "@/data/types";
 import { recentLocations } from "@/data/MockData";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import {
+  commonStyles,
+  pickScreenStyles,
+  tabScreenStyles,
+} from "@/theme/styles";
 
 const OnDestinationScreen: React.FC = () => {
   const router = useRouter();
@@ -212,7 +219,7 @@ const OnDestinationScreen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <FlatList
-          style={{ marginTop: 15, marginBottom: 100 }}
+          style={{ marginTop: 15, marginBottom: 110 }}
           data={recentLocations}
           renderItem={renderRecentItem}
           keyExtractor={(item) => item.id}
@@ -237,9 +244,7 @@ const OnDestinationScreen: React.FC = () => {
           textColor="#333"
           title="Choose this pickup"
           size="secondary"
-            radius="secondary"
-          // style={styles.chooseButton}
-          // textStyle={styles.chooseButtonText}
+          radius="mini"
           onPress={() => router.push("/bookingFlow/choiceCar/selectCar")}
         />
       </View>
@@ -285,66 +290,41 @@ const OnDestinationScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
   searchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    backgroundColor: "#fff",
+    ...pickScreenStyles.searchBar,
   },
   section1: {
     // flex: 1,
     width: 40,
   },
   section2: {
-    flex: 9,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    gap: 10,
+    ...pickScreenStyles.section2,
   },
   section2_noborder: {
-    flex: 9,
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    gap: 10,
+    ...pickScreenStyles.section2_noborder,
   },
   section3: {
-    // flex: 1,
-    width: 50,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    ...pickScreenStyles.section3,
   },
   searchInput: {
-    flex: 1,
-    height: 40,
-    fontSize: 16,
-    borderRadius: 8,
+    ...pickScreenStyles.searchInput,
   },
   currentLocationText: {
     fontSize: 16,
-    color: "#333",
+    color: colors.textPrimary,
   },
-  screenTitle: { fontSize: 18, fontWeight: "bold", color: "#333" },
-
+  screenTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.textPrimary,
+  },
   footer: {
-    padding: 14,
-    borderTopWidth: 1,
-    borderTopColor: "#f0f0f0",
-    width: "100%",
-    alignSelf: "center",
-    position: "absolute",
-    bottom: 2,
-    backgroundColor: "#fff",
-    gap: 5,
+    ...pickScreenStyles.footer__absolute,
+    gap: 10,
   },
   footerButton: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    paddingVertical: 5,
   },
   footerText: { fontSize: 14, color: "#666", flex: 1, marginHorizontal: 5 },
   chooseButton: {
@@ -371,34 +351,22 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   locationItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f0f0f0",
+   ...tabScreenStyles.locationItem,
   },
   locationIcon: {
-    marginHorizontal: 5,
+    ...tabScreenStyles.locationIcon,
   },
   locationDetails: {
-    flex: 1,
-    marginHorizontal: 5,
+  ...tabScreenStyles.locationDetails,
   },
   locationName: {
-    fontSize: 16,
-    fontWeight: "bold",
+   ...tabScreenStyles.locationName,
   },
   locationAddress: {
-    fontSize: 14,
-    color: "#666",
-    marginVertical: 2,
-    lineHeight: 20,
+    ...tabScreenStyles.locationAddress,
   },
   locationDistance: {
-    fontSize: 12,
-    color: "#999",
-    marginTop: 8,
-    marginHorizontal: 5,
+   ...tabScreenStyles.locationDistance,
   },
 
   modalContainer: {
@@ -455,7 +423,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     flex: 1,
     alignItems: "center",
-    borderWidth : 1,
+    borderWidth: 1,
     borderColor: "#bcbbc1",
   },
   buttonText: {

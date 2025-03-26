@@ -104,11 +104,12 @@ export const pickScreenStyles = StyleSheet.create({
   footer__absolute: {
     ...padding.all('lg'),
     borderTopWidth: 1,
-    borderTopColor: "#f0f0f0",
+    borderTopColor: colors.borderPrimary,
     width: "100%",
     alignSelf: "center",
     position: "absolute",
     bottom: 0,
+    // backgroundColor: colors.backgroundSecondary,
   },
 
   screenTitle: {

@@ -33,7 +33,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Admin',
           // tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
           tabBarIcon: () => <HomeSvg width={28} height={28} />,
         }}
@@ -41,7 +41,7 @@ export default function TabLayout() {
        <Tabs.Screen
         name="login"
         options={{
-          title: 'Krab',
+          title: 'for Client',
           // tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
           tabBarIcon: () => <LoginSvg width={28} height={28} />,
         }}
@@ -49,7 +49,7 @@ export default function TabLayout() {
         <Tabs.Screen
         name="account"
         options={{
-          title: 'Acc',
+          title: 'for Driver',
           // tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
           tabBarIcon: () => <PersonSvg width={28} height={28} />,
         }}
@@ -58,7 +58,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="onBoarding"
         options={{
-          title: 'Welcome screen',
+          title: 'Test',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
         }}
       />

@@ -17,6 +17,9 @@ import ArrowRight from "@/assets/svgs/bookingFlowSvgs/preBook/arrowRight.svg";
 import HandMoney from "@/assets/svgs/bookingFlowSvgs/preBook/handMoney.svg";
 import InfoCircle from "@/assets/svgs/bookingFlowSvgs/preBook/infoCircle.svg";
 import CalendarEdit from "@/assets/svgs/bookingFlowSvgs/preBook/calendarEdit.svg";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
 
 const SelectCarScreen = () => {
   const router = useRouter();
@@ -89,6 +92,18 @@ const SelectCarScreen = () => {
     }
     router.push("/bookingFlow/lookingRider");
   };
+  
+  const handleCalendar = () => {
+    router.push("/");
+  }
+
+  const handlePaymentMethod = () => {
+    router.push("/bookingFlow/choiceCar/paymentMethod");
+  }
+
+  const handleOffers = () => {
+    router.push("/bookingFlow/choiceCar/offers");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,7 +122,7 @@ const SelectCarScreen = () => {
               key={ride.id}
               onPress={() => handleSelectCar(ride.id)}
             >
-              <View style={{ marginVertical: 0 }}>
+              <View>
                 <KrabCarCard
                   carType={ride.carType}
                   seats={ride.seats}
@@ -124,32 +139,20 @@ const SelectCarScreen = () => {
         </View>
       </ScrollView>
 
-      <View
-        style={{
-          flex: 1,
-          borderWidth: 1,
-          borderRadius: 14,
-          borderColor: "#bcbbc1",
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-          backgroundColor: "#fff",
-        }}
-      >
+      <View style={styles.footer}>
         <View style={styles.container2}>
-          {/* Logo MoMo */}
           <View style={styles.logoContainer2}>
             <HandMoney width={24} height={24} />
-            <Text style={{ marginLeft: 6 }}>
-              Save 6.000đ on your ride when you join KrabUnlimited.
-            </Text>
-            <ArrowRight width={18} height={18} style={{ marginLeft: 6 }} />
+            <Text>Save 6.000đ on your ride when you join KrabUnlimited.</Text>
+            <ArrowRight width={18} height={18} />
           </View>
         </View>
 
         <View style={styles.container1}>
-          {/* Logo MoMo */}
-          <View style={styles.logoContainer}>
+          <TouchableOpacity
+            style={styles.logoContainer}
+            onPress={handlePaymentMethod}
+          >
             <Image
               source={{
                 uri: "https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png",
@@ -157,10 +160,15 @@ const SelectCarScreen = () => {
               style={{ width: 24, height: 24, marginRight: 8 }}
             />
             <Text style={styles.logoText}>MoMo</Text>
-          </View>
+          </TouchableOpacity>
 
           {/* Chữ Offers */}
-          <Text style={styles.offersText}>Offers</Text>
+          <TouchableOpacity
+            style={styles.offersText}
+            onPress={handleOffers}
+          >
+            <Text>Offers</Text>
+          </TouchableOpacity>
 
           {/* Icon Menu (ba chấm) */}
           <TouchableOpacity>
@@ -168,31 +176,19 @@ const SelectCarScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 16,
-            // paddingVertical: 16,
-            backgroundColor: "#fff",
-            gap: 10,
-          }}
-        >
-          <TouchableOpacity style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderRadius: 14, borderColor: "#e0e0e0", padding: 6 }}>
-            <CalendarEdit width={36} height={36}  />
+        <View style={styles.buttonleft}>
+          <TouchableOpacity style={styles.calendarButton} onPress={handleCalendar}>
+            <CalendarEdit width={36} height={36} />
           </TouchableOpacity>
 
           <ButtonF
-            // onPress={handleContinue}
             bgColor="#66E1FF"
             textColor="#000"
             onPress={handleLookingRider}
             title="Confirm Car and Look"
             size="secondary"
-            radius="secondary"
+            radius="mini"
             containerStyles={{
-              marginVertical: 14,
               width: "80%",
               alignSelf: "center",
             }}
@@ -223,17 +219,14 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   rideList: {
-    // maxHeight: 300,
     position: "relative",
     marginBottom: 150,
     flexDirection: "column",
     backgroundColor: "#fff",
-
     borderWidth: 1,
     borderRadius: 14,
     borderColor: "#bcbbc1",
   },
-
   continueButton: {
     backgroundColor: "#000",
     paddingVertical: 12,
@@ -246,40 +239,37 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
   },
-
   rideOption: {
-    // Claymorphism outer style (shadows and border)
-    borderRadius: 16, // Soft, clay-like corners
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: "rgb(135, 159, 249)", // Reflective glass edge
-    elevation: 6, // Clay-like shadow (Android)
-    shadowColor: "#000", // Multi-layered shadow (iOS)
+    borderColor: "rgb(135, 159, 249)",
+    elevation: 6,
+    shadowColor: "#000",
     shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 5,
     marginVertical: 8,
     marginHorizontal: 12,
-    overflow: "hidden", // Ensure blur doesn’t bleed outside
+    overflow: "hidden",
   },
   selectedRide: {
-    // Highlighted state
-    borderColor: "rgb(74, 145, 226)", // Blue tint for selection
+    borderColor: "rgb(74, 145, 226)",
     elevation: 8,
     shadowOpacity: 0.25,
   },
   blurContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 12, // Balanced padding inside blur
-    borderRadius: 16, // Match outer radius
-    overflow: "hidden", // Clip content to rounded corners
+    padding: 12,
+    borderRadius: 16,
+    overflow: "hidden",
   },
   vehicleImage: {
     width: 70,
     height: 70,
     resizeMode: "contain",
     marginRight: 12,
-    elevation: 2, // Subtle clay shadow
+    elevation: 2,
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.1,
@@ -291,9 +281,9 @@ const styles = StyleSheet.create({
   },
   rideTitle: {
     fontSize: 16,
-    fontWeight: "600", // Soft bold
+    fontWeight: "600",
     color: "#333333",
-    marginBottom: 6, // Space between title and info
+    marginBottom: 6,
   },
   infoRow: {
     flexDirection: "row",
@@ -311,19 +301,19 @@ const styles = StyleSheet.create({
   originalPrice: {
     fontSize: 14,
     color: "#888888",
-    textDecorationLine: "line-through", // Strikethrough effect
-    marginRight: 6, // Space between original and current price
+    textDecorationLine: "line-through",
+    marginRight: 6,
   },
   price: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#4A90E2", // Blue for emphasis
+    color: "#4A90E2",
   },
   container1: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: 16,
+    paddingVertical: 20,
     paddingHorizontal: 16,
     backgroundColor: "#fff",
     gap: 10,
@@ -346,6 +336,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 6,
+    gap: 6,
     backgroundColor: "#FFF9BF",
     borderRadius: 10,
   },
@@ -360,6 +351,32 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRightWidth: 1,
     borderRightColor: "#e0e0e0",
+  },
+  buttonleft: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+    backgroundColor: "#fff",
+    gap: 10,
+  },
+  calendarButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1,
+    borderRadius: 8,
+    borderColor: "#e0e0e0",
+    padding: 6,
+  },
+  footer: {
+    borderWidth: 1,
+    borderRadius: 14,
+    borderColor: "#bcbbc1",
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "#fff",
   },
 });
 

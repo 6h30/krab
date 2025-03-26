@@ -15,6 +15,12 @@ import GalleryImg from "@/assets/svgs/bookingFlowSvgs/preBook/galleryImg.svg";
 import CameraImg from "@/assets/svgs/bookingFlowSvgs/preBook/cameraImg.svg";
 import Shapes from "@/assets/svgs/bookingFlowSvgs/preBook/shapes.svg";
 import HoleFlag from "@/assets/svgs/bookingFlowSvgs/preBook/holeFlag.svg";
+import CreditCard from "@/assets/svgs/bookingFlowSvgs/preBook/creditCard.svg";
+import ReceiptBill from "@/assets/svgs/bookingFlowSvgs/preBook/receiptBill.svg";
+import CogSetting from "@/assets/svgs/bookingFlowSvgs/preBook/cogSetting.svg";
+import AddCircle from "@/assets/svgs/bookingFlowSvgs/preBook/addCircle.svg";
+import CashBriefcase from "@/assets/svgs/bookingFlowSvgs/preBook/cashBriefcase.svg";
+
 import { colors } from "@/theme/colors";
 import { spacing, margin, padding } from "@/theme/spacing";
 import {
@@ -23,7 +29,7 @@ import {
   tabScreenStyles,
 } from "@/theme/styles";
 
-const PlaceScreen = () => {
+const PaymentMethodScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -38,76 +44,60 @@ const PlaceScreen = () => {
 
           <TouchableOpacity style={styles.section2_noborder}>
             <Text style={styles.address} numberOfLines={1} ellipsizeMode="tail">
-            487/47 Huynh Tan Phat St., Tan Thuan Dong Wd., Dist. 7, HCMC
+              Payment
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity>
+            <CogSetting width={24} height={24} />
+          </TouchableOpacity>
         </View>
+
         <View style={styles.searchBar}>
           <View style={styles.section1}>
             <TouchableOpacity>
-              <HistoryPick width={24} height={24} />
+              <CreditCard width={24} height={24} />
             </TouchableOpacity>
           </View>
 
           <TouchableOpacity style={styles.section2_noborder}>
-            <Text style={styles.address}>
-            487/47 Huynh Tan Phat St., Tan Thuan Dong Wd., Dist. 7, Ho Chi Minh City
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.searchBar}>
-          <View style={styles.section1}>
-            <TouchableOpacity>
-              <Shapes width={24} height={24} />
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.section2_noborder}>
-            <Text style={styles.address}>Residential</Text>
+            <Text style={styles.address}>Payment method</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Phần Camera và Gallery */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button}>
-            <CameraImg width={30} height={30} />
-            <Text style={styles.buttonText}>Camera</Text>
+            <AddCircle width={30} height={30} />
+            <Text style={styles.buttonText}>Add Method</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
-            <GalleryImg width={30} height={30} />
-            <Text style={styles.buttonText}>Gallery</Text>
+            <CashBriefcase width={30} height={30} />
+            <Text style={styles.buttonText}>All Added</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Phần Edit this place */}
         <View style={styles.footer}>
-          <Text style={styles.sectionTitle}>Edit this place</Text>
-          {/* Change incorrect information */}
-          <TouchableOpacity style={styles.option}>
-            <CheckSquare width={24} height={24} />
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionTitle}>
-                Change incorrect information
-              </Text>
-              <Text style={styles.optionSubtitle}>
-                Edit name, location, category, etc.
-              </Text>
-            </View>
-            <Icon name="chevron-right" size={24} color="#000" />
-          </TouchableOpacity>
-          {/* Feedback on place */}
-          <TouchableOpacity style={styles.option}>
-            <HoleFlag width={24} height={24} />
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionTitle}>Feedback on place</Text>
-              <Text style={styles.optionSubtitle}>
-                Closed, non-existent, duplicate, etc.
-              </Text>
-            </View>
-            <Icon name="chevron-right" size={24} color="#000" />
-          </TouchableOpacity>
+          <Text style={styles.sectionTitle}>Recent transactions</Text>
         </View>
       </View>
+      <TouchableOpacity style={styles.option}>
+        <ReceiptBill width={24} height={24} />
+        <View style={styles.optionTextContainer}>
+          <Text style={styles.optionTitle}>Payment</Text>
+          <Text style={styles.optionSubtitle}>To KrabCar</Text>
+        </View>
+        <Text style={styles.optionTitle}>200.000đ</Text>
+        <Icon name="chevron-right" size={24} color="#000" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.option}>
+        <ReceiptBill width={24} height={24} />
+        <View style={styles.optionTextContainer}>
+          <Text style={styles.optionTitle}>Payment</Text>
+          <Text style={styles.optionSubtitle}>To KrabCar</Text>
+        </View>
+        <Text style={styles.optionTitle}>212.000đ</Text>
+        <Icon name="chevron-right" size={24} color="#000" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -161,12 +151,14 @@ const styles = StyleSheet.create({
   option: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 16,
     borderBottomWidth: 1,
     borderBottomColor: "#f0f0f0",
   },
   optionTextContainer: {
     flex: 1,
+    gap: 4,
     marginLeft: 16,
   },
   optionTitle: {
@@ -181,7 +173,10 @@ const styles = StyleSheet.create({
     ...pickScreenStyles.screenTitle,
   },
   footer: {
-    ...pickScreenStyles.footer,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderPrimary,
   },
   footerButton: {
     flexDirection: "row",
@@ -191,4 +186,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PlaceScreen;
+export default PaymentMethodScreen;

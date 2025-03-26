@@ -13,7 +13,11 @@ import MailIcon from "@/assets/svgs/bookingFlowSvgs/preBook/mailIcon.svg";
 import CopyPaste from "@/assets/svgs/bookingFlowSvgs/preBook/copyPaste.svg";
 import PersonCheck from "@/assets/svgs/bookingFlowSvgs/preBook/personCheck.svg";
 import PickPoint from "@/assets/svgs/bookingFlowSvgs/pickPoint.svg";
+import HomePoint from "@/assets/svgs/bookingFlowSvgs/homePoint.svg";
 import CalenderTrip from "@/assets/svgs/bookingFlowSvgs/calendar.svg";
+import { colors } from "@/theme/colors";
+import { spacing, margin, padding } from "@/theme/spacing";
+import { commonStyles, pickScreenStyles } from "@/theme/styles";
 
 // Định nghĩa kiểu cho thông tin chuyến đi (giả lập)
 interface TripInfo {
@@ -69,7 +73,7 @@ const ShareTripScreen: React.FC = () => {
           <Text style={styles.cardText}>{tripInfo.dateTime}</Text>
         </View>
         <View style={styles.cardRow}>
-          <PickPoint width={18} height={18} />
+          <HomePoint width={18} height={18} />
           <Text style={styles.cardText}>{tripInfo.pickupAddress}</Text>
         </View>
         <View style={styles.cardRow}>
@@ -111,19 +115,6 @@ const ShareTripScreen: React.FC = () => {
   );
 };
 
-const colors = {
-  white: "#fff",
-  primaryBackground: "#FFF", // Màu nền chính cho card và header
-  lightGray: "#E8EDF3", // Màu nền cho link container
-  borderGray: "#bcbbc1", // Màu viền
-  textDark: "#111", // Màu chữ chính
-  textGray: "#666", // Màu chữ phụ
-  textHeader: "#4A4A4A", // Màu chữ header
-  textTitle: "#1A1A1A", // Màu tiêu đề chính
-  linkBlue: "#7A90C2", // Màu link
-  buttonBlue: "#A0B5EB", // Màu nút copy
-  shareButton: "#66E1FF", // Màu nút share
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -134,7 +125,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.primaryBackground,
+    backgroundColor: colors.backgroundPrimary,
     paddingBottom: 14,
   },
   backButton: {
@@ -143,22 +134,21 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 24,
     fontWeight: "600",
-    color: colors.textHeader,
     flex: 1,
     textAlign: "center",
   },
   tripCard: {
-    backgroundColor: colors.primaryBackground,
+    backgroundColor: colors.backgroundPrimary,
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
     marginBottom: 14,
   },
   cardTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: colors.textDark,
+
     marginBottom: 15,
   },
   cardRow: {
@@ -168,41 +158,39 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 14,
-    color: colors.textGray,
+
     marginLeft: 10,
     flex: 1,
   },
   shareContainer: {
-    backgroundColor: colors.primaryBackground,
+    backgroundColor: colors.backgroundPrimary,
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
   },
   shareLinkLabel: {
     fontSize: 16,
     fontWeight: "500",
-    color: colors.textDark,
     marginBottom: 10,
   },
   linkContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
     borderRadius: 12,
     padding: 10,
     marginBottom: 20,
   },
   shareLink: {
     fontSize: 14,
-    color: colors.textDark,
     flex: 1,
   },
   copyButton: {
-    backgroundColor: colors.buttonBlue,
+    // backgroundColor: colors.buttonBlue,
     borderWidth: 1,
-    borderColor: colors.borderGray,
+    borderColor: colors.borderPrimary,
     borderRadius: 10,
     padding: 8,
     marginLeft: 10,
@@ -217,7 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.shareButton,
+    // backgroundColor: colors.shareButton,
     borderRadius: 10,
     paddingVertical: 12,
     borderWidth: 1,
@@ -225,17 +213,14 @@ const styles = StyleSheet.create({
   shareOptionText: {
     fontSize: 16,
     fontWeight: "500",
-    color: colors.textDark,
     marginLeft: 10,
   },
   title: {
     fontSize: 24,
     fontWeight: "700",
-    color: colors.textTitle,
   },
   subtitle: {
     fontSize: 14,
-    color: colors.textGray,
     marginTop: 4,
   },
 });
